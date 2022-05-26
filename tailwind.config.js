@@ -5,16 +5,54 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    backgroundColor: (theme) => ({
+      common: "#B5EAFF",
+      rare: "#FFDABE",
+      epic: "#DEDAFF",
+      legendary: "#F8E78E",
+      white: "#fffefe",
+      green: "#44de62",
+      red: "#fc937e",
+    }),
+    minHeight: {
+      0: "0",
+      "1/4": "25%",
+      "1/2": "50%",
+      "3/4": "75%",
+      full: "100%",
+    },
+    height: {
+      sm: "8px",
+      md: "16px",
+      lg: "24px",
+      xl: "48px",
+      medCard: "500px",
+      desktopCard: "450px",
+    },
+    screens: {
+      xs: "475px",
+      sm: "640px",
+      md: "768px",
+      lg: "1198px",
+      xl: "1280px",
+    },
     extend: {
-      colors: {
-        darkBg: "#2C061F",
-        darkPrimary: "#374045",
-        darkSecondary: "#D89216",
-        darkAccent: "#E1D89F",
-        lightBg: "#FFFFFF",
-        lightPrimary: "#4169e1",
-        lightSecondary: "#000000",
-        lightAccent: "#1e90ff",
+      backgroundImage: {
+        titleBg: "url('../src/images/titles/title-community-bg.png')",
+      },
+      textColor: {
+        border: "#1d1f91",
+        twitter: "#1DA1F2",
+        discord: "#7289da",
+      },
+      inset: {
+        "-490": "-490px",
+        56: "56px",
+      },
+      fontFamily: {
+        bakbak: ["Bakbak One", "cursive"],
+        inter: ["Inter", "sans-serif"],
+        freckle: ["bodo_amatregular", "cursive"],
       },
     },
   },
