@@ -6,7 +6,7 @@ import Div100vh from "react-div-100vh";
 import { FaTwitter, FaDiscord, FaRegPaperPlane } from "react-icons/fa";
 import { GrTransaction } from "react-icons/gr";
 import MainButton from "../MainButton";
-// import LandingHeadOverlay from "./LandingHeadOverlay";
+import LandingHeadOverlay from "../LandingHeadOverlay";
 import Waves from "../Waves";
 
 const Landing = () => {
@@ -26,6 +26,7 @@ const Landing = () => {
         className={`flex flex-col mx-auto h-full w-full justify-center place-items-center landing-background relative`}
       >
         <Waves fillColor="#9d92ea" />
+        <LandingHeadOverlay />
         <header className="mb-3 flex justify-center mt-10">
           <div className="main-title lg:w-1/2 md:mt-10 2xl:mt-0">
             <Image src={logoBig} alt="Alpha Fiendz Logo Big" />
@@ -46,7 +47,6 @@ const Landing = () => {
               icon={<FaDiscord />}
               text="Join us"
             />
-
             <Link href="/coming-soon">
               <button
                 className={`link-button bg-white p-3 font-freckle w-150 text-center flex items-center justify-center text-border m-2 button-border px-10`}
@@ -55,16 +55,6 @@ const Landing = () => {
                   <FaRegPaperPlane />
                 </span>
                 <span className="button-text">Check Whitelist</span>
-              </button>
-            </Link>
-            <Link href="/mint">
-              <button
-                className={`link-button bg-white p-3 font-freckle w-150 text-center flex items-center justify-center text-border m-2 button-border px-10`}
-              >
-                <span className="text-2xl mr-1 button-text">
-                  <GrTransaction />
-                </span>
-                <span className="button-text">Go To Mint Page</span>
               </button>
             </Link>
           </div>
