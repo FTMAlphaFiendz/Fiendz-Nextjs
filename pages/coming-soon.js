@@ -75,7 +75,7 @@ const ComingSoon = ({ ids }) => {
       <SEOMeta page="Whitelist" description={SEOdesc} path="/coming-soon" />
       <div
         id="main"
-        className={`flex flex-col mx-auto h-full w-full justify-center place-items-center coming-soon-bg relative`}
+        className={`flex flex-col mx-auto h-full w-full justify-center place-items-center coming-soon-bg relative overflow-hidden`}
       >
         <div className="cs-image cs-wagmi hidden md:block">
           <Image src={WAGMI} alt="wagmi fiend" />
