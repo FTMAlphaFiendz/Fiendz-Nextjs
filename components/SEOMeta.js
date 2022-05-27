@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 
-const faviconPath = "/favicon.ico";
-const ogImagePath = "/images/titles/logo-small-v2.png";
+const faviconPath = "https://fiendz-nextjs-fafz.vercel.app/favicon.ico";
+const ogImagePath =
+  "https://fiendz-nextjs-fafz.vercel.app/images/titles/logo-small-v2.png";
 
 const SEOMeta = ({
   title,
