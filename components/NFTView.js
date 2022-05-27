@@ -5,6 +5,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { getMetadataByURI, formatUrl } from "../helpers/MintHelper";
 
 const NFTView = ({ nfts }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [activeFiend, setActiveFiend] = useState("");
   const [skeletonAmount, setSkeletonAmount] = useState([]);
@@ -72,7 +73,10 @@ const NFTView = ({ nfts }) => {
               {metaData.map((data, i) => {
                 return (
                   <div key={i} className="flex flex-col">
-                    <div className="cursor-pointer view-nft">
+                    <div
+                      className="cursor-pointer view-nft"
+                      onClick={() => setIsOpen(true)}
+                    >
                       <Image
                         src={formatUrl(data.image)}
                         alt={data.name}
