@@ -3,7 +3,7 @@ import Head from "next/head";
 
 const faviconPath = "https://fiendz-nextjs-fafz.vercel.app/favicon.ico";
 const ogImagePath =
-  "https://fiendz-nextjs-fafz.vercel.app/images/titles/logo-small-v2.png";
+  "https://fiendz-nextjs-fafz.vercel.app/images/titles/logo-small.png";
 
 const SEOMeta = ({
   title,

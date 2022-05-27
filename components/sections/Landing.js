@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import logoBig from "../../public/images/titles/logo-big-v2.png";
+import logoBig from "../../public/images/titles/logo-big.png";
 import Div100vh from "react-div-100vh";
 import { FaTwitter, FaDiscord, FaRegPaperPlane } from "react-icons/fa";
 import { GrTransaction } from "react-icons/gr";

@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { UserContext } from "../../context/UserContext";
-import logoSmall from "../../public/images/titles/logo-small-v2.png";
+import logoSmall from "../../public/images/titles/logo-small.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link as ScrollLink } from "react-scroll";
