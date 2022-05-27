@@ -31,7 +31,7 @@ const SEOMeta = ({
       <meta property="og:site_name" content={url} />
       <meta property="og:url" content={url} />
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content="{title} " />
+      <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:site" content={url} />
       <meta name="twitter:creator" content={twitterHandle} />
