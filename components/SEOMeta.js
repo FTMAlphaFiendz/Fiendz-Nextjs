@@ -37,7 +37,7 @@ const SEOMeta = ({
       />
       <meta property="og:site_name" content={baseUrl} />
       <meta property="og:url" content={`${baseUrl}${path}`} />
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={siteName} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:site" content={`${baseUrl}${path}`} />
