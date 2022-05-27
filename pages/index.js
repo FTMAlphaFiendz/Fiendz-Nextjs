@@ -15,7 +15,7 @@ const SEOdesc =
 const Main = () => {
   return (
     <>
-      <SEOMeta title="Home | FAFZ" description={SEOdesc} path="/" />
+      <SEOMeta page="Home" description={SEOdesc} path="/" />
       <Landing />
       <Community />
       <Rarity />

@@ -97,12 +97,10 @@ const Navbar = () => {
             })
           ) : (
             <div className="py-3">
-              <Link
-                className="my-5 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
-                href="/"
-                onClick={() => setOpen(!open)}
-              >
-                Back To Home
+              <Link href="/" onClick={() => setOpen(!open)}>
+                <div className="my-5 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border">
+                  Back To Home
+                </div>
               </Link>
             </div>
           )}

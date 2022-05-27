@@ -12,6 +12,10 @@ import diamond from "../public/images/coming-soon/ftm-diamond.png";
 import ghost from "../public/images/coming-soon/ghost.png";
 import planet from "../public/images/coming-soon/planet.png";
 import whitelist from "../public/files/FAFz_WL.json";
+import SEOMeta from "../components/SEOMeta";
+
+const SEOdesc =
+  "Check you whitelist status on this page for the upcoming FAFZ Mint. Mint Date TBA";
 
 export const getStaticProps = async () => {
   let ids = whitelist.ids;
@@ -61,7 +65,6 @@ const ComingSoon = ({ ids }) => {
   };
 
   useEffect(() => {
-    console.log(ids);
     if (!account) {
       resetChecker();
     }
@@ -69,6 +72,7 @@ const ComingSoon = ({ ids }) => {
 
   return (
     <Div100vh>
+      <SEOMeta page="Whitelist" description={SEOdesc} path="/coming-soon" />
       <div
         id="main"
         className={`flex flex-col mx-auto h-full w-full justify-center place-items-center coming-soon-bg relative`}

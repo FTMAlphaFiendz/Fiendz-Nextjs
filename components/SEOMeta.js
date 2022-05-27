@@ -5,17 +5,24 @@ const faviconPath = "https://fiendz-nextjs-fafz.vercel.app/favicon.ico";
 const ogImagePath =
   "https://fiendz-nextjs-fafz.vercel.app/images/titles/logo-small.png";
 
+const siteName = "FAFZ";
+
 const SEOMeta = ({
-  title,
+  page,
   description,
   favicon = faviconPath,
   ogImage = ogImagePath,
   path,
-  twitterHandle = "@ftmAlphaFiendz",
+  twitterHandle = "@FtmAlphaFiendz",
 }) => {
   const [url, setUrl] = useState("https://www.fafz.app");
+  const [title, setTitle] = useState(siteName);
+
   useEffect(() => {
     setUrl(url + path);
+    if (page) {
+      setTitle(`${page} | ${title}`);
+    }
   }, [path]);
   return (
     <Head>
