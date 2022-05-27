@@ -11,8 +11,16 @@ import WAGMI from "../public/images/coming-soon/fafz-wgmi.png";
 import diamond from "../public/images/coming-soon/ftm-diamond.png";
 import ghost from "../public/images/coming-soon/ghost.png";
 import planet from "../public/images/coming-soon/planet.png";
+import whitelist from "../public/files/FAFz_WL.json";
 
-const ComingSoon = () => {
+export const getStaticProps = async () => {
+  let ids = whitelist.ids;
+  return {
+    props: { ids },
+  };
+};
+
+const ComingSoon = ({ ids }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isResult, setIsResult] = useState(false);
   const [whiteListResult, setWhiteListResult] = useState(false);
@@ -20,14 +28,14 @@ const ComingSoon = () => {
     "Thanks for stopping by, make sure to check back frequently, mint will be open in the near future!";
   const { account, chainId, provider, connectWallet } = useContext(UserContext);
 
-  // const checkJson = (account) => {
-  //   let result = ids.find((id) => id === account);
-  //   if (!result) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // };
+  const checkJson = (account) => {
+    let result = ids.find((id) => id === account);
+    if (!result) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   const checkWhitelist = async (account, chainId) => {
     //if no account then connect wallet and exit
@@ -53,6 +61,7 @@ const ComingSoon = () => {
   };
 
   useEffect(() => {
+    console.log(ids);
     if (!account) {
       resetChecker();
     }
