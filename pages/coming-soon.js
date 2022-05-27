@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import Image from "next/image";
 import Div100vh from "react-div-100vh";
 import Waves from "../components/Waves";
-import logoBig from "../public/images/titles/logo-big-v2.png";
+import logoBig from "../public/images/titles/logo-big.png";
 import { UserContext } from "../context/UserContext";
 import WhiteListButton from "../components/WhiteListButton";
 import WhiteListResult from "../components/WhiteListResult";
