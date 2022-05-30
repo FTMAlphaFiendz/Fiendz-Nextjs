@@ -9,7 +9,7 @@ const TeamCard = ({ name, image, position, links }) => {
         <h2 className="font-inter text-base lg:text-lg font-normal text-border">
           {name}
         </h2>
-        <h4 className="font-inter text-base lg:text-lg font-normal text-border mt-1">
+        <h4 className="font-inter text-base lg:text-lg font-normal text-border mt-1 w-10/12 text-center">
           {position}
         </h4>
         <div className="text-3xl mt-3 text-border flex">

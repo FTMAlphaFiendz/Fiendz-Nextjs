@@ -49,14 +49,14 @@ const brainiacInfo = [
   {
     image: BrokeDegen,
     name: "unkown",
-    position: "Brainiac",
+    position: "DeFi Project Analyst & Investment Strategist",
     handle: "@ProjectResearc3",
     links: [{ type: "twitter", url: "https://twitter.com/ProjectResearc3" }],
   },
   {
     image: Georgory,
     name: "unkown",
-    position: "Brainiac",
+    position: "DeFi Project Analyst & Investment Strategist",
     handle: "@gorgory_ct",
     links: [{ type: "twitter", url: "https://twitter.com/gorgory_ct" }],
   },

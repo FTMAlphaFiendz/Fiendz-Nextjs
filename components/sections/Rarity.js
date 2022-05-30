@@ -57,7 +57,11 @@ const Rarity = () => {
             <div id="desktop section" className="mb-10 flex justify-center">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 justify-items-center lg:mx-10 w-9/12">
                 {imageCards.map((card) => {
-                  return <Image src={card.image} key={card.title} />;
+                  return (
+                    <div key={card.title}>
+                      <Image src={card.image} alt={card.alt} />
+                    </div>
+                  );
                 })}
               </div>
             </div>
