@@ -21,7 +21,6 @@ import NFTView from "../components/NFTView";
 import Modal from "../components/Modal";
 
 const Mint = ({ price }) => {
-  const [viewStatus, setViewStatus] = useState("mint");
   const [isLoading, setIsLoading] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [nftContract, setNftContract] = useState(null);
@@ -113,7 +112,7 @@ const Mint = ({ price }) => {
   return (
     <div>
       <NftPageViewWrapper>
-        <NFTMint />
+        <NFTMint mintFunction={mint} />
       </NftPageViewWrapper>
     </div>
   );
