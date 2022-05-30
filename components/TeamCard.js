@@ -3,7 +3,7 @@ import { FaTwitter, FaInstagram } from "react-icons/fa";
 
 const TeamCard = ({ name, image, position, links }) => {
   return (
-    <div className="team-card mx-6 my-2">
+    <div className="team-card mx-6 my-2 text-center">
       <Image src={image} alt="team member" />
       <div className="flex flex-col justify-center items-center mt-6">
         <h2 className="font-inter text-base lg:text-lg font-normal text-border">
