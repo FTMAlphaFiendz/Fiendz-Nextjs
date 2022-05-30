@@ -69,7 +69,7 @@ const roadMapContent = [
 ];
 const MobileRoadmap = () => {
   return (
-    <div className="mt-8 flex flex-col w-10/12 mx-auto">
+    <div className="mt-8 flex flex-col w-10/12 mx-auto items-center">
       {roadMapContent.map((phase, i) => {
         return (
           <RoadmapCard
