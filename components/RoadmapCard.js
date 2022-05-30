@@ -3,7 +3,7 @@ import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 const RoadmapCard = ({ title, phaseComplete, phaseItems }) => {
   return (
     <div
-      className={`bg-white phase-card-container m-4 lg:m-10 relative flex mb-10 justify-center lg:w-9/12 `}
+      className={`bg-white phase-card-container m-4 lg:m-10 relative flex mb-10 justify-center w-full lg:w-9/12 `}
       key={title}
     >
       <div
