@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { MoralisProvider } from "react-moralis";
 import Layout from "../components/sections/Layout";
 import { UserContext } from "../context/UserContext";
 import {

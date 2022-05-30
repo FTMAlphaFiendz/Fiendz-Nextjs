@@ -33,7 +33,7 @@ const MintButton = ({
         </span>
       ) : (
         <button
-          className="p-2.5 sm:ml-2 hover:shadow-xl duration-500 hover:text-white font-freckle w-full sm:w-7/12 md:w-7/12 lg:w-1/2 check-whitelist-btn button-border"
+          className="sm:ml-2 hover:shadow-xl duration-500 hover:text-white font-freckle check-whitelist-btn button-border mint-button"
           onClick={() => mintFunction(mintAmount)}
         >
           <span className="button-text text-border">

@@ -12,6 +12,7 @@ module.exports = {
       white: "#fffefe",
       green: "#44de62",
       red: "#fc937e",
+      purple: "#c4c6f6",
     }),
     minHeight: {
       0: "0",
@@ -37,7 +38,7 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        titleBg: "url('../src/images/titles/title-community-bg.png')",
+        titleBg: "url('../public/images/titles/title-community-bg.png')",
       },
       textColor: {
         border: "#1d1f91",

@@ -1,5 +1,5 @@
 import Moralis from "moralis";
-require("dotenv").config();
+// require("dotenv").config();
 const MORALIS_URL = "https://yupniueihluv.usemoralis.com:2053/server";
 const MORALIS_APP_ID = "9AhicLM1Ip38LXJs2gqcJ9JUFJX6P3hqirhOdn1z";
 

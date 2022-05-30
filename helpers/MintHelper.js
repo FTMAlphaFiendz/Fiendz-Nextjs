@@ -1,11 +1,11 @@
 import Web3 from "web3";
 import axios from "axios";
-// import testNftABI from "../helpers/abi/testNftABI.json";
-require("dotenv").config();
+import testNftABI from "../public/files/abi/testNftABI.json";
+// require("dotenv").config();
 
 export const getContract = (provider) => {
   const testNftContract = "0x725D2Cc0468510e5962b78cbc988CD50eF87F328";
-  const testNftABI = require("../helpers/abi/testNftABI.json");
+  // const testNftABI = require("../helpers/abi/testNftABI.json");
   let web3 = new Web3(provider);
   let Contract = new web3.eth.Contract(testNftABI, testNftContract);
   return { Contract, contractAddress: testNftContract };

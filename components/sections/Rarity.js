@@ -8,127 +8,30 @@ import EpicTitle from "../../public/images/titles/title-epic.png";
 import FiendEpic from "../../public/images/fiend-card/fiend-epic-v3.png";
 import CommonTitle from "../../public/images/titles/title-common.png";
 import FiendCommon from "../../public/images/fiend-card/fiend-common-v3.png";
+import CommonCard from "../../public/images/fiend-card/common-card.png";
+import EpicCard from "../../public/images/fiend-card/epic-card.png";
+import LegendaryCard from "../../public/images/fiend-card/legendary-card.png";
+import RareCard from "../../public/images/fiend-card/rare-card.png";
 import FiendsFooter from "../FiendsFooter";
+import Image from "next/image";
 import Waves from "../Waves";
 
 const pageContent =
   "FAFz is a collection that we will only run for a limited time and limted mint, but we will have very long-term " +
-  "benefits to holders. Each Fiend is unique in its own way, characterized by a rarity from Common to Legendary. Being apart of the " +
-  "whitelist will get you a FAFz Pet NFT";
+  "benefits to holders. Each Fiend is unique in its own way, characterized by a rarity from Common to Legendary.";
 
-const allItems = [
-  {
-    title: CommonTitle,
-    image: FiendCommon,
-    alt: "Common Fiendz Image",
-    perks: [
-      {
-        emoji: "🖼",
-        label: "picture frame",
-        text: "Owning an awesome PFP",
-      },
-      {
-        emoji: "🔒",
-        label: "lock",
-        text: "Exclusive private channel",
-      },
-      {
-        emoji: "🎁",
-        label: "gift",
-        text: "Access to exclusive giveaways",
-      },
-      {
-        emoji: "🦇",
-        label: "bat",
-        text: "Potluck Staking",
-      },
-    ],
-    background: "bg-common",
-  },
-  {
-    title: RareTitle,
-    image: FiendRare,
-    alt: "Rare Fiendz Image",
-    perks: [
-      {
-        emoji: "🖼",
-        label: "picture frame",
-        text: "Owning an awesome PFP",
-      },
-      {
-        emoji: "🔒",
-        label: "lock",
-        text: "Exclusive private channel",
-      },
-      {
-        emoji: "🎁",
-        label: "gift",
-        text: "Access to exclusive giveaways",
-      },
-      {
-        emoji: "🦇",
-        label: "bat",
-        text: "Potluck Staking",
-      },
-    ],
-    background: "bg-rare",
-  },
-  {
-    title: EpicTitle,
-    image: FiendEpic,
-    alt: "Epic Fiendz Image",
-    perks: [
-      {
-        emoji: "🖼",
-        label: "picture frame",
-        text: "Owning an awesome PFP",
-      },
-      {
-        emoji: "🔒",
-        label: "lock",
-        text: "Exclusive private channel",
-      },
-      {
-        emoji: "🎁",
-        label: "gift",
-        text: "Access to exclusive giveaways",
-      },
-      {
-        emoji: "🦇",
-        label: "bat",
-        text: "Potluck Staking",
-      },
-    ],
-    background: "bg-epic",
-  },
-  {
-    title: LegendaryTitle,
-    image: FiendLegendary,
-    alt: "Legendary Fiendz Image",
-    perks: [
-      {
-        emoji: "🖼",
-        label: "picture frame",
-        text: "Owning an awesome PFP",
-      },
-      {
-        emoji: "🔒",
-        label: "lock",
-        text: "Exclusive private channel",
-      },
-      {
-        emoji: "🎁",
-        label: "gift",
-        text: "Access to exclusive giveaways",
-      },
-      {
-        emoji: "🦇",
-        label: "bat",
-        text: "Potluck Staking",
-      },
-    ],
-    background: "bg-legendary",
-  },
+const perks = [
+  "Owning an awesome PFP",
+  "Exclusive private discord channels",
+  "Access to exclusive giveaways",
+  "Potluck Staking",
+];
+
+const imageCards = [
+  { title: "common", alt: "common card", image: CommonCard },
+  { title: "rare", alt: "rare card", image: RareCard },
+  { title: "epic", alt: "epic card", image: EpicCard },
+  { title: "legendary", alt: "legendary card", image: LegendaryCard },
 ];
 
 const Rarity = () => {
@@ -148,22 +51,22 @@ const Rarity = () => {
           <p className="font-inter content-line text-base lg:text-lg font-normal text-center mb-8">
             {pageContent}
           </p>
+          <h6 className="font-inter content-line text-lg lg:text-xl font-normal text-center">
+            PERKS
+          </h6>
+          <ul className="font-inter content-line text-base lg:text-lg font-normal text-center mb-6">
+            {perks.map((perk) => {
+              return <li>{perk}</li>;
+            })}
+          </ul>
+          <p className="font-inter content-line text-base lg:text-lg font-normal text-center mb-8"></p>
         </div>
         <div className="mt-8">
           <div className="flex flex-col min-h-full">
-            <div id="desktop section" className="mb-10">
-              <div className="grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center lg:mx-10">
-                {allItems.map((item, i) => {
-                  return (
-                    <FiendCard
-                      title={item.title}
-                      image={item.image}
-                      alt={item.alt}
-                      perks={item.perks}
-                      background={item.background}
-                      key={i}
-                    />
-                  );
+            <div id="desktop section" className="mb-10 flex justify-center">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 justify-items-center lg:mx-10 w-9/12">
+                {imageCards.map((card) => {
+                  return <Image src={card.image} key={card.title} />;
                 })}
               </div>
             </div>

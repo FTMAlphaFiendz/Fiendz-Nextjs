@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
-import {} from "../helpers/Moralis";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import { initMoralis, getUserNFTs } from "../helpers/Moralis";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { getMetadataByURI, formatUrl } from "../helpers/MintHelper";
 
 const NFTView = ({ nfts }) => {
+  const { account, provider, chainId } = useContext(UserContext);
+  const [userNfts, setUserNfts] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [activeFiend, setActiveFiend] = useState("");
@@ -21,12 +24,22 @@ const NFTView = ({ nfts }) => {
   const handleClose = () => {
     setShowModal(false);
   };
+
   const createSkeletonAmount = (nfts) => {
     let s = [];
     for (let i = 0; i < nfts.length; i++) {
       s.push(i);
     }
     setSkeletonAmount(s);
+  };
+
+  const getAllNfts = async () => {
+    let nfts = await getUserNFTs(
+      "0xBc83cae02389fe6A719C49BbEA5f8bEc795c1147",
+      account,
+      chainId
+    );
+    setUserNfts(nfts.result);
   };
 
   const getMetadata = (nfts) => {
@@ -38,16 +51,26 @@ const NFTView = ({ nfts }) => {
     return m;
   };
 
+  // useEffect(() => {
+  //   createSkeletonAmount(nfts);
+  //   setIsLoading(true);
+  //   let metadata = getMetadata(nfts);
+  //   setMetaData(metadata);
+  //   console.log("METADATA", metadata);
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, "5000");
+  // }, [nfts]);
+
   useEffect(() => {
-    createSkeletonAmount(nfts);
-    setIsLoading(true);
-    let metadata = getMetadata(nfts);
-    setMetaData(metadata);
-    console.log("METADATA", metadata);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, "5000");
-  }, [nfts]);
+    const getNfts = async () => {
+      await initMoralis();
+      await getAllNfts();
+    };
+
+    getNfts().catch((err) => console.log(err));
+    console.log("User NFTS", userNfts);
+  }, [account]);
 
   return (
     <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-full my-4 md:my-10 xl:mt-18 items-center px-4">
@@ -68,7 +91,7 @@ const NFTView = ({ nfts }) => {
         </div>
       ) : (
         <div className="my-8 w-11/12 md:w-12/12">
-          {nfts.length > 0 ? (
+          {/* {nfts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
               {metaData.map((data, i) => {
                 return (
@@ -90,7 +113,8 @@ const NFTView = ({ nfts }) => {
             </div>
           ) : (
             <div>No Nfts</div>
-          )}
+          )} */}
+          Placeholder
         </div>
       )}
     </div>
