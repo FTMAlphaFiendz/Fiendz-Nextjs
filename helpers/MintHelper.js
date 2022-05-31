@@ -24,16 +24,7 @@ export const mintNft = async (
   console.log("Mint Amount", mintAmount);
   //calc mint const
   let mintCost = cost * mintAmount;
-  let calcCost = web3.utils.fromWei(cost, "ether");
-
-  //checking max wallet mint
-  //NEED TO SET THIS FOR WHITELIST ONLY
-  let maxMint = await contract.methods.maxMintAmount().call();
-  // if (maxMint + userCurrentBalance > maxMint) {
-  //   console.log("The amount you are trying to mint exceeds max wallet limits");
-  //   return;
-  // }
-  //getting mint cost in ether
+  let calcCost = web3.utils.fromWei(mintCost.toString(), "ether");
   //checking transaction amount from wallet
   const nonce = await web3.eth.getTransactionCount(account, "latest");
   console.log(mintCost);
@@ -44,7 +35,7 @@ export const mintNft = async (
     nonce: nonce,
   };
   //sending transaction
-  let tx = await contract.methods.mint(calcCost).send(params);
+  let tx = await contract.methods.mint(mintAmount).send(params);
   return tx;
 };
 
