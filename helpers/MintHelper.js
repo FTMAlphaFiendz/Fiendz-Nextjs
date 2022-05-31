@@ -15,7 +15,6 @@ export const getContract = (provider) => {
 export const mintNft = async (account, contract, mintAmount, web3) => {
   let cost = await contract.methods.cost().call();
   let f = web3.utils.fromWei(cost, "ether");
-  console.log("Mint Amount", mintAmount);
   let tx = await contract.methods
     .mint(mintAmount)
     .send({ from: account, value: web3.utils.toWei(f, "ether") });

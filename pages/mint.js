@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import logoBig from "../public/images/titles/logo-big-v2.png";
 import NftPageViewWrapper from "../components/NftPageViewWrapper";
-import dynamic from "next/dynamic";
 import Web3 from "web3";
 import { UserContext } from "../context/UserContext";
 import {
@@ -13,13 +11,7 @@ import {
 } from "../helpers/MintHelper";
 // import { initMoralis, getUserNFTs } from "../helpers/Moralis";
 // import Moralis from "moralis";
-import Waves from "../components/Waves";
-import favicon from "../public/images/favicon/favicon-mint.ico";
-import smallLogo from "../public/images/titles/logo-small-v2.png";
-import MintButton from "../components/MintButton";
 import NFTMint from "../components/NFTMint";
-import NFTView from "../components/NFTView";
-import Modal from "../components/Modal";
 
 const Mint = ({ price }) => {
   const [errorText, setErrorText] = useState("");
@@ -29,14 +21,7 @@ const Mint = ({ price }) => {
   const [isActive, setIsActive] = useState(false);
   const [nftContract, setNftContract] = useState(null);
   const [contractAddress, setContractAddress] = useState(null);
-  const {
-    account,
-    chainId,
-    provider,
-    connectWallet,
-    disconnectWallet,
-    web3Modal,
-  } = useContext(UserContext);
+  const { account, chainId, provider } = useContext(UserContext);
 
   const appHeight = () => {
     const doc = document.documentElement;
@@ -70,9 +55,9 @@ const Mint = ({ price }) => {
       //this will return right here
     }
 
-    let events = await nftContract.getPastEvents("allEvents", { fromBlock: 1 });
+    let events = await nftContract.getPastEvents("Transfer", { fromBlock: 1 });
     console.log(events);
-    return;
+
     //SENDING THE TRANSACTION TO MINT
     let tx = await mintNft(account, nftContract, mintAmount, web3);
     console.log(tx);
