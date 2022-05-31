@@ -1,10 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import MintButton from "./MintButton";
 import { UserContext } from "../context/UserContext";
 import ProgressBar from "./ProgressBar";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
-const NFTMint = ({ isLoading, mintFunction }) => {
+const NFTMint = ({
+  isLoading,
+  mintFunction,
+  mintCompletePercent,
+  mintAmountLeft,
+}) => {
+  const [mintingProgressText, setMintingProgressText] = useState(
+    "The minting is in progess"
+  );
   const [mintAmount, setMintAmount] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
   const [amountMinted, setAmountMinted] = useState(220);
@@ -32,6 +40,15 @@ const NFTMint = ({ isLoading, mintFunction }) => {
   const moralis = () => {
     console.log("moralis");
   };
+
+  useEffect(() => {
+    if (mintAmountLeft === 0) {
+      setMintingProgressText("Minting Complete");
+    } else {
+      setAmountMinted(mintAmountLeft);
+    }
+  }, [mintAmountLeft]);
+
   return (
     <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-full my-4 md:my-16 xl:mt-18 items-center px-4">
       <h1 className="font-inter text-border text-lg md:text-3xl lg:text-4xl">
@@ -72,11 +89,10 @@ const NFTMint = ({ isLoading, mintFunction }) => {
         </p>
       ) : (
         <p className="text-intern text-base">
-          {" "}
-          The minting is in progess ({amountMinted} FAFz left)
+          {mintingProgressText} ({amountMinted} FAFz left)
         </p>
       )}
-      <ProgressBar completed={70} />
+      <ProgressBar completed={mintCompletePercent} />
     </div>
   );
 };

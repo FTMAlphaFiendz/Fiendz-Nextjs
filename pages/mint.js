@@ -7,8 +7,9 @@ import { UserContext } from "../context/UserContext";
 import {
   getContract,
   mintNft,
-  getMetadataById,
-  getMetadataByURI,
+  isAtWalletMax,
+  getMintProgress,
+  getMintAmountLeft,
 } from "../helpers/MintHelper";
 // import { initMoralis, getUserNFTs } from "../helpers/Moralis";
 // import Moralis from "moralis";
@@ -21,11 +22,13 @@ import NFTView from "../components/NFTView";
 import Modal from "../components/Modal";
 
 const Mint = ({ price }) => {
+  const [errorText, setErrorText] = useState("");
+  const [mintAmountLeft, setMintAmountLeft] = useState(1111);
+  const [mintCompletePercent, setMintCompletePercent] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [nftContract, setNftContract] = useState(null);
   const [contractAddress, setContractAddress] = useState(null);
-
   const {
     account,
     chainId,
@@ -40,60 +43,40 @@ const Mint = ({ price }) => {
     doc.style.setProperty("--app-height", `${window.innerHeight}px`);
   };
 
-  let testData = {
-    attributes: [
-      {
-        trait_type: "Background",
-        value: "bg1",
-      },
-      {},
-      {
-        trait_type: "Body",
-        value: "blue",
-      },
-      {
-        trait_type: "Clothes",
-        value: "hoodie4",
-      },
-      {
-        trait_type: "Eyes",
-        value: "eyes9",
-      },
-      {
-        trait_type: "Hat",
-        value: "samurai1",
-      },
-      {
-        trait_type: "Mouth",
-        value: "mustache3",
-      },
-    ],
-    compiler: "HashLips Art Engine",
-    date: 1650575901515,
-    description: "I wonder if Vinny will catch this.",
-    dna: "686f440fced224f9e8202efc6718e503b0d938a3",
-    edition: 14,
-    image:
-      "https://gateway.pinata.cloud/ipfs/QmUVCvZfz3mEZ8xf2ATR1eJET4KjhfbT5sHHwZq6vhM5Fb/14.png",
-    name: "Fantom Alpha Fiendz #14",
-  };
-
   const mint = async (mintAmount) => {
     let web3;
     if (!nftContract) return;
     if (provider) web3 = new Web3(provider);
-
+    console.log(process.env.NEXT_PUBLIC_TEST_ENV);
     console.log("CONTRACT METHODS", nftContract.methods);
-    let d = await (await web3.eth.getBlock("latest")).gasLimit;
-    console.log(d);
-    return;
-    //GETTING BALANCE
-    // let balance = await nftContract.methods.balanceOf(account).call();
-    // console.log(balance);
 
+    //getting balance
+    let balance = await nftContract.methods.balanceOf(account).call();
+    console.log("balance", balance);
+
+    //getting percent of mint completed
+    let complete = await getMintProgress(nftContract);
+    console.log("complete", complete);
+    setMintCompletePercent(complete);
+
+    //getting the amount left to mint
+    let amountLeft = await getMintAmountLeft(nftContract);
+    console.log("amountLeft", amountLeft);
+
+    //checking if wallet is at max for collection
+    let isMax = await isAtWalletMax(nftContract, account);
+    if (isMax) {
+      setErrorText("This wallet is at max for this collection");
+      //this will return right here
+    }
+
+    let events = await nftContract.getPastEvents("allEvents", { fromBlock: 1 });
+    console.log(events);
+    return;
     //SENDING THE TRANSACTION TO MINT
     let tx = await mintNft(account, nftContract, mintAmount, web3);
     console.log(tx);
+    return;
   };
 
   useEffect(() => {
@@ -101,6 +84,14 @@ const Mint = ({ price }) => {
       let { Contract, contractAddress } = getContract(provider);
       setNftContract(Contract);
       setContractAddress(contractAddress);
+      (async () => {
+        //getting percent of mint completed
+        let complete = await getMintProgress(Contract);
+        setMintCompletePercent(complete);
+        //getting the amount left to mint
+        let amountLeft = await getMintAmountLeft(Contract);
+        setMintAmountLeft(amountLeft);
+      })();
     }
   }, [account, provider, chainId]);
 
@@ -112,7 +103,11 @@ const Mint = ({ price }) => {
   return (
     <div>
       <NftPageViewWrapper>
-        <NFTMint mintFunction={mint} />
+        <NFTMint
+          mintFunction={mint}
+          mintCompletePercent={mintCompletePercent}
+          mintAmountLeft={mintAmountLeft}
+        />
       </NftPageViewWrapper>
     </div>
   );

@@ -56,7 +56,7 @@ const Rarity = () => {
           </h6>
           <ul className="font-inter content-line text-base lg:text-lg font-normal text-center mb-6">
             {perks.map((perk) => {
-              return <li>{perk}</li>;
+              return <li key={perk}>{perk}</li>;
             })}
           </ul>
           <p className="font-inter content-line text-base lg:text-lg font-normal text-center mb-8"></p>

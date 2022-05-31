@@ -96,7 +96,7 @@ const Navbar = () => {
               );
             })
           ) : (
-            <div className="py-3">
+            <div className="py-3 md:py-0 my-5 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border">
               <Link
                 className="my-5 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
                 href="/"

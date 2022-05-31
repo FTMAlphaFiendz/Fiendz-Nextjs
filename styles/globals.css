@@ -638,6 +638,7 @@ nav:after {
 	border-style: solid;
 	border-color: #1d1f91;
 	border-width: 2px 2px 5px 2px;
+	overflow: "hidden";
 }
 
 .progress-bar-filler {
