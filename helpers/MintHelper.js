@@ -3,21 +3,48 @@ import axios from "axios";
 import testNftABI from "../public/files/abi/testNftABI.json";
 
 const maxWalletAmount = 5;
+const testNftContract = "0x725D2Cc0468510e5962b78cbc988CD50eF87F328";
 
 export const getContract = (provider) => {
-  const testNftContract = "0x725D2Cc0468510e5962b78cbc988CD50eF87F328";
   // const testNftABI = require("../helpers/abi/testNftABI.json");
   let web3 = new Web3(provider);
   let Contract = new web3.eth.Contract(testNftABI, testNftContract);
   return { Contract, contractAddress: testNftContract };
 };
 
-export const mintNft = async (account, contract, mintAmount, web3) => {
+export const mintNft = async (
+  account,
+  contract,
+  mintAmount,
+  userCurrentBalance,
+  web3
+) => {
+  //getting cost
   let cost = await contract.methods.cost().call();
-  let f = web3.utils.fromWei(cost, "ether");
-  let tx = await contract.methods
-    .mint(mintAmount)
-    .send({ from: account, value: web3.utils.toWei(f, "ether") });
+  console.log("Mint Amount", mintAmount);
+  //calc mint const
+  let mintCost = cost * mintAmount;
+  let calcCost = web3.utils.fromWei(cost, "ether");
+
+  //checking max wallet mint
+  //NEED TO SET THIS FOR WHITELIST ONLY
+  let maxMint = await contract.methods.maxMintAmount().call();
+  // if (maxMint + userCurrentBalance > maxMint) {
+  //   console.log("The amount you are trying to mint exceeds max wallet limits");
+  //   return;
+  // }
+  //getting mint cost in ether
+  //checking transaction amount from wallet
+  const nonce = await web3.eth.getTransactionCount(account, "latest");
+  console.log(mintCost);
+  //setting params
+  let params = {
+    from: account,
+    value: web3.utils.toWei(calcCost, "ether"),
+    nonce: nonce,
+  };
+  //sending transaction
+  let tx = await contract.methods.mint(calcCost).send(params);
   return tx;
 };
 
@@ -69,4 +96,23 @@ export const getMetadataByURI = async (tokenUri) => {
 
 export const formatUrl = (tokenURI) => {
   return tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
+};
+
+export const listenToContractTransfer = async (contract) => {
+  contract.events.Transfer({}).on("data", (event) => {
+    console.log("in mint helper", event);
+  });
+};
+
+export const getAndSetMintProgress = async (
+  contract,
+  setMintCompletePercent
+) => {
+  let complete = await getMintProgress(contract);
+  setMintCompletePercent(complete);
+};
+
+export const getAndSetMintAmountLeft = async (contract, setMintAmountLeft) => {
+  let amountLeft = await getMintAmountLeft(contract);
+  setMintAmountLeft(amountLeft);
 };

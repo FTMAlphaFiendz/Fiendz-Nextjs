@@ -8,12 +8,14 @@ import {
   isAtWalletMax,
   getMintProgress,
   getMintAmountLeft,
+  getAndSetMintProgress,
+  getAndSetMintAmountLeft,
 } from "../helpers/MintHelper";
 // import { initMoralis, getUserNFTs } from "../helpers/Moralis";
 // import Moralis from "moralis";
 import NFTMint from "../components/NFTMint";
 
-const Mint = ({ price }) => {
+const Mint = () => {
   const [errorText, setErrorText] = useState("");
   const [mintAmountLeft, setMintAmountLeft] = useState(1111);
   const [mintCompletePercent, setMintCompletePercent] = useState(0);
@@ -28,16 +30,22 @@ const Mint = ({ price }) => {
     doc.style.setProperty("--app-height", `${window.innerHeight}px`);
   };
 
+  const getUIUpdates = async (contract) => {
+    await getAndSetMintAmountLeft(contract, setMintAmountLeft);
+    await getAndSetMintProgress(contract, setMintCompletePercent);
+  };
+
   const mint = async (mintAmount) => {
     let web3;
     if (!nftContract) return;
     if (provider) web3 = new Web3(provider);
-    console.log(process.env.NEXT_PUBLIC_TEST_ENV);
     console.log("CONTRACT METHODS", nftContract.methods);
 
     //getting balance
-    let balance = await nftContract.methods.balanceOf(account).call();
-    console.log("balance", balance);
+    let userCurrentBalance = await nftContract.methods
+      .balanceOf(account)
+      .call();
+    console.log("balance", userCurrentBalance);
 
     //getting percent of mint completed
     let complete = await getMintProgress(nftContract);
@@ -55,13 +63,28 @@ const Mint = ({ price }) => {
       //this will return right here
     }
 
-    let events = await nftContract.getPastEvents("Transfer", { fromBlock: 1 });
-    console.log(events);
+    // let events = await nftContract.getPastEvents("Transfer", { fromBlock: 1 });
+    // console.log(events);
 
     //SENDING THE TRANSACTION TO MINT
-    let tx = await mintNft(account, nftContract, mintAmount, web3);
-    console.log(tx);
+    let tx = await mintNft(
+      account,
+      nftContract,
+      mintAmount,
+      userCurrentBalance,
+      web3
+    );
+    console.log("tx", tx);
     return;
+  };
+
+  const listenAndUpdateByEvent = async (contract) => {
+    console.log("LISTENING......");
+    contract.events.Transfer({}).on("data", async (event) => {
+      if (event) {
+        await getUIUpdates(contract);
+      }
+    });
   };
 
   useEffect(() => {
@@ -70,12 +93,10 @@ const Mint = ({ price }) => {
       setNftContract(Contract);
       setContractAddress(contractAddress);
       (async () => {
-        //getting percent of mint completed
-        let complete = await getMintProgress(Contract);
-        setMintCompletePercent(complete);
-        //getting the amount left to mint
-        let amountLeft = await getMintAmountLeft(Contract);
-        setMintAmountLeft(amountLeft);
+        //getting percent of mint completed and left to mint
+        await getUIUpdates(Contract);
+        //subscribing to transfer event from contract
+        await listenAndUpdateByEvent(Contract);
       })();
     }
   }, [account, provider, chainId]);

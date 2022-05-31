@@ -9,6 +9,7 @@ const NFTMint = ({
   mintFunction,
   mintCompletePercent,
   mintAmountLeft,
+  showToast,
 }) => {
   const [mintingProgressText, setMintingProgressText] = useState(
     "The minting is in progess"
