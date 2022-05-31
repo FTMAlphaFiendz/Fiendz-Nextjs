@@ -6,16 +6,33 @@ import RareCard from "../../public/images/fiend-card/rare-card.png";
 import FiendsFooter from "../FiendsFooter";
 import Image from "next/image";
 import Waves from "../Waves";
+import Emoji from "../Emoji";
 
 const pageContent =
   "FAFz is a collection that we will only run for a limited time and limted mint, but we will have very long-term " +
   "benefits to holders. Each Fiend is unique in its own way, characterized by a rarity from Common to Legendary.";
 
 const perks = [
-  "Owning an awesome PFP",
-  "Exclusive private discord channels",
-  "Access to exclusive giveaways",
-  "Potluck Staking",
+  {
+    emoji: "🖼",
+    label: "picture frame",
+    text: "Owning an awesome PFP",
+  },
+  {
+    emoji: "🔒",
+    label: "lock",
+    text: "Exclusive private channel",
+  },
+  {
+    emoji: "🎁",
+    label: "gift",
+    text: "Access to exclusive giveaways",
+  },
+  {
+    emoji: "🦇",
+    label: "bat",
+    text: "Potluck Staking",
+  },
 ];
 
 const imageCards = [
@@ -38,19 +55,27 @@ const Rarity = () => {
             RARITY & PERKS
           </h1>
         </header>
-        <div className="w-10/12 lg:w-8/12">
+        <div className="w-10/12 lg:w-8/12 flex flex-col items-center">
           <p className="font-inter content-line text-base lg:text-lg font-normal text-center mb-8">
             {pageContent}
           </p>
-          <h6 className="font-inter content-line text-lg lg:text-xl font-normal text-center">
-            PERKS
-          </h6>
-          <ul className="font-inter content-line text-base lg:text-lg font-normal text-center mb-6">
-            {perks.map((perk) => {
-              return <li key={perk}>{perk}</li>;
-            })}
-          </ul>
-          <p className="font-inter content-line text-base lg:text-lg font-normal text-center mb-8"></p>
+          <div className="bg-white phase-card-container w-11/12 md:w-6/12 p-4 text-border flex flex-col items-center">
+            <h5 className="font-inter content-line text-xl lg:text-2xl font-normal text-center mb-2">
+              PERKS
+            </h5>
+            <ul className="font-inter content-line text-base lg:text-lg font-normal">
+              {perks.map((perk) => {
+                return (
+                  <li>
+                    <span className="mr-3 text-xl">
+                      <Emoji symbol={perk.emoji} label={perk.label} />
+                    </span>{" "}
+                    {perk.text}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
         <div className="mt-8">
           <div className="flex flex-col min-h-full">
