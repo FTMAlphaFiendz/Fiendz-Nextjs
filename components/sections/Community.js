@@ -1,7 +1,5 @@
 import React from "react";
-import Image from "next/image";
 import Waves from "../Waves";
-import Head2 from "../../public/images/heads/FAFZ-head-2.png";
 import CommunityImageOverlay from "../CommunityImageOverlay";
 
 const Community = () => {
@@ -22,7 +20,7 @@ const Community = () => {
       <CommunityImageOverlay />
       <div className="w-5/6 lg:w-6/12 flex flex-col items-center bg-white relative community-content my-32 md:my-20 py-5">
         <div className="flex flex-col font-inter content-line text-base sm:text-lg md:text-xl  font-normal text-center w-10/12 lg:w-full p-6 ">
-          <h1 className="font-freckle text-4xl md:text-7xl main-title-text mb-5">
+          <h1 className="font-freckle text-4xl md:text-7xl main-title-text-secondary mb-5">
             Community
           </h1>
           <p className="mb-3">{firstParagraph}</p>

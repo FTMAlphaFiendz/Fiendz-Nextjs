@@ -205,8 +205,8 @@ nav:after {
 	-o-background-size: cover;
 	background-size: cover;
 	z-index: 1;
-	height: 100%;
 	min-height: 100%;
+	height: var(--app-height);
 }
 
 .community-bg {
@@ -578,7 +578,7 @@ nav:after {
 
 .cs-planet {
 	top: 17%;
-	left: 7%;
+	left: 1%;
 }
 
 .cs-ghost {
@@ -590,7 +590,7 @@ nav:after {
 
 .cs-diamond {
 	top: 17%;
-	right: 7%;
+	right: 5%;
 }
 
 .non-whitelist {
@@ -623,10 +623,16 @@ nav:after {
 }
 
 .main-title-text {
-	text-shadow: #1d1f92 4px 4px 0;
-    -webkit-text-stroke: 3px #1d1f91;
-     -webkit-text-fill-color: #FFB18F;
-     font-weight: 300 !important;
+	text-shadow: #1d1f91 -3px 4px 0px;
+    -webkit-text-stroke: 2px #1d1f91;
+	 -webkit-text-fill-color: #fdd484;
+}
+
+.main-title-text-secondary {
+	text-shadow: #1d1f91 -3px 4px 0px;
+    -webkit-text-stroke: 2px #1d1f91;
+	 -webkit-text-fill-color: #FFB18F;
+	 font-weight: 300 !important;
 }
 
 @media only screen and (min-width: 1201px){

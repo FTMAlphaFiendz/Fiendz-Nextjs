@@ -64,6 +64,16 @@ const ComingSoon = ({ ids }) => {
     setWhiteListResult(false);
   };
 
+  const appHeight = () => {
+    const doc = document.documentElement;
+    doc.style.setProperty("--app-height", `${window.innerHeight}px`);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", appHeight);
+    appHeight();
+  }, []);
+
   useEffect(() => {
     if (!account) {
       resetChecker();
@@ -71,53 +81,50 @@ const ComingSoon = ({ ids }) => {
   }, [account]);
 
   return (
-    <Div100vh>
+    <div
+      id="main"
+      className={`flex flex-col mx-auto h-full w-full justify-center place-items-center coming-soon-bg relative overflow-hidden`}
+    >
       <SEOMeta page="Whitelist" description={SEOdesc} path="/coming-soon" />
-      <div
-        id="main"
-        className={`flex flex-col mx-auto h-full w-full justify-center place-items-center coming-soon-bg relative overflow-hidden`}
-      >
-        <div className="cs-image cs-wagmi hidden md:block">
-          <Image src={WAGMI} alt="wagmi fiend" />
-        </div>
-        <div className="cs-image cs-planet hidden md:block">
-          <Image src={planet} alt="planet from outerspace" />
-        </div>
-        <div className="cs-image cs-diamond hidden md:block">
-          <Image src={diamond} alt="diamond" />
-        </div>
-        <div className="cs-image cs-ghost hidden md:block">
-          <Image src={ghost} alt="ghost" />
-        </div>
+      <div className="cs-image cs-wagmi hidden md:block">
+        <Image src={WAGMI} alt="wagmi fiend" />
+      </div>
+      <div className="cs-image cs-planet hidden md:block">
+        <Image src={planet} alt="planet from outerspace" />
+      </div>
+      <div className="cs-image cs-diamond hidden md:block">
+        <Image src={diamond} alt="diamond" />
+      </div>
+      <div className="cs-image cs-ghost hidden md:block">
+        <Image src={ghost} alt="ghost" />
+      </div>
 
-        <Waves fillColor="#fedf87" />
-        <div className="fiendz-card-container w-50 md:w-7/12 lg:m-3 relative justify-center mt-16 flex flex-col bg-white items-center pt-10 lg:w-8/12">
-          <h1 className="font-freckle text-4xl md:text-6xl main-title-text">
-            Fantom{" "}
-            <span className="main-title-text-secondary">Alpha Fiendz</span>
+      <Waves fillColor="#fedf87" />
+      <div className="fiendz-card-container w-5/6 md:w-7/12 lg:m-3 relative justify-center mt-16 flex flex-col bg-white items-center pt-10 lg:w-8/12">
+        <h1 className="font-freckle text-4xl md:text-6xl main-title-text text-center">
+          Fantom <span className="main-title-text-secondary">Alpha Fiendz</span>
+        </h1>
+        <div className="flex flex-col font-inter content-line text-base sm:text-lg md:text-xl font-normal text-center w-full my-4 md:my-10 xl:mt-18 items-center px-4">
+          <h1 className="font-freckle text-border text-xl md:text-2xl md:text-4xl lg:text-6xl">
+            <b>MINT IS COMING SOON</b>
           </h1>
-          <div className="flex flex-col font-inter content-line text-base sm:text-lg md:text-xl font-normal text-center w-full my-4 md:my-10 xl:mt-18 items-center px-4">
-            <h1 className="font-freckle text-border text-xl md:text-2xl md:text-4xl lg:text-6xl">
-              <b>MINT IS COMING SOON</b>
-            </h1>
-            <p className="my-8 w-11/12 md:w-10/12">{content}</p>
-            {isResult ? (
-              <WhiteListResult
-                result={whiteListResult}
-                resetChecker={resetChecker}
-              />
-            ) : (
-              <WhiteListButton
-                isLoading={isLoading}
-                account={account}
-                chainId={chainId}
-                checkWhitelist={() => checkWhitelist(account, chainId)}
-              />
-            )}
-          </div>
+          <p className="my-8 w-11/12 md:w-10/12">{content}</p>
+          {isResult ? (
+            <WhiteListResult
+              result={whiteListResult}
+              resetChecker={resetChecker}
+            />
+          ) : (
+            <WhiteListButton
+              isLoading={isLoading}
+              account={account}
+              chainId={chainId}
+              checkWhitelist={() => checkWhitelist(account, chainId)}
+            />
+          )}
         </div>
       </div>
-    </Div100vh>
+    </div>
   );
 };
 
