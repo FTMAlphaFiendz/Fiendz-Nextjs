@@ -26,7 +26,7 @@ const perks = [
 const PerksCard = () => {
   return (
     <div
-      className={`bg-white phase-card-container m-4 relative flex justify-center w-11/12 md:w-7/12 `}
+      className={`bg-white phase-card-container m-4 relative flex justify-center w-11/12 md:w-7/12`}
     >
       <div
         className={`absolute perk-title w-9/12 md:w-7/12 block flex place-items-center px-8 -top-7 justify-center`}
@@ -36,7 +36,7 @@ const PerksCard = () => {
         </h1>
       </div>
       <div className="py-8 px-3">
-        <ul className="font-inter content-line text-base lg:text-lg font-normal text-border">
+        <ul className="font-inter content-line text-base lg:text-lg font-normal text-border text-center">
           {perks.map((perk, i) => {
             return (
               <li key={perk.label}>

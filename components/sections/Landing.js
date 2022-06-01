@@ -33,8 +33,7 @@ const Landing = () => {
       id="main"
       className={`flex flex-col mx-auto h-full w-full justify-center place-items-center landing-background relative`}
     >
-      <Waves fillColor="#9d92ea" />
-      {/* <LandingHeadOverlay /> */}
+      <Waves fillColor="#fedf87" />
       <header className="mb-3 flex justify-center mt-10">
         <div className="main-title lg:w-1/2 md:mt-10 2xl:mt-0">
           <Image src={logoBig} alt="Alpha Fiendz Logo Big" />

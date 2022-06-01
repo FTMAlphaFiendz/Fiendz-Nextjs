@@ -19,15 +19,17 @@ const Community = () => {
       className="flex lg:flex-row mx-auto w-full justify-center items-center md:place-items-center overflow-hidden community-bg relative h-full"
     >
       <Waves fillColor="#cc5ef5" />
-      <div className="w-5/6 lg:w-6/12 md:p-10 flex flex-col items-center bg-white relative community-content">
+      <div className="w-5/6 lg:w-6/12 flex flex-col items-center bg-white relative community-content">
         {/* <div className="absolute -top-6 md:-top-10 lg:-top-100 w-10/12 md:w-8/12 mb-2">
           <Image src={CommunityTitle} alt="A Community" />
         </div> */}
         <div className="community-fiendz-head -bottom-20 -left-10">
           <Image src={Head2} alt="fiendz head" />
         </div>
-        <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-10/12 lg:w-full ">
-          <h1 className="">Community</h1>
+        <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-10/12 lg:w-full p-6 ">
+          <h1 className="font-freckle text-4xl md:text-6xl main-title-text mb-5">
+            Community
+          </h1>
           <p className="mb-3">{firstParagraph}</p>
           <p>{secondParagraph}</p>
         </div>

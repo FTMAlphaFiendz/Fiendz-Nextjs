@@ -37,7 +37,7 @@ const Rarity = () => {
           </p>
           <PerksCard />
         </div>
-        <div className="mt-8">
+        <div className="my-10">
           <div className="flex flex-col min-h-full">
             <div id="desktop section" className="mb-10 flex justify-center">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 justify-items-center lg:mx-10 w-9/12">
