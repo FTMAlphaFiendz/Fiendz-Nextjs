@@ -5,14 +5,11 @@ import { UserContext } from "../context/UserContext";
 import {
   getContract,
   mintNft,
-  isAtWalletMax,
   getMintProgress,
   getMintAmountLeft,
   getAndSetMintProgress,
   getAndSetMintAmountLeft,
 } from "../helpers/MintHelper";
-// import { initMoralis, getUserNFTs } from "../helpers/Moralis";
-// import Moralis from "moralis";
 import NFTMint from "../components/NFTMint";
 
 const Mint = () => {

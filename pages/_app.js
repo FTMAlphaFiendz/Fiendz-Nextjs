@@ -9,6 +9,7 @@ import {
   getChainIdFromString,
 } from "../helpers/Web3Client";
 import "../styles/globals.css";
+import { MoralisProvider } from "react-moralis";
 
 const MyApp = ({ Component, pageProps }) => {
   const [account, setAccount] = useState(null);
@@ -84,30 +85,35 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     <>
-      <UserContext.Provider
-        value={{
-          account,
-          chainId,
-          provider,
-          connectWallet,
-          disconnectWallet,
-          getWeb3Modal,
-        }}
+      <MoralisProvider
+        serverUrl={process.env.PUBLIC_NEXT_MORALIS_URL}
+        appId={process.env.PUBLIC_NEXT_MORALIS_APP_ID}
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </UserContext.Provider>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={8000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        draggable={false}
-        pauseOnVisibilityChange
-        closeOnClick
-        pauseOnHover
-      />
+        <UserContext.Provider
+          value={{
+            account,
+            chainId,
+            provider,
+            connectWallet,
+            disconnectWallet,
+            getWeb3Modal,
+          }}
+        >
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </UserContext.Provider>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={8000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          draggable={false}
+          pauseOnVisibilityChange
+          closeOnClick
+          pauseOnHover
+        />
+      </MoralisProvider>
     </>
   );
 };

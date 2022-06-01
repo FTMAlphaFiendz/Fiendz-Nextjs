@@ -3,8 +3,10 @@ import Navbar from "./Navbar";
 const Layout = ({ children }) => {
   return (
     <>
-      <Navbar />
-      <main>{children}</main>
+      <div className="flex flex-col">
+        <Navbar />
+        <main>{children}</main>
+      </div>
     </>
   );
 };

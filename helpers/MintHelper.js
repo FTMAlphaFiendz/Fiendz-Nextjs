@@ -90,7 +90,22 @@ export const getMetadataByURI = async (tokenUri) => {
 };
 
 export const formatUrl = (tokenURI) => {
-  return tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
+  if (tokenURI.includes("https://gateway.pinata.cloud/ipfs/")) {
+    return tokenURI.replace(
+      "https://gateway.pinata.cloud/ipfs/",
+      "https://ipfs.io/ipfs/"
+    );
+  } else if (tokenURI.includes("ipfs://"))
+    return tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
+};
+
+export const formatName = (name) => {
+  console.log(name);
+  if (name.includes("Fantom Alpha Fiendz:")) {
+    let n = name.replace("Fantom Alpha Fiendz:", "");
+    console.log("n", n);
+    return n;
+  }
 };
 
 export const listenToContractTransfer = async (contract) => {

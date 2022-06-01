@@ -1,37 +1,21 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { initMoralis, getUserNFTs } from "../helpers/Moralis";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { getMetadataByURI, formatUrl } from "../helpers/MintHelper";
+import { initMoralis, getUserNFTs, getSEUserNFTs } from "../helpers/Moralis";
+import NFTViewSection from "../components/NFTViewSection";
+import ViewSelection from "../components/ViewSelection";
 
-const NFTView = ({ nfts }) => {
+let viewSelections = [
+  { title: "My NFTs", type: "view", disabled: false },
+  { title: "Staking", type: "stake", disabled: true },
+  { title: "Activity", type: "activity", disabled: true },
+];
+import { useMoralisWeb3Api } from "react-moralis";
+
+const NFTView = () => {
+  const Web3Api = useMoralisWeb3Api();
+  const [selected, setSelected] = useState("view");
   const { account, provider, chainId } = useContext(UserContext);
   const [userNfts, setUserNfts] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [activeFiend, setActiveFiend] = useState("");
-  const [skeletonAmount, setSkeletonAmount] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [metaData, setMetaData] = useState([]);
-
-  const handleShow = (fiend) => {
-    console.log("click");
-    setShowModal(!showModal);
-    setActiveFiend(fiend);
-  };
-
-  const handleClose = () => {
-    setShowModal(false);
-  };
-
-  const createSkeletonAmount = (nfts) => {
-    let s = [];
-    for (let i = 0; i < nfts.length; i++) {
-      s.push(i);
-    }
-    setSkeletonAmount(s);
-  };
 
   const getAllNfts = async () => {
     let nfts = await getUserNFTs(
@@ -42,81 +26,65 @@ const NFTView = ({ nfts }) => {
     setUserNfts(nfts.result);
   };
 
-  const getMetadata = (nfts) => {
-    let m = [];
-    for (const nft of nfts) {
-      console.log(JSON.parse(nft.metadata));
-      m.push(JSON.parse(nft.metadata));
-    }
-    return m;
+  const getSENfts = async () => {
+    let nfts = await getSEUserNFTs(Web3Api);
+    setUserNfts(nfts.result);
   };
 
-  // useEffect(() => {
-  //   createSkeletonAmount(nfts);
-  //   setIsLoading(true);
-  //   let metadata = getMetadata(nfts);
-  //   setMetaData(metadata);
-  //   console.log("METADATA", metadata);
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, "5000");
-  // }, [nfts]);
+  const getSkeletonCount = (nfts) => {
+    let countArr = [];
+    for (let i = 0; i < nfts.length; i++) {
+      countArr.push(i);
+    }
+    setSkeletonCount(countArr);
+  };
 
   useEffect(() => {
-    const getNfts = async () => {
-      await initMoralis();
-      await getAllNfts();
-    };
+    if (account) {
+      const getNfts = async () => {
+        await initMoralis(
+          process.env.PUBLIC_NEXT_MORALIS_URL,
+          process.env.PUBLIC_NEXT_MORALIS_APP_ID
+        );
+        // await getAllNfts();
+        await getSENfts();
+      };
 
-    getNfts().catch((err) => console.log(err));
-    console.log("User NFTS", userNfts);
+      getNfts().catch((err) => console.log(err));
+    }
   }, [account]);
 
   return (
-    <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-full my-4 md:my-10 xl:mt-18 items-center px-4">
-      <h1 className="font-freckle text-border text-xl md:text-2xl md:text-4xl lg:text-6xl">
-        <b>View All NFTS!</b>
-      </h1>
-      {isLoading ? (
-        <div className="my-8 w-11/12 md:w-12/12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-            {skeletonAmount.map((skeleton) => {
-              return (
-                <div key={skeleton}>
-                  <Skeleton count={1} height={200} />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      ) : (
-        <div className="my-8 w-11/12 md:w-12/12">
-          {/* {nfts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-              {metaData.map((data, i) => {
-                return (
-                  <div key={i} className="flex flex-col">
-                    <div
-                      className="cursor-pointer view-nft"
-                      onClick={() => setIsOpen(true)}
-                    >
-                      <Image
-                        src={formatUrl(data.image)}
-                        alt={data.name}
-                        placeholder="blur"
-                      />
-                    </div>
-                    <h3>{data.name}</h3>
-                  </div>
-                );
-              })}
+    <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-full my-4 md:my-10 xl:mt-18 items-center px-4 w-full">
+      <div className="w-full flex md:w-10/12 pt-2">
+        {viewSelections.map((selection) => {
+          return (
+            <div
+              key={selection.title}
+              className={`w-4/12 view-selectors font-inter text-xl ${
+                selected === selection.type ? "active-view" : "inactive-view"
+              } ${
+                selection.disabled ? "cursor-not-allowed" : "cursor-pointer"
+              }`}
+              onClick={() => {
+                if (selection.disabled) {
+                  return;
+                } else {
+                  setSelected(selection.type);
+                }
+              }}
+            >
+              {selection.title}
             </div>
-          ) : (
-            <div>No Nfts</div>
-          )} */}
-          Placeholder
-        </div>
-      )}
+          );
+        })}
+      </div>
+      <ViewSelection
+        selected={selected}
+        nfts={userNfts}
+        skeletonCount={[1, 2, 3, 4]}
+      />
+      {/* <NFTViewSection nfts={userNfts} skeletonCount={[1, 2, 3, 4]} /> */}
     </div>
   );
 };
