@@ -46,11 +46,11 @@ const SEOMeta = ({
       <link rel="apple-touch-icon" href={favicon} />
       <meta
         property="og:image"
-        content={`https://www.linkpicture.com/q/logo-small_1.png`}
+        content={`https://www.linkpicture.com/q/banner-twitter.jpg`}
       />
       <meta
         name="twitter:image"
-        content={`https://www.linkpicture.com/q/logo-small_1.png`}
+        content={`https://www.linkpicture.com/q/banner-twitter.jpg`}
       />
       <link rel="canonical" href="" />
     </Head>
