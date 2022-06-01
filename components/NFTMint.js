@@ -1,8 +1,9 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import MintButton from "./MintButton";
 import { UserContext } from "../context/UserContext";
 import ProgressBar from "./ProgressBar";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import toast from "./Toast";
 
 const NFTMint = ({
   isLoading,
@@ -16,7 +17,7 @@ const NFTMint = ({
   );
   const [mintAmount, setMintAmount] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
-  const [amountMinted, setAmountMinted] = useState(220);
+  const [amountMinted, setAmountMinted] = useState(0);
   const {
     account,
     chainId,
@@ -36,10 +37,6 @@ const NFTMint = ({
     if (mintAmount > 1) {
       setMintAmount(mintAmount - 1);
     }
-  };
-
-  const moralis = () => {
-    console.log("moralis");
   };
 
   useEffect(() => {

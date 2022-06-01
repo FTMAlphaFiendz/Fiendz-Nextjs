@@ -20,22 +20,26 @@ export const mintNft = async (
   web3
 ) => {
   //getting cost
-  let cost = await contract.methods.cost().call();
-  console.log("Mint Amount", mintAmount);
-  //calc mint const
-  let mintCost = cost * mintAmount;
-  let calcCost = web3.utils.fromWei(mintCost.toString(), "ether");
-  //checking transaction amount from wallet
-  const nonce = await web3.eth.getTransactionCount(account, "latest");
-  console.log(mintCost);
-  //setting params
-  let params = {
-    from: account,
-    value: web3.utils.toWei(calcCost, "ether"),
-    nonce: nonce,
-  };
-  //sending transaction
-  let tx = await contract.methods.mint(mintAmount).send(params);
+  try {
+    let cost = await contract.methods.cost().call();
+    console.log("Mint Amount", mintAmount);
+    //calc mint const
+    let mintCost = cost * mintAmount;
+    let calcCost = web3.utils.fromWei(mintCost.toString(), "ether");
+    //checking transaction amount from wallet
+    const nonce = await web3.eth.getTransactionCount(account, "latest");
+    console.log(mintCost);
+    //setting params
+    let params = {
+      from: account,
+      value: web3.utils.toWei(calcCost, "ether"),
+      nonce: nonce,
+    };
+    //sending transaction
+    let tx = await contract.methods.mint(mintAmount).send(params);
+  } catch (err) {
+    console.log("Error during mint", err);
+  }
   return tx;
 };
 

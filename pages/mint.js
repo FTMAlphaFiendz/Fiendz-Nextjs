@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import NftPageViewWrapper from "../components/NftPageViewWrapper";
 import Web3 from "web3";
 import { UserContext } from "../context/UserContext";
@@ -30,6 +30,14 @@ const Mint = () => {
     doc.style.setProperty("--app-height", `${window.innerHeight}px`);
   };
 
+  const notify = useCallback((type, message) => {
+    toast({ type, message });
+  }, []);
+
+  const dismiss = useCallback(() => {
+    toast.dismiss();
+  }, []);
+
   const getUIUpdates = async (contract) => {
     await getAndSetMintAmountLeft(contract, setMintAmountLeft);
     await getAndSetMintProgress(contract, setMintCompletePercent);
@@ -41,40 +49,38 @@ const Mint = () => {
     if (provider) web3 = new Web3(provider);
     console.log("CONTRACT METHODS", nftContract.methods);
 
-    //getting balance
-    let userCurrentBalance = await nftContract.methods
-      .balanceOf(account)
-      .call();
-    console.log("balance", userCurrentBalance);
+    try {
+      //getting balance
+      let userCurrentBalance = await nftContract.methods
+        .balanceOf(account)
+        .call();
+      console.log("balance", userCurrentBalance);
 
-    //getting percent of mint completed
-    let complete = await getMintProgress(nftContract);
-    console.log("complete", complete);
-    setMintCompletePercent(complete);
+      //getting percent of mint completed
+      let complete = await getMintProgress(nftContract);
+      console.log("complete", complete);
+      setMintCompletePercent(complete);
 
-    //getting the amount left to mint
-    let amountLeft = await getMintAmountLeft(nftContract);
-    console.log("amountLeft", amountLeft);
+      //getting the amount left to mint
+      let amountLeft = await getMintAmountLeft(nftContract);
+      console.log("amountLeft", amountLeft);
 
-    //checking if wallet is at max for collection
-    let isMax = await isAtWalletMax(nftContract, account);
-    if (isMax) {
-      setErrorText("This wallet is at max for this collection");
-      //this will return right here
+      // let events = await nftContract.getPastEvents("Transfer", { fromBlock: 1 });
+      // console.log(events);
+
+      //SENDING THE TRANSACTION TO MINT
+      let tx = await mintNft(
+        account,
+        nftContract,
+        mintAmount,
+        userCurrentBalance,
+        web3
+      );
+      console.log("tx", tx);
+    } catch (e) {
+      notify("Error!", e.message);
     }
 
-    // let events = await nftContract.getPastEvents("Transfer", { fromBlock: 1 });
-    // console.log(events);
-
-    //SENDING THE TRANSACTION TO MINT
-    let tx = await mintNft(
-      account,
-      nftContract,
-      mintAmount,
-      userCurrentBalance,
-      web3
-    );
-    console.log("tx", tx);
     return;
   };
 

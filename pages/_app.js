@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { MoralisProvider } from "react-moralis";
 import Layout from "../components/sections/Layout";
 import { UserContext } from "../context/UserContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   connectWalletThruModel,
   getWeb3Modal,
@@ -97,6 +98,16 @@ const MyApp = ({ Component, pageProps }) => {
           <Component {...pageProps} />
         </Layout>
       </UserContext.Provider>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={8000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        draggable={false}
+        pauseOnVisibilityChange
+        closeOnClick
+        pauseOnHover
+      />
     </>
   );
 };

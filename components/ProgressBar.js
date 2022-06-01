@@ -4,7 +4,7 @@ const ProgressBar = ({ completed }) => {
   };
 
   return (
-    <div className="progress-bar-container bg-purple w-8/12 rounded-2xl">
+    <div className="progress-bar-container bg-purple w-10/12 md:w-8/12 rounded-2xl">
       <div
         style={fillerStyles}
         className="h-full progress-bar-filler rounded-xl"
