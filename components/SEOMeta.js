@@ -46,7 +46,7 @@ const SEOMeta = ({
       <link rel="apple-touch-icon" href={favicon} />
       <meta
         property="og:image"
-        content={`https://www.linkpicture.com/q/banner-twitter.jpg`}
+        content={`https://www.linkpicture.com/q/logo-small_1.png`}
       />
       <meta
         name="twitter:image"
