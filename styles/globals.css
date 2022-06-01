@@ -628,8 +628,8 @@ nav:after {
 }
 
 .main-title-text {
-    text-shadow: #1d1f91 -3px 4px 0px;
-    -webkit-text-stroke: 2px #1d1f91;
+	text-shadow: #1d1f92 4px 4px 0;
+    -webkit-text-stroke: 3px #1d1f91;
      -webkit-text-fill-color: #FFB18F;
      font-weight: 300 !important;
 }
