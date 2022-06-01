@@ -3,7 +3,6 @@ import CommonCard from "../../public/images/fiend-card/common-card.png";
 import EpicCard from "../../public/images/fiend-card/epic-card.png";
 import LegendaryCard from "../../public/images/fiend-card/legendary-card.png";
 import RareCard from "../../public/images/fiend-card/rare-card.png";
-import FiendsFooter from "../FiendsFooter";
 import Image from "next/image";
 import Waves from "../Waves";
 import PerksCard from "../PerksCard";
@@ -53,7 +52,6 @@ const Rarity = () => {
             </div>
           </div>
         </div>
-        <FiendsFooter />
       </div>
     </div>
   );

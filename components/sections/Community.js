@@ -27,7 +27,7 @@ const Community = () => {
           <Image src={Head2} alt="fiendz head" />
         </div>
         <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-10/12 lg:w-full ">
-          <h1>Community</h1>
+          <h1 className="">Community</h1>
           <p className="mb-3">{firstParagraph}</p>
           <p>{secondParagraph}</p>
         </div>
