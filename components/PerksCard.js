@@ -26,7 +26,7 @@ const perks = [
 const PerksCard = () => {
   return (
     <div
-      className={`bg-white phase-card-container m-4 relative flex justify-center w-11/12 md:w-7/12`}
+      className={`bg-white phase-card-container m-4 relative flex justify-center w-11/12 md:w-6/12`}
     >
       <div
         className={`absolute perk-title w-9/12 md:w-7/12 block flex place-items-center px-8 -top-7 justify-center`}
