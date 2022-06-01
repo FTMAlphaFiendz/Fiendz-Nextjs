@@ -44,8 +44,14 @@ const SEOMeta = ({
       <meta name="twitter:creator" content={twitterHandle} />
       <link rel="icon" type="image/png" href={favicon} />
       <link rel="apple-touch-icon" href={favicon} />
-      <meta property="og:image" content={ogImage} />
-      <meta name="twitter:image" content={ogImage} />
+      <meta
+        property="og:image"
+        content={`https://www.linkpicture.com/q/logo-small_1.png`}
+      />
+      <meta
+        name="twitter:image"
+        content={`https://www.linkpicture.com/q/logo-small_1.png`}
+      />
       <link rel="canonical" href="" />
     </Head>
   );
