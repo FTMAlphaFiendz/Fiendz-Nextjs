@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import logoBig from "../../public/images/titles/logo-big.png";
@@ -19,7 +19,15 @@ const Landing = () => {
     "We are building the biggest community on the FTM Network and " +
     "for that we need your help. We are offering the FAFz Collection " +
     "to the community that will help us build out project and give exclusive and unique perks to the holders.";
+  const appHeight = () => {
+    const doc = document.documentElement;
+    doc.style.setProperty("--app-height", `${window.innerHeight}px`);
+  };
 
+  useEffect(() => {
+    window.addEventListener("resize", appHeight);
+    appHeight();
+  }, []);
   return (
     <div
       id="main"
