@@ -536,35 +536,30 @@ nav:after {
 	width: 120px;
 	height: 120px;
 	position: absolute;
-	z-index: -1;
+	z-index: 1;
 }
 
-.head1{
-	top: 5rem;
-	left: 1rem;
+.c-planet{
+	top: 10%;
+	left: 2%;
 }
 
-.head4 {
-	top: 6rem;
+.c-skull {
+	top: 3%;
 	right: 1.5rem;
 }
 
-.head7 {
-	top: 17rem;
-	left: 4rem;
+.c-ghost {
+	bottom: 7%;
+	left: 2%;
 }
 
-.head9{
-	top: 21rem;
-	right: 4rem;
+.c-cat{
+	top: 40%;
+	right: 1%;
 }
 
-.head10{
-	bottom: 2rem;
-	left: 3rem;
-}
-
-.head13{
+.c-diamond{
 	bottom: 3rem;
 	right: 1.5rem;
 }
@@ -671,35 +666,16 @@ nav:after {
 		width: 175px;
 		height: 175px;
 	}
-
-	.head1{
-		top: 6rem;
-		left: 3rem;
-	}
-
-	.head7 {
-		top: 17rem;
-		left: 7rem;
-	}
-
-	.head10{
-		bottom: 4rem;
-		left: 5rem;
-	}
-
 	
-	.head4 {
-		top: 6rem;
-		right: 1.5rem;
+	.c-skull {
+		right: 10%;
 	}
 
-	.head9{
-		top: 17rem;
-		right: 8rem;
+	.c-planet{
+		left: 10%;
 	}
 
-	.head13{
-		bottom: 4rem;
-		right: 5rem;
+	.c-diamond {
+		right: 15%;
 	}
 }

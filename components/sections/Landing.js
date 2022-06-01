@@ -6,7 +6,6 @@ import Div100vh from "react-div-100vh";
 import { FaTwitter, FaDiscord, FaRegPaperPlane } from "react-icons/fa";
 import { GrTransaction } from "react-icons/gr";
 import MainButton from "../MainButton";
-import LandingHeadOverlay from "../LandingHeadOverlay";
 import Waves from "../Waves";
 import FiendsFooter from "../FiendsFooter";
 
