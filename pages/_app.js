@@ -87,7 +87,7 @@ const MyApp = ({ Component, pageProps }) => {
     <>
       <MoralisProvider
         serverUrl={process.env.PUBLIC_NEXT_MORALIS_URL}
-        appId={process.env.PUBLIC_NEXT_MORALIS_APP_ID}
+        appId={process.envPUBLIC_NEXT_MORALIS_APP_ID}
       >
         <UserContext.Provider
           value={{

@@ -6,8 +6,8 @@ import ViewSelection from "../components/ViewSelection";
 
 let viewSelections = [
   { title: "My NFTs", type: "view", disabled: false },
-  { title: "Staking", type: "stake", disabled: true },
-  { title: "Activity", type: "activity", disabled: true },
+  // { title: "Staking", type: "stake", disabled: true },
+  // { title: "Activity", type: "activity", disabled: true },
 ];
 import { useMoralisWeb3Api } from "react-moralis";
 
@@ -56,12 +56,12 @@ const NFTView = () => {
 
   return (
     <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-full my-4 md:my-10 xl:mt-18 items-center px-4 w-full">
-      <div className="w-full flex md:w-10/12 pt-2">
+      <div className="w-full flex md:w-10/12 pt-2 justify-center">
         {viewSelections.map((selection) => {
           return (
             <div
               key={selection.title}
-              className={`w-4/12 view-selectors font-inter text-xl ${
+              className={`w-4/12 view-selectors font-inter text-2xl ${
                 selected === selection.type ? "active-view" : "inactive-view"
               } ${
                 selection.disabled ? "cursor-not-allowed" : "cursor-pointer"
