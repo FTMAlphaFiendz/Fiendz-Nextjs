@@ -41,7 +41,7 @@ const Landing = () => {
         <h1 className="hidden">FTM Alpha Fiendz</h1>
       </header>
       <div className="flex flex-col justify-center w-10/12 lg:w-8/12 lg:w-1/2 lg:mb-20 ">
-        <p className="text-center font-inter text-lg text-base lg:text-lg font-normal my-3 content-line">
+        <p className="text-center font-inter text-base sm:text-lg md:text-xl font-normal my-3 content-line">
           {pageText}
         </p>
         <div className="flex justify-center items-center mt-3 flex-wrap">

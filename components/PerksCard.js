@@ -35,11 +35,11 @@ const PerksCard = () => {
           PERKS
         </h1>
       </div>
-      <div className="py-8 px-3">
-        <ul className="font-inter content-line text-base lg:text-lg font-normal text-border text-center">
+      <div className="py-10 px-3">
+        <ul className="font-inter content-line text-base sm:text-lg md:text-xl  font-normal text-border text-center">
           {perks.map((perk, i) => {
             return (
-              <li key={perk.label}>
+              <li key={perk.label} className="my-1">
                 <span className="mr-3 text-xl">
                   <Emoji symbol={perk.emoji} label={perk.label} />
                 </span>{" "}

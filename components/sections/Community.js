@@ -23,7 +23,7 @@ const Community = () => {
         <div className="community-fiendz-head -bottom-20 -left-10">
           <Image src={Head2} alt="fiendz head" />
         </div>
-        <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-10/12 lg:w-full p-6 ">
+        <div className="flex flex-col font-inter content-line text-base sm:text-lg md:text-xl  font-normal text-center w-10/12 lg:w-full p-6 ">
           <h1 className="font-freckle text-4xl md:text-7xl main-title-text mb-5">
             Community
           </h1>

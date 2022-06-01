@@ -91,11 +91,11 @@ const ComingSoon = ({ ids }) => {
         </div>
 
         <Waves fillColor="#fedf87" />
-        <div className="fiendz-card-container w-50 md:w-5/6 lg:m-3 w-5/6 relative justify-center mt-16 flex flex-col bg-white items-center pt-10 lg:w-8/12">
+        <div className="fiendz-card-container w-50 md:w-7/12 lg:m-3 relative justify-center mt-16 flex flex-col bg-white items-center pt-10 lg:w-8/12">
           <div className="w-48 md:w-72 lg:w-80 absolute -top-12 md:-top-16 coming-soon-title">
             <Image src={logoBig} alt="Main Fantom Alpha Fiendz Logo" />
           </div>
-          <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-full my-4 md:my-10 xl:mt-18 items-center px-4">
+          <div className="flex flex-col font-inter content-line text-base sm:text-lg md:text-xl font-normal text-center w-full my-4 md:my-10 xl:mt-18 items-center px-4">
             <h1 className="font-freckle text-border text-xl md:text-2xl md:text-4xl lg:text-6xl">
               <b>MINT IS COMING SOON</b>
             </h1>

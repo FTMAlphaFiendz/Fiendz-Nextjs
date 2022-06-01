@@ -18,7 +18,7 @@ const RoadmapCard = ({ title, phaseComplete, phaseItems }) => {
           {phaseItems.map((item, i) => {
             return (
               <li
-                className="m-2 text-md lg:text-base content-line font-inter font-bold flex items-center"
+                className="m-2 text-base sm:text-lg md:text-xl  content-line font-inter font-bold flex items-center"
                 key={i}
               >
                 <span className={`text-green inline-block mb-2`}>

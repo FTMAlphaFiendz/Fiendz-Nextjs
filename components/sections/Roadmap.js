@@ -17,7 +17,7 @@ const Roadmap = () => {
           FIENDZ MAP
         </h1>
       </header>
-      <p className="font-inter content-line text-base lg:text-lg font-normal text-center w-10/12 lg:w-8/12">
+      <p className="font-inter content-line text-base sm:text-lg md:text-xl  font-normal text-center w-10/12 lg:w-8/12">
         {pageContent}
       </p>
       <div className="mt-8 hidden md:block">

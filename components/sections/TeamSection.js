@@ -74,7 +74,7 @@ const TeamSection = () => {
           FIENDZ TEAM
         </h1>
       </header>
-      <p className="font-inter leading-6 text-lg md:text-xl font-bold text-center md:w-[45%]">
+      <p className="font-inter leading-6 text-base sm:text-lg md:text-xl font-bold text-center w-10/12 lg:w-8/12">
         {pageContent}
       </p>
       <div className="card-container grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center md:mt-8 mb-20 md:mb-0">

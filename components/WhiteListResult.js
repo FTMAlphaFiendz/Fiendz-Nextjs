@@ -17,10 +17,10 @@ const WhiteListResult = ({ result, resetChecker }) => {
       {result ? (
         <>
           <div className="flex flex-col items-center whitelisted px-5 py-2 rounded">
-            <h2 className="text-green-500 text-base md:text-lg font-inter">
+            <h2 className="text-green-500 text-base sm:text-lg md:text-xl font-inter">
               Congratulations this wallet is whitelisted!
             </h2>
-            <p className="whitespace-pre-wrap keep-all text-sm md:text-base font-inter">
+            <p className="whitespace-pre-wrap keep-all text-base sm:text-lg md:text-xl font-inter">
               {whitelistedResponse}
             </p>
           </div>
@@ -28,10 +28,10 @@ const WhiteListResult = ({ result, resetChecker }) => {
       ) : (
         <>
           <div className="flex flex-col items-center non-whitelist px-5 w-full rounded">
-            <h2 className="text-red-500 text-base md:text-lg font-inter">
+            <h2 className="text-red-500 text-base sm:text-lg md:text-xl font-inter">
               This wallet is not whitelisted yet!
             </h2>
-            <p className="whitespace-pre-wrap keep-all text-sm md:text-base font-inter">
+            <p className="whitespace-pre-wrap keep-all text-base sm:text-lg md:text-xl font-inter">
               {notWhitelistedResponse}
             </p>
             <div className="flex flex-wrap md:mt-2 justify-center">

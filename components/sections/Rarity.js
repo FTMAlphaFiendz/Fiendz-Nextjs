@@ -32,7 +32,7 @@ const Rarity = () => {
           </h1>
         </header>
         <div className="w-10/12 lg:w-8/12 flex flex-col items-center">
-          <p className="font-inter content-line text-base lg:text-lg font-normal text-center mb-8">
+          <p className="font-inter content-line text-base sm:text-lg md:text-xl  font-normal text-center mb-8">
             {pageContent}
           </p>
           <PerksCard />
@@ -40,7 +40,7 @@ const Rarity = () => {
         <div className="my-10 w-full">
           <div className="flex flex-col min-h-full">
             <div id="desktop section" className="mb-10 flex justify-center">
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 justify-items-center lg:mx-10 w-9/12">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:mx-10 w-9/12">
                 {imageCards.map((card) => {
                   return (
                     <div key={card.title} className="w-full">

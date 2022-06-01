@@ -43,7 +43,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
+	line-height: 1.6;
 	/* min-height: 100vh;
 	min-height: -webkit-fill-available; */
 	z-index: -10;
@@ -100,7 +100,7 @@ nav:after {
 }
 
 .content-line {
-	line-height: 1.5;
+	line-height: 1.6;
 }
 
   .nav-custom {
