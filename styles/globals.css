@@ -164,6 +164,9 @@ nav:after {
 	background: linear-gradient(167deg, rgba(255,255,255,1) 0%, rgba(254,202,138,1) 0%, rgba(254,152,147,1) 86%);
 }
 
+.fiendz-f {
+	z-index: -1;
+}
 .small-logo {
 	height: 50px;
 }
