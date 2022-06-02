@@ -32,7 +32,9 @@ const Roadmap = () => {
       <p className="font-inter content-line text-base sm:text-lg md:text-xl  font-normal text-center w-10/12 lg:w-8/12">
         {pageContent}
       </p>
-      <RoadmapRender pageWidth={pageWidth} />
+      <div className="mb-10">
+        <RoadmapRender pageWidth={pageWidth} />
+      </div>
     </div>
   );
 };
