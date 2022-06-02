@@ -40,10 +40,10 @@ const Rarity = () => {
         <div className="my-10 w-full">
           <div className="flex flex-col min-h-full">
             <div id="desktop section" className="mb-10 flex justify-center">
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:mx-10 w-9/12">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:mx-10 w-9/12 place-content-center">
                 {imageCards.map((card) => {
                   return (
-                    <div key={card.title} className="w-full">
+                    <div key={card.title} className="flex justify-center">
                       <Image src={card.image} alt={card.alt} />
                     </div>
                   );

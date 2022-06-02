@@ -1,5 +1,5 @@
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
-
+import { useEffect } from "react";
 const RoadmapCard = ({ title, phaseComplete, phaseItems }) => {
   return (
     <div
@@ -9,7 +9,7 @@ const RoadmapCard = ({ title, phaseComplete, phaseItems }) => {
       <div
         className={`${
           phaseComplete ? "bg-green" : "bg-red"
-        } absolute phase-titles block bg-white flex place-items-center px-8 -top-6 justify-center`}
+        } absolute phase-titles block flex place-items-center px-8 -top-6 justify-center`}
       >
         <h1 className="phase-text font-bakbak text-center text-xl">{title}</h1>
       </div>
