@@ -4,6 +4,7 @@ import testNftABI from "../public/files/abi/testNftABI.json";
 
 const maxWalletAmount = 5;
 const testNftContract = "0x725D2Cc0468510e5962b78cbc988CD50eF87F328";
+const seNftContract = "";
 
 export const getContract = (provider) => {
   // const testNftABI = require("../helpers/abi/testNftABI.json");
@@ -87,25 +88,6 @@ export const getMetadataByURI = async (tokenUri) => {
   let data = await axios.get(url);
   console.log(data);
   return data;
-};
-
-export const formatUrl = (tokenURI) => {
-  if (tokenURI.includes("https://gateway.pinata.cloud/ipfs/")) {
-    return tokenURI.replace(
-      "https://gateway.pinata.cloud/ipfs/",
-      "https://ipfs.io/ipfs/"
-    );
-  } else if (tokenURI.includes("ipfs://"))
-    return tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
-};
-
-export const formatName = (name) => {
-  console.log(name);
-  if (name.includes("Fantom Alpha Fiendz:")) {
-    let n = name.replace("Fantom Alpha Fiendz:", "");
-    console.log("n", n);
-    return n;
-  }
 };
 
 export const listenToContractTransfer = async (contract) => {

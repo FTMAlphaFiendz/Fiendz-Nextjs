@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { initMoralis, getUserNFTs, getSEUserNFTs } from "../helpers/Moralis";
-import NFTViewSection from "../components/NFTViewSection";
 import ViewSelection from "../components/ViewSelection";
 
 let viewSelections = [
@@ -42,12 +41,16 @@ const NFTView = () => {
   useEffect(() => {
     if (account) {
       const getNfts = async () => {
-        await initMoralis(
-          process.env.PUBLIC_NEXT_MORALIS_URL,
-          process.env.PUBLIC_NEXT_MORALIS_APP_ID
-        );
-        // await getAllNfts();
-        await getSENfts();
+        try {
+          await initMoralis(
+            process.env.PUBLIC_NEXT_MORALIS_URL,
+            process.env.PUBLIC_NEXT_MORALIS_APP_ID
+          );
+          // await getAllNfts();
+          await getSENfts();
+        } catch (err) {
+          console.log("ERROR IN USE EFFECT NEED TO SHOW A TOAST");
+        }
       };
 
       getNfts().catch((err) => console.log(err));

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { getMetadataByURI, formatUrl, formatName } from "../helpers/MintHelper";
+import { formatUrl, formatName } from "../helpers/utils";
+import Modal from "./NFTModal";
 
 const NFTViewSection = ({ nfts, skeletonCount }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [metaData, setMetadata] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [activeNFT, setActiveNFT] = useState({});
 
   const getMetadata = (nfts) => {
     let m = [];
@@ -49,7 +52,10 @@ const NFTViewSection = ({ nfts, skeletonCount }) => {
                   <div key={i} className="flex flex-col items-center px-3 py-2">
                     <div
                       className="cursor-pointer"
-                      onClick={() => setIsOpen(true)}
+                      onClick={() => {
+                        setActiveNFT(data);
+                        setModalOpen(true);
+                      }}
                     >
                       <Image
                         src={formatUrl(data.image)}
@@ -72,6 +78,7 @@ const NFTViewSection = ({ nfts, skeletonCount }) => {
           )}
         </div>
       )}
+      <Modal passedOpen={modalOpen} activeNFT={activeNFT} />
     </div>
   );
 };
