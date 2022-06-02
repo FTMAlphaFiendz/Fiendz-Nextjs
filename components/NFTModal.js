@@ -30,7 +30,6 @@ const NFTModal = ({ show, onHide, activeNFT }) => {
               alt={activeNFT.name}
               height={300}
               width={275}
-              priority={true}
             />
           </div>
           <p className="font-inter text-center md:w-10/12">
