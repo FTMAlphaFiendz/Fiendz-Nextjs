@@ -1,4 +1,5 @@
 export const formatUrl = (tokenURI) => {
+  if (!tokenURI) return;
   if (tokenURI.includes("https://gateway.pinata.cloud/ipfs/")) {
     return tokenURI.replace(
       "https://gateway.pinata.cloud/ipfs/",

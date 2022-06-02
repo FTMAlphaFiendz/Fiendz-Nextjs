@@ -3,7 +3,7 @@ import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { formatUrl, formatName } from "../helpers/utils";
-import Modal from "./NFTModal";
+import NFTModal from "./NFTModal";
 
 const NFTViewSection = ({ nfts, skeletonCount }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,10 +12,17 @@ const NFTViewSection = ({ nfts, skeletonCount }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [activeNFT, setActiveNFT] = useState({});
 
+  const handleShowModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+
   const getMetadata = (nfts) => {
     let m = [];
     for (const nft of nfts) {
-      console.log(JSON.parse(nft.metadata));
       m.push(JSON.parse(nft.metadata));
     }
     return m;
@@ -53,8 +60,8 @@ const NFTViewSection = ({ nfts, skeletonCount }) => {
                     <div
                       className="cursor-pointer"
                       onClick={() => {
+                        handleShowModal();
                         setActiveNFT(data);
-                        setModalOpen(true);
                       }}
                     >
                       <Image
@@ -64,6 +71,7 @@ const NFTViewSection = ({ nfts, skeletonCount }) => {
                         width={150}
                         className="view-nft"
                         objectFit="contain"
+                        priority={true}
                       />
                     </div>
                     <h3 className="font-inter text-border">
@@ -78,7 +86,7 @@ const NFTViewSection = ({ nfts, skeletonCount }) => {
           )}
         </div>
       )}
-      <Modal passedOpen={modalOpen} activeNFT={activeNFT} />
+      <NFTModal show={modalOpen} onHide={handleClose} activeNFT={activeNFT} />
     </div>
   );
 };

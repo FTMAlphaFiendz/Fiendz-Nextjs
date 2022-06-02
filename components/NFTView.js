@@ -2,13 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { initMoralis, getUserNFTs, getSEUserNFTs } from "../helpers/Moralis";
 import ViewSelection from "../components/ViewSelection";
+import { useMoralisWeb3Api } from "react-moralis";
 
-let viewSelections = [
+const viewSelections = [
   { title: "My NFTs", type: "view", disabled: false },
   // { title: "Staking", type: "stake", disabled: true },
   // { title: "Activity", type: "activity", disabled: true },
 ];
-import { useMoralisWeb3Api } from "react-moralis";
 
 const NFTView = () => {
   const Web3Api = useMoralisWeb3Api();
@@ -50,6 +50,7 @@ const NFTView = () => {
           await getSENfts();
         } catch (err) {
           console.log("ERROR IN USE EFFECT NEED TO SHOW A TOAST");
+          console.log(err);
         }
       };
 
@@ -87,7 +88,6 @@ const NFTView = () => {
         nfts={userNfts}
         skeletonCount={[1, 2, 3, 4]}
       />
-      {/* <NFTViewSection nfts={userNfts} skeletonCount={[1, 2, 3, 4]} /> */}
     </div>
   );
 };

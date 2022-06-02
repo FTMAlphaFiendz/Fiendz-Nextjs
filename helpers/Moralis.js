@@ -31,11 +31,10 @@ export const getSEUserNFTs = async (Web3Api, nftAddress, account, chain) => {
   };
 
   let test_options = {
-    address: nftAddress,
+    address: seNFTContract,
     chain,
   };
   // const userNfts = await Moralis.Web3API.account.getNFTs(options);
-  console.log(options);
   const userNfts = await Web3Api.token.getAllTokenIds(test_options);
   return userNfts;
 };

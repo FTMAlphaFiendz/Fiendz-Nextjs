@@ -1,47 +1,47 @@
 import { useEffect, useState } from "react";
-import { Button, ModalHeader, Modal, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, Button } from "react-bootstrap";
+import Image from "next/image";
+import { formatUrl } from "../helpers/utils";
+import MainButton from "./MainButton";
+import { AiOutlineClose } from "react-icons/ai";
 
-const NFTModal = (passedOpen, activeNft) => {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  useEffect(() => {
-    setModalOpen(passedOpen);
-  }, [passedOpen, activeNft]);
-
+const NFTModal = ({ show, onHide, activeNFT }) => {
   return (
-    <>
-      <div>
-        <Button color="danger" onClick={function noRefCheck() {}}>
-          Click Me
-        </Button>
-        <Modal
-          centered
-          fullscreen=""
-          size="lg"
-          toggle={function noRefCheck() {}}
-          isOpen={true}
-        >
-          <ModalHeader toggle={function noRefCheck() {}}>
-            Modal title
-          </ModalHeader>
-          <ModalBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={function noRefCheck() {}}>
-              Do Something
-            </Button>{" "}
-            <Button onClick={function noRefCheck() {}}>Cancel</Button>
-          </ModalFooter>
-        </Modal>
-      </div>
-    </>
+    <Modal
+      show={show}
+      onHide={onHide}
+      size="md"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header>
+        <Modal.Title id="contained-modal-title-vcenter">
+          <h4 className="text-lg font-inter">{activeNFT.name}</h4>
+        </Modal.Title>
+        <button className="text-2xl" onClick={onHide}>
+          <AiOutlineClose />
+        </button>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="flex flex-col items-center">
+          <div className="my-3 ">
+            <Image
+              src={formatUrl(activeNFT.image)}
+              alt={activeNFT.name}
+              height={300}
+              width={275}
+              priority={true}
+            />
+          </div>
+          <p className="font-inter text-center md:w-10/12">
+            {activeNFT.description}
+          </p>
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <MainButton text="Close" closeModal={onHide} />
+      </Modal.Footer>
+    </Modal>
   );
 };
 
