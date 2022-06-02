@@ -9,7 +9,7 @@ const WhiteListResult = ({ result, resetChecker }) => {
     "Follow our twitter and join discord " +
     "for opportunities to join the whitelist!";
   const whitelistedResponse =
-    "Thanks for supporting us. We will regularly update out Twitter and " +
+    "Thanks for supporting us. We will regularly update our Twitter and " +
     "Discord. We have a lot of surprises for you!";
 
   return (
