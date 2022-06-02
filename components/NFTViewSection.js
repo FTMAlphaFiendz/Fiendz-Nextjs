@@ -43,7 +43,7 @@ const NFTViewSection = ({ nfts, skeletonCount }) => {
           <div className="grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
             {skeletonCount.map((skeleton) => {
               return (
-                <div key={skeleton} className="px-5">
+                <div key={skeleton} className="px-3">
                   <Skeleton count={1} height={150} width={150} />
                 </div>
               );

@@ -30,14 +30,6 @@ const NFTView = () => {
     setUserNfts(nfts.result);
   };
 
-  const getSkeletonCount = (nfts) => {
-    let countArr = [];
-    for (let i = 0; i < nfts.length; i++) {
-      countArr.push(i);
-    }
-    setSkeletonCount(countArr);
-  };
-
   useEffect(() => {
     if (account) {
       const getNfts = async () => {
@@ -65,7 +57,7 @@ const NFTView = () => {
           return (
             <div
               key={selection.title}
-              className={`w-4/12 view-selectors font-inter text-2xl ${
+              className={`w-4/12 view-selectors font-freckle main-title-text-secondary text-3xl ${
                 selected === selection.type ? "active-view" : "inactive-view"
               } ${
                 selection.disabled ? "cursor-not-allowed" : "cursor-pointer"
