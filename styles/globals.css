@@ -44,7 +44,9 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
+	line-height: 1.6;
+	/* min-height: 100vh;
+	min-height: -webkit-fill-available; */
 	z-index: -10;
 	min-height: 100%;
 	overflow-x: hidden;
@@ -104,7 +106,7 @@ nav:after {
 }
 
 .content-line {
-	line-height: 1.5;
+	line-height: 1.6;
 }
 
   .nav-custom {
@@ -131,23 +133,11 @@ nav:after {
   }
 
 .page-title {
-	text-shadow: #1d1f91 -3px 3px 0px;
-    -webkit-text-stroke: 2px #1d1f91;
-    -webkit-text-fill-color: white;
+	text-shadow: #1d1f92 4px 4px 0;
+    -webkit-text-stroke: 3px #1d1f91;
+    -webkit-text-fill-color: #fff;
 }
 
-.main-title-text {
-	text-shadow: #1d1f91 -3px 4px 0px;
-    -webkit-text-stroke: 2px #1d1f91;
-	 -webkit-text-fill-color: #fdd484;
-}
-
-.main-title-text-secondary {
-	text-shadow: #1d1f91 -3px 4px 0px;
-    -webkit-text-stroke: 2px #1d1f91;
-	 -webkit-text-fill-color: #FFB18F;
-	 font-weight: 300 !important;
-}
 
 .nf-title {
 	text-shadow: 4px 3px#1d1f91
@@ -175,6 +165,9 @@ nav:after {
 	background: linear-gradient(167deg, rgba(255,255,255,1) 0%, rgba(254,202,138,1) 0%, rgba(254,152,147,1) 86%);
 }
 
+.fiendz-f {
+	z-index: -1;
+}
 .small-logo {
 	height: 50px;
 }
@@ -206,8 +199,8 @@ nav:after {
 	-o-background-size: cover;
 	background-size: cover;
 	z-index: 1;
-	height: 100%;
 	min-height: 100%;
+	height: var(--app-height);
 }
 
 .coming-soon-bg {
@@ -218,13 +211,13 @@ nav:after {
 	-o-background-size: cover;
 	background-size: cover;
 	z-index: 1;
-	height: 100%;
 	min-height: 100%;
+	height: var(--app-height);
 }
 
 .community-bg {
     background: white;  /* fallback colour. Make sure this is just one solid colour. */
-    background: url("../public/images/backgrounds/background-stars-clouds.png"), linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(157,146,234,1) 0%, rgba(172,170,250,1) 100%);
+    background: url("../public/images/backgrounds/background-stars-clouds.png"), linear-gradient(170deg, rgba(255,255,255,1) 0%, rgba(255,223,134,1) 0%, rgba(255,223,134,1) 100%);
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -233,7 +226,7 @@ nav:after {
 	top: 0;
 	left: 0;
 	z-index: 1;
-	height: 100vh;
+	min-height: 100vh;
 	min-height: 700px;
 	}
 
@@ -548,35 +541,30 @@ nav:after {
 	width: 120px;
 	height: 120px;
 	position: absolute;
-	z-index: -1;
+	z-index: 1;
 }
 
-.head1{
-	top: 5rem;
-	left: 1rem;
+.c-planet{
+	top: 10%;
+	left: 2%;
 }
 
-.head4 {
-	top: 6rem;
+.c-skull {
+	top: 3%;
 	right: 1.5rem;
 }
 
-.head7 {
-	top: 17rem;
-	left: 4rem;
+.c-ghost {
+	bottom: 7%;
+	left: 2%;
 }
 
-.head9{
-	top: 21rem;
-	right: 4rem;
+.c-cat{
+	top: 40%;
+	right: 1%;
 }
 
-.head10{
-	bottom: 2rem;
-	left: 3rem;
-}
-
-.head13{
+.c-diamond{
 	bottom: 3rem;
 	right: 1.5rem;
 }
@@ -595,7 +583,7 @@ nav:after {
 
 .cs-planet {
 	top: 17%;
-	left: 7%;
+	left: 1%;
 }
 
 .cs-ghost {
@@ -607,7 +595,7 @@ nav:after {
 
 .cs-diamond {
 	top: 17%;
-	right: 7%;
+	right: 5%;
 }
 
 .non-whitelist {
@@ -634,59 +622,29 @@ nav:after {
 	transform: scale(1.1)
 }
 
-.m-page-btn {
-	height: 4rem;
-	width: 4.5rem;
-	margin-right: 3px;
-	margin-left: 3px;
+.perk-title {
 	border-width: 2px 2px 7px 2px;
-}
-
-.mint-button {
-  width: 15rem;
-  height: 4rem;
-  border-width: 2px 2px 7px 2px;
-}
-
-.progress-bar-container {
-	height: 20;
-    margin: 50;
 	border-style: solid;
+	border-radius: 10px;
 	border-color: #1d1f91;
-	border-width: 2px 2px 5px 2px;
-	overflow: "hidden";
+	transform: skew(-15deg);
+	max-height: 50px;
+	height: 60px;
+	background: linear-gradient(167deg, rgba(255,255,255,1) 0%, rgba(254,152,147,1) 0%, rgba(254,202,138,1) 86%);
 }
 
-.progress-bar-filler {
-	height: 100%;
-	border-radius: inherit;
-	text-align: center;
-	background: linear-gradient(167deg, rgba(255,255,255,1) 0%, rgba(254,202,138,1) 0%, rgba(254,152,147,1) 86%);
+.main-title-text {
+	text-shadow: #1d1f91 -3px 4px 0px;
+    -webkit-text-stroke: 2px #1d1f91;
+	 -webkit-text-fill-color: #fdd484;
 }
 
-.progess-animation {
-	transition: 1s ease-in-out;
+.main-title-text-secondary {
+	text-shadow: #1d1f91 -3px 4px 0px;
+    -webkit-text-stroke: 2px #1d1f91;
+	 -webkit-text-fill-color: #FFB18F;
+	 font-weight: 300 !important;
 }
-
-.center-div {
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-}
-
-.active-view {
-	color: #1d1f91;
-	border-bottom:2px solid #1d1f91;
-}
-
-.inactive-view {
-	color: gray;
-	border-bottom:2px solid gray;
-}
-
 
 @media only screen and (min-width: 1201px){
 	.cs-wagmi {
@@ -720,43 +678,21 @@ nav:after {
 
 /*DESKTOP*/
 @media only screen and (min-width: 992px){
-	/* .coming-soon-title{
-		top: -50%;
-	} */
 
 	.fiendz-heads{
 		width: 175px;
 		height: 175px;
 	}
-
-	.head1{
-		top: 6rem;
-		left: 3rem;
-	}
-
-	.head7 {
-		top: 17rem;
-		left: 7rem;
-	}
-
-	.head10{
-		bottom: 4rem;
-		left: 5rem;
-	}
-
 	
-	.head4 {
-		top: 6rem;
-		right: 1.5rem;
+	.c-skull {
+		right: 10%;
 	}
 
-	.head9{
-		top: 17rem;
-		right: 8rem;
+	.c-planet{
+		left: 10%;
 	}
 
-	.head13{
-		bottom: 4rem;
-		right: 5rem;
+	.c-diamond {
+		right: 15%;
 	}
 }

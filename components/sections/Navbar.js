@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { UserContext } from "../../context/UserContext";
-import logoSmall from "../../public/images/titles/logo-small-v2.png";
+import logoSmall from "../../public/images/titles/logo-small.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link as ScrollLink } from "react-scroll";
@@ -96,13 +96,11 @@ const Navbar = () => {
               );
             })
           ) : (
-            <div className="py-3 md:py-0 my-5 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border">
-              <Link
-                className="my-5 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
-                href="/"
-                onClick={() => setOpen(!open)}
-              >
-                Back To Home
+            <div className="py-3 md:py-0">
+              <Link href="/" onClick={() => setOpen(!open)}>
+                <div className="my-5 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border">
+                  Back To Home
+                </div>
               </Link>
             </div>
           )}

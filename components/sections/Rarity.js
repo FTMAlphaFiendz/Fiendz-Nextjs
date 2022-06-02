@@ -1,31 +1,15 @@
 import React from "react";
-import FiendCard from "../FiendCard";
-import LegendaryTitle from "../../public/images/titles/title-legendary.png";
-import FiendLegendary from "../../public/images/fiend-card/fiend-legendary-v3.png";
-import FiendRare from "../../public/images/fiend-card/fiend-rare-v3.png";
-import RareTitle from "../../public/images/titles/title-rare.png";
-import EpicTitle from "../../public/images/titles/title-epic.png";
-import FiendEpic from "../../public/images/fiend-card/fiend-epic-v3.png";
-import CommonTitle from "../../public/images/titles/title-common.png";
-import FiendCommon from "../../public/images/fiend-card/fiend-common-v3.png";
 import CommonCard from "../../public/images/fiend-card/common-card.png";
 import EpicCard from "../../public/images/fiend-card/epic-card.png";
 import LegendaryCard from "../../public/images/fiend-card/legendary-card.png";
 import RareCard from "../../public/images/fiend-card/rare-card.png";
-import FiendsFooter from "../FiendsFooter";
 import Image from "next/image";
 import Waves from "../Waves";
+import PerksCard from "../PerksCard";
 
 const pageContent =
   "FAFz is a collection that we will only run for a limited time and limted mint, but we will have very long-term " +
   "benefits to holders. Each Fiend is unique in its own way, characterized by a rarity from Common to Legendary.";
-
-const perks = [
-  "Owning an awesome PFP",
-  "Exclusive private discord channels",
-  "Access to exclusive giveaways",
-  "Potluck Staking",
-];
 
 const imageCards = [
   { title: "common", alt: "common card", image: CommonCard },
@@ -47,32 +31,27 @@ const Rarity = () => {
             RARITY & PERKS
           </h1>
         </header>
-        <div className="w-10/12 lg:w-8/12">
-          <p className="font-inter content-line text-base lg:text-lg font-normal text-center mb-8">
+        <div className="w-10/12 lg:w-8/12 flex flex-col items-center">
+          <p className="font-inter content-line text-base sm:text-lg md:text-xl  font-normal text-center mb-8">
             {pageContent}
           </p>
-          <h6 className="font-inter content-line text-lg lg:text-xl font-normal text-center">
-            PERKS
-          </h6>
-          <ul className="font-inter content-line text-base lg:text-lg font-normal text-center mb-6">
-            {perks.map((perk) => {
-              return <li key={perk}>{perk}</li>;
-            })}
-          </ul>
-          <p className="font-inter content-line text-base lg:text-lg font-normal text-center mb-8"></p>
+          <PerksCard />
         </div>
-        <div className="mt-8">
+        <div className="my-10 w-full">
           <div className="flex flex-col min-h-full">
             <div id="desktop section" className="mb-10 flex justify-center">
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 justify-items-center lg:mx-10 w-9/12">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:mx-10 w-9/12">
                 {imageCards.map((card) => {
-                  return <Image src={card.image} key={card.title} />;
+                  return (
+                    <div key={card.title} className="w-full">
+                      <Image src={card.image} alt={card.alt} />
+                    </div>
+                  );
                 })}
               </div>
             </div>
           </div>
         </div>
-        <FiendsFooter />
       </div>
     </div>
   );

@@ -72,7 +72,7 @@ const AccordionItem = ({ question, answer }) => {
   return (
     <div>
       <button
-        className="accordion__button font-inter content-line text-lg text-border noSelect text-left"
+        className="accordion__button font-inter content-line text-base sm:text-lg md:text-xl text-border noSelect text-left"
         onClick={() => {
           handleToggleVisibility();
         }}
@@ -83,7 +83,7 @@ const AccordionItem = ({ question, answer }) => {
       <p
         className={`accordion__content ${
           visibility ? "active" : ""
-        } content-line font-inter text-base text-border`}
+        } content-line font-inter text-base sm:text-lg md:text-xl  text-border`}
       >
         {answer}
       </p>
