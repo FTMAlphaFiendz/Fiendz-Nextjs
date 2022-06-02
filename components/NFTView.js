@@ -43,8 +43,8 @@ const NFTView = () => {
       const getNfts = async () => {
         try {
           await initMoralis(
-            process.env.PUBLIC_NEXT_MORALIS_URL,
-            process.env.PUBLIC_NEXT_MORALIS_APP_ID
+            process.env.NEXT_PUBLIC_MORALIS_URL,
+            process.env.NEXT_PUBLIC_MORALIS_APP_ID
           );
           // await getAllNfts();
           await getSENfts();

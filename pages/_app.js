@@ -75,9 +75,6 @@ const MyApp = ({ Component, pageProps }) => {
 
   useEffect(() => {
     let web3Modal = getWeb3Modal();
-    console.log(process.env.PUBLIC_NEXT_TEST);
-    console.log(process.env.PUBLIC_NEXT_MORALIS_URL);
-    console.log(process.env.PUBLIC_NEXT_MORALIS_APP_ID);
     if (web3Modal.cachedProvider) {
       const connect = async () => {
         await connectWallet();
@@ -89,8 +86,8 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       <MoralisProvider
-        serverUrl={process.env.PUBLIC_NEXT_MORALIS_URL}
-        appId={process.env.PUBLIC_NEXT_MORALIS_APP_ID}
+        serverUrl={process.env.NEXT_PUBLIC_MORALIS_URL}
+        appId={process.env.NEXT_PUBLIC_MORALIS_APP_ID}
       >
         <UserContext.Provider
           value={{
