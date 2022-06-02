@@ -75,6 +75,7 @@ const MyApp = ({ Component, pageProps }) => {
 
   useEffect(() => {
     let web3Modal = getWeb3Modal();
+    console.log(process.env);
     console.log(process.env.PUBLIC_NEXT_MORALIS_URL);
     console.log(process.env.PUBLIC_NEXT_MORALIS_APP_ID);
     if (web3Modal.cachedProvider) {
