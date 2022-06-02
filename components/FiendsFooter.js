@@ -9,7 +9,7 @@ const FiendsFooter = () => {
   const images = [Fiend1, Fiend2, Fiend3, Fiend4, Fiend5];
   const lastImageIdx = images.length - 1;
   return (
-    <div className="flex space-between fiendz-container">
+    <div className="flex space-between absolute bottom-0 fiendz-f">
       {images.map((image, i) => {
         return (
           <div
