@@ -101,14 +101,11 @@ const ComingSoon = ({ ids }) => {
 
       <Waves fillColor="#fedf87" />
       <div className="fiendz-card-container w-5/6 md:w-7/12 lg:m-3 relative justify-center mt-16 flex flex-col bg-white items-center pt-10 lg:w-8/12">
-        <h1 className="font-freckle text-4xl md:text-6xl main-title-text text-center">
-          Fantom <span className="main-title-text-secondary">Alpha Fiendz</span>
+        <h1 className="font-freckle text-4xl md:text-6xl main-title-text-secondary text-center">
+          MINT IS COMING SOON
         </h1>
         <div className="flex flex-col font-inter content-line text-base sm:text-lg md:text-xl font-normal text-center w-full my-4 md:my-10 xl:mt-18 items-center px-4">
-          <h1 className="font-freckle text-border text-xl md:text-2xl md:text-4xl lg:text-6xl">
-            <b>MINT IS COMING SOON</b>
-          </h1>
-          <p className="my-8 w-11/12 md:w-10/12">{content}</p>
+          <p className="mb-8 w-11/12 md:w-10/12">{content}</p>
           {isResult ? (
             <WhiteListResult
               result={whiteListResult}
