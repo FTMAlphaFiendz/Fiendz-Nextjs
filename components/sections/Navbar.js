@@ -77,7 +77,7 @@ const Navbar = () => {
           {isHome ? (
             links.map((link) => {
               return (
-                <div key={link.link} className="py-3">
+                <div key={link.link} className="py-3 md:py-0">
                   <ScrollLink
                     className="my-5 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
                     activeClass="active"
@@ -98,7 +98,7 @@ const Navbar = () => {
           ) : (
             <div className="py-3 md:py-0">
               <Link href="/" onClick={() => setOpen(!open)}>
-                <div className="my-5 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border">
+                <div className="md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border">
                   Back To Home
                 </div>
               </Link>

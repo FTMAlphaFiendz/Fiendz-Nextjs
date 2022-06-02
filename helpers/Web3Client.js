@@ -29,13 +29,23 @@ export const getWeb3Modal = () => {
 
 export const connectWalletThruModel = async () => {
   let web3Modal = getWeb3Modal();
-
   const provider = await web3Modal.connect();
   const web3 = new Web3(provider);
   let account = await web3.eth.getAccounts();
   account = account[0];
   let chainId = await web3.eth.getChainId();
+  if (chainId !== 250) {
+    requestChainChange(provider);
+  }
   return { provider, account, chainId };
+};
+
+export const requestChainChange = (provider) => {
+  const ftmMainnet = "0xfa";
+  provider.request({
+    method: "wallet_switchEthereumChain",
+    params: [{ chainId: ftmMainnet }],
+  });
 };
 
 export const getChainIdFromString = async (provider) => {
