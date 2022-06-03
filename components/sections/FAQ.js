@@ -20,7 +20,7 @@ const FAQ = () => {
     },
     {
       question: "How much is mint for FAFz?",
-      answer: "Mint will be 30 FTM.",
+      answer: "Mint will be 22 FTM.",
     },
     {
       question: "Wen Launch?",
