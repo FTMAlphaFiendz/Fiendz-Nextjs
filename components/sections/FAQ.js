@@ -24,7 +24,8 @@ const FAQ = () => {
     },
     {
       question: "Wen Launch?",
-      answer: "Soon! We are hoping to Launch June. Actual date and time TBA",
+      answer:
+        "Date - June 17th \n Time - TBA \n Whitelist - 1 hour window prior to public mint",
     },
   ];
 
