@@ -20,18 +20,9 @@ const NFTViewSection = ({ nfts, skeletonCount }) => {
     setModalOpen(false);
   };
 
-  const getMetadata = (nfts) => {
-    let m = [];
-    for (const nft of nfts) {
-      m.push(JSON.parse(nft.metadata));
-    }
-    return m;
-  };
-
   useEffect(() => {
     if (nfts) {
-      let md = getMetadata(nfts);
-      setMetadata(md);
+      setMetadata(nfts);
       setTimeout(() => setIsLoading(false), 3000);
     }
   }, [nfts]);

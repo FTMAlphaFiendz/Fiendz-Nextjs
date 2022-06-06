@@ -10,6 +10,7 @@ const NFTMint = ({
   mintFunction,
   mintCompletePercent,
   mintAmountLeft,
+  maxMintAmount,
 }) => {
   const [mintingProgressText, setMintingProgressText] = useState(
     "The minting is in progess"
@@ -27,7 +28,7 @@ const NFTMint = ({
   } = useContext(UserContext);
 
   const increment = () => {
-    if (mintAmount < 3) {
+    if (mintAmount < maxMintAmount) {
       setMintAmount(mintAmount + 1);
     }
   };

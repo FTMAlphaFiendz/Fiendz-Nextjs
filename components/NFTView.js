@@ -3,6 +3,8 @@ import { UserContext } from "../context/UserContext";
 import { initMoralis, getUserNFTs, getSEUserNFTs } from "../helpers/Moralis";
 import ViewSelection from "../components/ViewSelection";
 import { useMoralisWeb3Api } from "react-moralis";
+import { getContract } from "../helpers/Contract";
+import { getTokenUriById, getNFTData } from "../helpers/NFTHelper";
 
 const viewSelections = [
   { title: "My NFTs", type: "view", disabled: false },
@@ -34,12 +36,15 @@ const NFTView = () => {
     if (account) {
       const getNfts = async () => {
         try {
-          await initMoralis(
-            process.env.NEXT_PUBLIC_MORALIS_URL,
-            process.env.NEXT_PUBLIC_MORALIS_APP_ID
-          );
+          // await initMoralis(
+          //   process.env.NEXT_PUBLIC_MORALIS_URL,
+          //   process.env.NEXT_PUBLIC_MORALIS_APP_ID
+          // );
           // await getAllNfts();
-          await getSENfts();
+          // await getSENfts();
+          let seNFTs = await getNFTData(provider, account, "se");
+          console.log(seNFTs);
+          setUserNfts(seNFTs);
         } catch (err) {
           console.log("ERROR IN USE EFFECT NEED TO SHOW A TOAST");
           console.log(err);
