@@ -28,8 +28,9 @@ const FAQ = () => {
       question: "Wen Launch?",
       answer: [
         "Date - June 17th",
-        "Time - TBA",
-        "Whitelist - 1 hour window prior to public mint",
+        "Mint Party - Location: FtmAlphaFiendz Discord - Time: 20:00 UTC",
+        "Whitelist - 20:30 - 21:30 UTC",
+        "Public - 21:30 UTC",
       ],
     },
   ];
