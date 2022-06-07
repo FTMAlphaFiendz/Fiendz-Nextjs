@@ -21,6 +21,7 @@ const NFTView = () => {
   const [userNFTs, setUserNFTs] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [nftsPerPage] = useState(6);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getAllNfts = async () => {
     let nfts = await getUserNFTs(
@@ -41,6 +42,7 @@ const NFTView = () => {
         try {
           let seNFTs = await getNFTData(provider, account, "se");
           setUserNFTs(seNFTs);
+          setIsLoading(false);
         } catch (err) {
           notify("error", err);
         }
@@ -88,6 +90,7 @@ const NFTView = () => {
         selected={selected}
         nfts={currentNFTs}
         skeletonCount={[1, 2, 3]}
+        isLoading={isLoading}
       />
       <Pagination
         nftsperpage={nftsPerPage}

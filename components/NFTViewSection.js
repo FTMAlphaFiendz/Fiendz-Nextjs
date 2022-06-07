@@ -5,8 +5,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { formatUrl, formatName } from "../helpers/utils";
 import NFTModal from "./NFTModal";
 
-const NFTViewSection = ({ nfts, skeletonCount }) => {
-  const [isLoading, setIsLoading] = useState(true);
+const NFTViewSection = ({ nfts, skeletonCount, isLoading }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [metaData, setMetadata] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -23,7 +22,6 @@ const NFTViewSection = ({ nfts, skeletonCount }) => {
   useEffect(() => {
     if (nfts) {
       setMetadata(nfts);
-      setTimeout(() => setIsLoading(false), 3000);
     }
   }, [nfts]);
 
