@@ -66,7 +66,7 @@ const NFTView = () => {
           return (
             <div
               key={selection.title}
-              className={`w-4/12 view-selectors font-freckle main-title-text-secondary text-4xl ${
+              className={`w-10/12 font-freckle text-4xl md:text-5xl main-title-text-secondary  ${
                 selected === selection.type ? "active-view" : "inactive-view"
               } ${
                 selection.disabled ? "cursor-not-allowed" : "cursor-pointer"
