@@ -23,7 +23,7 @@ export const getNFTData = async (provider, account, type) => {
   let contract = getContract(provider, type);
   let tokenIds = await getTokensFromWallet(contract, account);
   //this is temporary
-  tokenIds = [1, 2, 3, 4];
+  tokenIds = [1, 2, 3, 4, 5, 6, 7, 8];
   if (tokenIds.length === 0) return dataArray;
   for (const id of tokenIds) {
     let uri = await getTokenUriById(contract, id);

@@ -31,7 +31,7 @@ const NFTViewSection = ({ nfts, skeletonCount }) => {
     <div className="flex justify-center">
       {isLoading ? (
         <div className="my-8 w-11/12 md:w-12/12">
-          <div className="grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {skeletonCount.map((skeleton) => {
               return (
                 <div key={skeleton} className="px-3">

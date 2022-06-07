@@ -85,35 +85,35 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     <>
-      <MoralisProvider
+      {/* <MoralisProvider
         serverUrl={process.env.NEXT_PUBLIC_MORALIS_URL}
         appId={process.env.NEXT_PUBLIC_MORALIS_APP_ID}
+      > */}
+      <UserContext.Provider
+        value={{
+          account,
+          chainId,
+          provider,
+          connectWallet,
+          disconnectWallet,
+          getWeb3Modal,
+        }}
       >
-        <UserContext.Provider
-          value={{
-            account,
-            chainId,
-            provider,
-            connectWallet,
-            disconnectWallet,
-            getWeb3Modal,
-          }}
-        >
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </UserContext.Provider>
-        <ToastContainer
-          position="bottom-right"
-          autoClose={8000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          draggable={false}
-          pauseOnVisibilityChange
-          closeOnClick
-          pauseOnHover
-        />
-      </MoralisProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </UserContext.Provider>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={8000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        draggable={false}
+        pauseOnVisibilityChange
+        closeOnClick
+        pauseOnHover
+      />
+      {/* </MoralisProvider> */}
     </>
   );
 };

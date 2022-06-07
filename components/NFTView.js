@@ -2,9 +2,11 @@ import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { initMoralis, getUserNFTs, getSEUserNFTs } from "../helpers/Moralis";
 import ViewSelection from "../components/ViewSelection";
-import { useMoralisWeb3Api } from "react-moralis";
+// import { useMoralisWeb3Api } from "react-moralis";
 import { getContract } from "../helpers/Contract";
 import { getTokenUriById, getNFTData } from "../helpers/NFTHelper";
+import Pagination from "../components/Pagination";
+import toast from "../components/Toast";
 
 const viewSelections = [
   { title: "My NFTs", type: "view", disabled: false },
@@ -13,10 +15,12 @@ const viewSelections = [
 ];
 
 const NFTView = () => {
-  const Web3Api = useMoralisWeb3Api();
-  const [selected, setSelected] = useState("view");
+  // const Web3Api = useMoralisWeb3Api();
   const { account, provider, chainId } = useContext(UserContext);
-  const [userNfts, setUserNfts] = useState("");
+  const [selected, setSelected] = useState("view");
+  const [userNFTs, setUserNFTs] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [nftsPerPage] = useState(6);
 
   const getAllNfts = async () => {
     let nfts = await getUserNFTs(
@@ -27,33 +31,29 @@ const NFTView = () => {
     setUserNfts(nfts.result);
   };
 
-  const getSENfts = async () => {
-    let nfts = await getSEUserNFTs(Web3Api);
-    setUserNfts(nfts.result);
-  };
-
   useEffect(() => {
     if (account) {
       const getNfts = async () => {
         try {
-          // await initMoralis(
-          //   process.env.NEXT_PUBLIC_MORALIS_URL,
-          //   process.env.NEXT_PUBLIC_MORALIS_APP_ID
-          // );
-          // await getAllNfts();
-          // await getSENfts();
           let seNFTs = await getNFTData(provider, account, "se");
-          console.log(seNFTs);
-          setUserNfts(seNFTs);
+          setUserNFTs(seNFTs);
         } catch (err) {
-          console.log("ERROR IN USE EFFECT NEED TO SHOW A TOAST");
-          console.log(err);
+          notify("error", err);
         }
       };
 
       getNfts().catch((err) => console.log(err));
     }
   }, [account]);
+
+  //get nfts for paging
+  const indexOfLastNFT = currentPage * nftsPerPage;
+  const indexOfFirstNFT = indexOfLastNFT - nftsPerPage;
+  const currentNFTs = userNFTs.slice(indexOfFirstNFT, indexOfLastNFT);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-full my-4 md:my-10 xl:mt-18 items-center px-4 w-full">
@@ -82,8 +82,13 @@ const NFTView = () => {
       </div>
       <ViewSelection
         selected={selected}
-        nfts={userNfts}
-        skeletonCount={[1, 2, 3, 4]}
+        nfts={currentNFTs}
+        skeletonCount={[1, 2, 3]}
+      />
+      <Pagination
+        nftsperpage={nftsPerPage}
+        totalNFTs={userNFTs.length}
+        paginate={paginate}
       />
     </div>
   );
