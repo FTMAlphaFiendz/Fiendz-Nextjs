@@ -6,7 +6,6 @@ import { formatUrl, formatName } from "../helpers/utils";
 import NFTModal from "./NFTModal";
 
 const NFTViewSection = ({ nfts, skeletonCount, isLoading }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [metaData, setMetadata] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [activeNFT, setActiveNFT] = useState({});
@@ -40,7 +39,7 @@ const NFTViewSection = ({ nfts, skeletonCount, isLoading }) => {
           </div>
         </div>
       ) : (
-        <div className="my-8 w-11/12 md:w-12/12">
+        <div className="my-8 w-11/12 md:w-9/12">
           {nfts.length > 0 ? (
             <div className="flex flex-wrap justify-center">
               {metaData.map((data, i) => {
