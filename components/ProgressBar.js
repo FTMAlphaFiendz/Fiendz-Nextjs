@@ -9,7 +9,7 @@ const ProgressBar = ({ completed }) => {
         style={fillerStyles}
         className="h-full progress-bar-filler rounded-xl"
       >
-        <span className="progress-animation">{`${completed}%`}</span>
+        <span className="progress-animation pl-2">{`${completed}%`}</span>
       </div>
     </div>
   );

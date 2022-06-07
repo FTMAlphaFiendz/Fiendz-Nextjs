@@ -48,9 +48,12 @@ const NFTMint = ({
   }, [mintAmountLeft]);
 
   return (
-    <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-full my-4 md:my-16 xl:mt-18 items-center px-4">
-      <h1 className="font-inter text-border text-lg md:text-3xl lg:text-4xl">
-        <b>YOU'RE ABOUT TO ENTER IN THE FAFZ UNIVERSE</b>
+    <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-full my-4 md:my-16 xl:mt-18 items-center px-4 md:py-8">
+      <h1 className="font-freckle text-border text-3xl md:text-4xl lg:text-4xl main-title-text-secondary mb-2">
+        <b>YOU'RE ABOUT TO ENTER </b>
+      </h1>
+      <h1 className="font-freckle text-border text-3xl md:text-4xl lg:text-4xl main-title-text-secondary">
+        <b>IN THE FAFZ UNIVERSE</b>
       </h1>
       <p className="my-3">You can mint up to 5 NFT MAX at 30 $FTM</p>
       <div className="flex justify-center items-center w-full">
@@ -82,11 +85,11 @@ const NFTMint = ({
         />
       </p>
       {isFinished ? (
-        <p className="text-intern text-base">
+        <p className="text-intern text-base mb-2">
           Mint is complete! Head over to the view page to see your NFTs
         </p>
       ) : (
-        <p className="text-intern text-base">
+        <p className="text-intern text-base mb-2">
           {mintingProgressText} ({amountMinted} FAFz left)
         </p>
       )}

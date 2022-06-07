@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext } from "../context/UserContext";
 import { initMoralis, getUserNFTs, getSEUserNFTs } from "../helpers/Moralis";
 import ViewSelection from "../components/ViewSelection";
@@ -28,8 +28,12 @@ const NFTView = () => {
       account,
       chainId
     );
-    setUserNfts(nfts.result);
+    setUserNFTs(nfts.result);
   };
+
+  const notify = useCallback((type, message) => {
+    toast({ type, message });
+  }, []);
 
   useEffect(() => {
     if (account) {
@@ -44,7 +48,7 @@ const NFTView = () => {
 
       getNfts().catch((err) => console.log(err));
     }
-  }, [account]);
+  }, [account, chainId]);
 
   //get nfts for paging
   const indexOfLastNFT = currentPage * nftsPerPage;
@@ -62,7 +66,7 @@ const NFTView = () => {
           return (
             <div
               key={selection.title}
-              className={`w-4/12 view-selectors font-freckle main-title-text-secondary text-3xl ${
+              className={`w-4/12 view-selectors font-freckle main-title-text-secondary text-4xl ${
                 selected === selection.type ? "active-view" : "inactive-view"
               } ${
                 selection.disabled ? "cursor-not-allowed" : "cursor-pointer"

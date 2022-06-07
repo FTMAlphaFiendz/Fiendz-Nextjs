@@ -679,12 +679,10 @@ nav:after {
 
 .active-view {
 	color: #1d1f91;
-	border-bottom:2px solid #1d1f91;
 }
 
 .inactive-view {
 	color: gray;
-	border-bottom:2px solid gray;
 }
 
 
