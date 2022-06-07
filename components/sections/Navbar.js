@@ -18,6 +18,12 @@ const links = [
   { name: "FAQs", link: "faqs" },
 ];
 
+const nonHomeLinks = [
+  { name: "Back To Home", link: "/" },
+  { name: "Mint", link: "/mint" },
+  { name: "View NFTs", link: "/view" },
+];
+
 const Navbar = () => {
   const router = useRouter();
   const { account, chainId, connectWallet, disconnectWallet } =
@@ -74,36 +80,44 @@ const Navbar = () => {
             open ? "top-14" : "-top-490"
           }`}
         >
-          {isHome ? (
-            links.map((link) => {
-              return (
-                <div key={link.link} className="py-3 md:py-0">
-                  <ScrollLink
-                    className="my-5 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
-                    activeClass="active"
-                    to={link.link}
-                    spy={true}
-                    smooth={true}
-                    offset={0}
-                    duration={800}
+          {isHome
+            ? links.map((link) => {
+                return (
+                  <div key={link.link} className="py-3 md:py-0">
+                    <ScrollLink
+                      className="my-5 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
+                      activeClass="active"
+                      to={link.link}
+                      spy={true}
+                      smooth={true}
+                      offset={0}
+                      duration={800}
+                      onClick={() => {
+                        setOpen(!open);
+                      }}
+                    >
+                      {link.name}
+                    </ScrollLink>
+                  </div>
+                );
+              })
+            : nonHomeLinks.map((link) => {
+                return (
+                  <div
+                    className="py-3 md:py-0"
                     onClick={() => {
+                      console.log(open);
                       setOpen(!open);
                     }}
                   >
-                    {link.name}
-                  </ScrollLink>
-                </div>
-              );
-            })
-          ) : (
-            <div className="py-3 md:py-0">
-              <Link href="/" onClick={() => setOpen(!open)}>
-                <div className="md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border">
-                  Back To Home
-                </div>
-              </Link>
-            </div>
-          )}
+                    <Link href={link.link}>
+                      <div className="md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border">
+                        {link.name}
+                      </div>
+                    </Link>
+                  </div>
+                );
+              })}
           <li className="block sm:hidden pb-2 sm:pb-0">
             <ConnectWalletBtn
               account={account}
