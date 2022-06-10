@@ -8,9 +8,11 @@ import toast from "./Toast";
 const NFTMint = ({
   isLoading,
   mintFunction,
+  fmFunction,
   mintCompletePercent,
   mintAmountLeft,
   maxMintAmount,
+  isFreeMintEligible,
 }) => {
   const [mintingProgressText, setMintingProgressText] = useState(
     "The minting is in progess"
@@ -45,7 +47,7 @@ const NFTMint = ({
     } else {
       setAmountMinted(mintAmountLeft);
     }
-  }, [mintAmountLeft]);
+  }, [mintAmountLeft, isFreeMintEligible]);
 
   return (
     <div className="flex flex-col font-inter content-line text-base lg:text-lg font-normal text-center w-full my-4 md:my-16 xl:mt-18 items-center px-4 md:py-8">
@@ -81,7 +83,11 @@ const NFTMint = ({
           account={account}
           chainId={chainId}
           mintAmount={mintAmount}
+          provider={provider}
           mintFunction={mintFunction}
+          fmFunction={fmFunction}
+          isFreeMintEligible={isFreeMintEligible}
+          buttonText={isFreeMintEligible ? "Claim Free Mint" : "Mint"}
         />
       </p>
       {isFinished ? (

@@ -5,8 +5,14 @@ export const formatUrl = (tokenURI) => {
       "https://gateway.pinata.cloud/ipfs/",
       "https://ipfs.io/ipfs/"
     );
-  } else if (tokenURI.includes("ipfs://"))
+  } else if (tokenURI.includes("ipfs://")) {
     return tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
+  } else if (tokenURI.includes("https://potlucklabs.mypinata.cloud/ipfs/")) {
+    return tokenURI.replace(
+      "https://potlucklabs.mypinata.cloud/ipfs/",
+      "https://ipfs.io/ipfs/"
+    );
+  }
 };
 
 export const formatName = (name) => {

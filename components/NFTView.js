@@ -4,7 +4,11 @@ import { initMoralis, getUserNFTs, getSEUserNFTs } from "../helpers/Moralis";
 import ViewSelection from "../components/ViewSelection";
 // import { useMoralisWeb3Api } from "react-moralis";
 import { getContract } from "../helpers/Contract";
-import { getTokenUriById, getNFTData } from "../helpers/NFTHelper";
+import {
+  getTokenUriById,
+  getNFTData,
+  getLastestBoughtFromNK,
+} from "../helpers/NFTHelper";
 import Pagination from "../components/Pagination";
 import toast from "../components/Toast";
 
@@ -37,13 +41,17 @@ const NFTView = () => {
   }, []);
 
   useEffect(() => {
+    if (!chainId) return;
     if (account) {
       const getNfts = async () => {
         try {
-          let seNFTs = await getNFTData(provider, account, "se");
-          setUserNFTs(seNFTs);
+          // let seNFTs = await getNFTData(provider, account, "se");
+          // setUserNFTs(seNFTs);
           setIsLoading(false);
+
+          let events = await getLastestBoughtFromNK(provider);
         } catch (err) {
+          console.log({ err });
           notify("error", err);
         }
       };

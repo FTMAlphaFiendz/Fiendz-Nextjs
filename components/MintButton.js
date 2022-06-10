@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Puff } from "react-loading-icons";
 
 const MintButton = ({
   mintFunction,
+  fmFunction,
+  isFreeMintEligible,
   isLoading,
   account,
+  provider,
   chainId,
   mintAmount,
+  buttonText,
 }) => {
   const formatBtnText = (account, chainId) => {
     let text;
@@ -34,10 +38,18 @@ const MintButton = ({
       ) : (
         <button
           className="sm:ml-2 hover:shadow-xl duration-500 hover:text-white font-freckle check-whitelist-btn button-border mint-button"
-          onClick={() => mintFunction(mintAmount)}
+          onClick={() => {
+            console.log({ isFreeMintEligible });
+            if (isFreeMintEligible) {
+              console.log("here");
+              fmFunction(provider, mintAmount);
+              return;
+            }
+            mintFunction(provider, mintAmount);
+          }}
         >
           <span className="button-text text-border">
-            {formatBtnText(account, chainId)}
+            {buttonText ? buttonText : formatBtnText(account, chainId)}
           </span>
         </button>
       )}

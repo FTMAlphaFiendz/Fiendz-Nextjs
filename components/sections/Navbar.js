@@ -104,6 +104,7 @@ const Navbar = () => {
             : nonHomeLinks.map((link) => {
                 return (
                   <div
+                    key={link.name}
                     className="py-3 md:py-0"
                     onClick={() => {
                       console.log(open);

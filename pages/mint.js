@@ -5,11 +5,13 @@ import { UserContext } from "../context/UserContext";
 import { getContract } from "../helpers/Contract";
 import {
   mintNft,
+  fmNft,
   getAndSetMintProgress,
   getAndSetMintAmountLeft,
   getIsWhitelistOnly,
   isAccountWhitelisted,
   getMaxMintAmount,
+  checkEligibleFreeMint,
 } from "../helpers/MintHelper";
 import NFTMint from "../components/NFTMint";
 import SEOMeta from "../components/SEOMeta";
@@ -23,6 +25,7 @@ const Mint = () => {
   const [maxMintAmount, setMaxMintAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [nftContract, setNftContract] = useState(null);
+  const [isFreeMintEligible, setIsFreeMintEligible] = useState(false);
   const { account, chainId, provider } = useContext(UserContext);
 
   const appHeight = () => {
@@ -43,7 +46,13 @@ const Mint = () => {
     await getAndSetMintProgress(contract, setMintCompletePercent);
   };
 
-  const mint = async (mintAmount) => {
+  const checkingEligibility = async (provider, account) => {
+    let eligible = await checkEligibleFreeMint(provider, account);
+    setIsFreeMintEligible(eligible);
+    return eligible;
+  };
+
+  const mint = async (provider, mintAmount) => {
     let web3;
     if (!nftContract) return;
     if (provider) web3 = new Web3(provider);
@@ -51,6 +60,7 @@ const Mint = () => {
     console.log("HERE");
     try {
       let isOnlyWhitelist = await getIsWhitelistOnly(nftContract);
+      isOnlyWhitelist = false;
       console.log({ isOnlyWhitelist });
       if (isOnlyWhitelist) {
         let isAccWhitelist = await isAccountWhitelisted(nftContract, account);
@@ -63,12 +73,29 @@ const Mint = () => {
           return;
         }
       }
-      let tx = await mintNft(account, nftContract, mintAmount, web3);
+      let tx = await mintNft(provider, account, nftContract, mintAmount, web3);
+      notify("success", `Mint Successfully`);
+      await checkingEligibility(provider, account);
       console.log({ tx });
     } catch (e) {
       notify("error", e.message);
+      console.log({ e });
     }
     return;
+  };
+
+  const fmFunction = async (provider, mintAmount) => {
+    let web3;
+    if (!nftContract) return;
+    if (provider) web3 = new Web3(provider);
+    try {
+      let tx = await fmNft(provider, account, nftContract, mintAmount, web3);
+      console.log({ tx });
+      await checkingEligibility(provider, account);
+    } catch (err) {
+      notify("error", e.message);
+      console.log({ e });
+    }
   };
 
   const listenAndUpdateByEvent = async (contract) => {
@@ -81,17 +108,23 @@ const Mint = () => {
   };
 
   useEffect(() => {
-    if (account && provider) {
-      let Contract = getContract(provider, "fafz");
-      setNftContract(Contract);
-      (async () => {
-        //getting percent of mint completed and left to mint
-        await getUIUpdates(Contract);
-        //subscribing to transfer event from contract
-        await listenAndUpdateByEvent(Contract);
-        let mmAmount = await getMaxMintAmount(Contract);
-        setMaxMintAmount(mmAmount);
-      })();
+    if (chainId && chainId !== 4002) {
+      notify("error", `Need to change network to Fantom`);
+    } else {
+      if (account && provider) {
+        let Contract = getContract(provider, "fafz");
+        setNftContract(Contract);
+        (async () => {
+          let isEligible = await checkingEligibility(provider, account);
+          console.log({ isEligible });
+          // getting percent of mint completed and left to mint
+          await getUIUpdates(Contract);
+          //subscribing to transfer event from contract
+          await listenAndUpdateByEvent(Contract);
+          let mmAmount = await getMaxMintAmount(Contract);
+          setMaxMintAmount(mmAmount);
+        })();
+      }
     }
   }, [account, provider, chainId]);
 
@@ -105,10 +138,12 @@ const Mint = () => {
       <SEOMeta page="Mint" description={SEOdesc} path="/mint" />
       <NftPageViewWrapper>
         <NFTMint
+          isFreeMintEligible={isFreeMintEligible}
           mintFunction={mint}
           maxMintAmount={maxMintAmount}
           mintCompletePercent={mintCompletePercent}
           mintAmountLeft={mintAmountLeft}
+          fmFunction={fmFunction}
         />
       </NftPageViewWrapper>
     </div>

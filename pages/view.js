@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useState, useCallback } from "react";
 import NftPageViewWrapper from "../components/NftPageViewWrapper";
 import { UserContext } from "../context/UserContext";
 import SEOMeta from "../components/SEOMeta";
-import dynamic from "next/dynamic";
-
-const DynamicView = dynamic(() => import("../components/NFTView"));
+import NFTView from "../components/NFTView";
 
 const SEOdesc =
   "Page to view all Special Edition FAFz and FAFz generative collection";
@@ -25,7 +23,7 @@ const View = () => {
     <div>
       <SEOMeta page="View" description={SEOdesc} path="/view" />
       <NftPageViewWrapper>
-        <DynamicView />
+        <NFTView />
       </NftPageViewWrapper>
     </div>
   );

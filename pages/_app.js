@@ -15,6 +15,7 @@ const MyApp = ({ Component, pageProps }) => {
   const [account, setAccount] = useState(null);
   const [chainId, setChainId] = useState(null);
   const [provider, setProvider] = useState(null);
+  const [seCount, setSECount] = useState(0);
 
   const connectWallet = async () => {
     let userInfo = await connectWalletThruModel();

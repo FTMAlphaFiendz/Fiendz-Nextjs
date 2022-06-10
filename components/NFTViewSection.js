@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { formatUrl, formatName } from "../helpers/utils";
 import NFTModal from "./NFTModal";
+import { GrTransaction } from "react-icons/gr";
 
 const NFTViewSection = ({ nfts, skeletonCount, isLoading }) => {
   const [metaData, setMetadata] = useState([]);
@@ -25,7 +27,7 @@ const NFTViewSection = ({ nfts, skeletonCount, isLoading }) => {
   }, [nfts]);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center w-full">
       {isLoading ? (
         <div className="my-8 w-11/12 md:w-12/12">
           <div className="grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -70,7 +72,22 @@ const NFTViewSection = ({ nfts, skeletonCount, isLoading }) => {
               })}
             </div>
           ) : (
-            <div>No Nfts</div>
+            <div className="flex flex-col items-center justify-center w-full">
+              <p className="font-inter text-border my-3">
+                You have no FAFz in this wallet
+              </p>
+              <p className="font-inter text-border mb-3">Lets Mint Some!!</p>
+              <Link href="/mint">
+                <button
+                  className={`link-button bg-white p-3 font-freckle w-150 text-center flex items-center justify-center text-border m-2 button-border px-10`}
+                >
+                  <span className="text-2xl mr-1 button-text">
+                    <GrTransaction />
+                  </span>
+                  <span className="button-text">Go To Mint</span>
+                </button>
+              </Link>
+            </div>
           )}
         </div>
       )}
