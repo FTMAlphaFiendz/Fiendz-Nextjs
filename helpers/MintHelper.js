@@ -1,4 +1,6 @@
 import { getContract } from "./Contract";
+import testContractABI from "../public/files/abi/testNftABI.json";
+import abiDecoder from "abi-decoder";
 
 export const mintNft = async (
   provider,
@@ -24,7 +26,9 @@ export const fmNft = async (provider, account, contract, mintAmount, web3) => {
     let tx = await sendFM(account, contract, mintAmount, web3, seHolderCount);
     return tx;
   } catch (err) {
-    throw err;
+    let { transactionHash, blockNumber } = err.receipt;
+    let reason = await getRevertReason(transactionHash, blockNumber, web3);
+    console.log({ reason });
   }
 };
 
@@ -49,22 +53,41 @@ export const sendMintTx = async (
   let seHolderCount = 0;
   //calc mint cost
   let mintCost = cost * mintAmount;
-  console.log({ mintCost });
-  let calcCost = web3.utils.fromWei(mintCost.toString(), "ether");
-  console.log({ calcCost });
   //checking transaction amount from wallet
   const nonce = await web3.eth.getTransactionCount(account, "latest");
   //setting params
   let params = {
     from: account,
-    value: web3.utils.toWei(calcCost, "ether"),
+    value: web3.utils.toWei(mintCost.toString(), "ether"),
     nonce: nonce,
     gasLimit: 3000000,
   };
-  //sending transaction
-  console.log({ params });
-  let tx = await contract.methods.mint(mintAmount, seHolderCount).send(params);
+  let tx;
+  try {
+    tx = await contract.methods.mint(mintAmount, seHolderCount).send(params);
+  } catch (err) {
+    let { transactionHash, blockNumber } = err.receipt;
+    console.log({ transactionHash });
+    let reason = await getRevertReason(transactionHash, blockNumber, web3);
+    console.log({ reason });
+  }
   return tx;
+};
+
+const getRevertReason = async (txHash, blockNumber, web3) => {
+  console.log("HERE");
+  const tx = await web3.eth.getTransaction(txHash);
+  console.log({ tx });
+  console.log("HERE");
+  let result = await web3.eth.call(tx, blockNumber);
+  result = result.startsWith("0x") ? result : `0x${result}`;
+  if (result && result.substr(138)) {
+    const reason = web3.utils.toAscii(result.substr(138));
+    console.log("Revert reason:", reason);
+    return reason;
+  } else {
+    console.log("Cannot get reason - No return value");
+  }
 };
 
 export const getSEHolderCount = async (provider, account) => {

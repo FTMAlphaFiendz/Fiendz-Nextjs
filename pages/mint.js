@@ -78,8 +78,7 @@ const Mint = () => {
       await checkingEligibility(provider, account);
       console.log({ tx });
     } catch (e) {
-      notify("error", e.message);
-      console.log({ e });
+      getErrorMessage(e);
     }
     return;
   };
@@ -93,8 +92,20 @@ const Mint = () => {
       console.log({ tx });
       await checkingEligibility(provider, account);
     } catch (err) {
+      getErrorMessage(e);
+    }
+  };
+
+  const getErrorMessage = (e) => {
+    let initIndex = e.message.search("{");
+    if (initIndex > 0) {
+      let finalIndex = e.message.length;
+      let errorMessage = e.message.substring(initIndex, finalIndex);
+      errorMessage = JSON.parse(errorMessage);
+      let { message } = errorMessage;
+      notify("error", message);
+    } else {
       notify("error", e.message);
-      console.log({ e });
     }
   };
 
@@ -111,6 +122,7 @@ const Mint = () => {
     if (chainId && chainId !== 4002) {
       notify("error", `Need to change network to Fantom`);
     } else {
+      console.log("here??", chainId);
       if (account && provider) {
         let Contract = getContract(provider, "fafz");
         setNftContract(Contract);
