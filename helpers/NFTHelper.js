@@ -2,6 +2,7 @@ import { formatUrl } from "../helpers/utils";
 import { getContract } from "../helpers/Contract";
 import axios from "axios";
 import Web3 from "web3";
+import { GrInProgress } from "react-icons/gr";
 
 const getWeb3 = (provider) => {
   return new Web3(provider);
@@ -22,6 +23,7 @@ export const getTokenUriById = async (contract, id) => {
 export const getMetadata = async (tokenUri) => {
   let formattedURI = formatUrl(tokenUri);
   let { data } = await axios.get(formattedURI);
+  console.log("in get metadata", data);
   return data;
 };
 
@@ -34,12 +36,16 @@ export const getNFTData = async (provider, account, type) => {
   let dataArray = [];
   let contract = getContract(provider, type);
   let tokenIds = await getTokensFromWallet(contract, account);
+  console.log(tokenIds);
   //this is temporary
-  // tokenIds = [1, 2, 3, 4, 5, 6, 7, 8];
+  tokenIds = [1, 2, 3, 4, 5, 6, 7, 8];
   if (tokenIds.length === 0) return dataArray;
   for (const id of tokenIds) {
+    console.log({ id });
     let uri = await getTokenUriById(contract, id);
+    console.log({ uri });
     dataArray.push(await getMetadata(uri));
+    console.log("pushed");
   }
   let data = await Promise.all(dataArray);
   console.log(data);

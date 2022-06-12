@@ -1,54 +1,28 @@
 import { getContract } from "./Contract";
-import testContractABI from "../public/files/abi/testNftABI.json";
-import abiDecoder from "abi-decoder";
-
-export const mintNft = async (
-  provider,
-  account,
-  contract,
-  mintAmount,
-  web3
-) => {
-  try {
-    let tx = await sendMintTx(provider, contract, account, mintAmount, web3);
-    return tx;
-  } catch (err) {
-    throw err;
-  }
-};
-
 export const fmNft = async (provider, account, contract, mintAmount, web3) => {
-  try {
-    console.log("before seHolder");
-    // let seHolderCount = await getSEHolderCount(provider, account);
-    let seHolderCount = 1;
-    console.log({ seHolderCount, mintAmount });
-    let tx = await sendFM(account, contract, mintAmount, web3, seHolderCount);
-    return tx;
-  } catch (err) {
-    let { transactionHash, blockNumber } = err.receipt;
-    let reason = await getRevertReason(transactionHash, blockNumber, web3);
-    console.log({ reason });
-  }
-};
-
-const sendFM = async (account, contract, mintAmount, web3, seHolderCount) => {
-  console.log(contract);
+  //THIS WILL GET ADDED WITH MAINNET
+  // let seHolderCount = await getSEHolderCount(provider, account);
+  let seHolderCount = 1;
+  console.log({ seHolderCount, mintAmount });
   const nonce = await web3.eth.getTransactionCount(account, "latest");
+  console.log({ nonce });
   let tx = await contract.methods
     .freemint(mintAmount, seHolderCount)
     .send({ from: account, nonce, gasLimit: 3000000 });
+  console.log({ tx });
   return tx;
 };
 
-export const sendMintTx = async (
+export const mintNft = async (
   provider,
   contract,
   account,
   mintAmount,
   web3
 ) => {
+  console.log(contract);
   let cost = await contract.methods.cost().call();
+  console.log({ cost });
   // let seHolderCount = await getSEHolderCount(provider, account);
   let seHolderCount = 0;
   //calc mint cost
@@ -62,31 +36,24 @@ export const sendMintTx = async (
     nonce: nonce,
     gasLimit: 3000000,
   };
-  let tx;
-  try {
-    tx = await contract.methods.mint(mintAmount, seHolderCount).send(params);
-  } catch (err) {
-    let { transactionHash, blockNumber } = err.receipt;
-    console.log({ transactionHash });
-    let reason = await getRevertReason(transactionHash, blockNumber, web3);
-    console.log({ reason });
-  }
+  //sending transaction
+  let tx = await contract.methods.mint(mintAmount, seHolderCount).send(params);
   return tx;
 };
 
-const getRevertReason = async (txHash, blockNumber, web3) => {
-  console.log("HERE");
+export const getRevertReason = async (txHash, blockNumber, web3) => {
   const tx = await web3.eth.getTransaction(txHash);
-  console.log({ tx });
-  console.log("HERE");
-  let result = await web3.eth.call(tx, blockNumber);
-  result = result.startsWith("0x") ? result : `0x${result}`;
-  if (result && result.substr(138)) {
-    const reason = web3.utils.toAscii(result.substr(138));
-    console.log("Revert reason:", reason);
-    return reason;
-  } else {
-    console.log("Cannot get reason - No return value");
+  try {
+    let result = await web3.eth.call(tx, blockNumber);
+    result = result.startsWith("0x") ? result : `0x${result}`;
+    if (result && result.substr(138)) {
+      const reason = web3.utils.toAscii(result.substr(138));
+      return reason;
+    } else {
+      return "Cannot get reason - No return value";
+    }
+  } catch (err) {
+    return err;
   }
 };
 
@@ -162,7 +129,6 @@ export const isAccountWhitelisted = async (contract, account) => {
 
 export const checkEligibleFreeMint = async (provider, account) => {
   let seContract = getContract(provider, "se");
-  console.log("IN CHECKELIGIBLEFREEMINT");
   //this is a holders address
   // account = "0xa048736571f18948bba02f9c9f765d99f9c4d5f9";
   // let seCount = await seContract.methods.walletOfOwner(account).call();
@@ -171,9 +137,9 @@ export const checkEligibleFreeMint = async (provider, account) => {
   let fafzContract = getContract(provider, "fafz");
   let fafzCount = await fafzContract.methods.walletOfOwner(account).call();
   let isEligible = await fafzContract.methods.isfreeMinted(account).call();
-  // isEligible = true;
+  isEligible = true;
   fafzCount = fafzCount.length;
-  console.log({ seCount, fafzCount, isEligible });
+  console.log("in check if eligible", { seCount, fafzCount, isEligible });
 
   if (seCount > 0 && isEligible) {
     if (fafzCount >= seCount) {

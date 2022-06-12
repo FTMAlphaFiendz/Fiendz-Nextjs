@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Puff } from "react-loading-icons";
+import React from "react";
 
 const MintButton = ({
   mintFunction,
   fmFunction,
   isFreeMintEligible,
-  isLoading,
-  account,
-  provider,
-  chainId,
   mintAmount,
   buttonText,
+  user,
 }) => {
+  const isDisabled = true;
   const formatBtnText = (account, chainId) => {
     let text;
     if (!account) {
@@ -25,34 +22,29 @@ const MintButton = ({
       }
     } else {
       //wallet is connected and chain is Fantom
-      text = "MINT MAINNET";
+      text = "MINT";
     }
     return text;
   };
   return (
     <>
-      {isLoading ? (
-        <span>
-          <Puff stroke="#1d1f91" fill="#1d1f91" speed={0.75} />
+      <button
+        className={`sm:ml-2 hover:shadow-xl duration-500 hover:text-white font-freckle check-whitelist-btn button-border mint-button`}
+        onClick={() => {
+          console.log({ isFreeMintEligible });
+          if (isFreeMintEligible) {
+            fmFunction(user?.provider, user?.account, mintAmount);
+            return;
+          }
+          mintFunction(user?.provider, user?.account, mintAmount);
+        }}
+      >
+        <span className="button-text text-border">
+          {buttonText
+            ? buttonText
+            : formatBtnText(user?.account, user?.chainId)}
         </span>
-      ) : (
-        <button
-          className="sm:ml-2 hover:shadow-xl duration-500 hover:text-white font-freckle check-whitelist-btn button-border mint-button"
-          onClick={() => {
-            console.log({ isFreeMintEligible });
-            if (isFreeMintEligible) {
-              console.log("here");
-              fmFunction(provider, mintAmount);
-              return;
-            }
-            mintFunction(provider, mintAmount);
-          }}
-        >
-          <span className="button-text text-border">
-            {buttonText ? buttonText : formatBtnText(account, chainId)}
-          </span>
-        </button>
-      )}
+      </button>
     </>
   );
 };

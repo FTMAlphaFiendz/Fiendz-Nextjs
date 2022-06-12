@@ -20,7 +20,8 @@ const viewSelections = [
 
 const NFTView = () => {
   // const Web3Api = useMoralisWeb3Api();
-  const { account, provider, chainId } = useContext(UserContext);
+  // const { account, provider, chainId } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [selected, setSelected] = useState("view");
   const [userNFTs, setUserNFTs] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,25 +41,51 @@ const NFTView = () => {
     toast({ type, message });
   }, []);
 
+  // useEffect(() => {
+  //   if (!chainId) return;
+  //   if (account) {
+  //     const getNfts = async () => {
+  //       try {
+  //         let seNFTs = await getNFTData(provider, account, "fafz");
+  //         console.log({ seNFTs });
+  //         setUserNFTs(seNFTs);
+  //         setIsLoading(false);
+
+  //         // let events = await getLastestBoughtFromNK(provider);
+  //       } catch (err) {
+  //         console.log({ err });
+  //         notify("error", err);
+  //       }
+  //     };
+
+  //     getNfts().catch((err) => console.log(err));
+  //   }
+  // }, [account, chainId]);
+
   useEffect(() => {
-    if (!chainId) return;
-    if (account) {
-      const getNfts = async () => {
-        try {
-          // let seNFTs = await getNFTData(provider, account, "se");
-          // setUserNFTs(seNFTs);
-          setIsLoading(false);
+    console.log("in view", { user });
+    if (user) {
+      if (user?.chainId !== 4002) {
+        console.log("view not right chain id");
+        return;
+      } else {
+        const getNfts = async (provider, account) => {
+          try {
+            let seNFTs = await getNFTData(provider, account, "fafz");
+            console.log({ seNFTs });
+            setUserNFTs(seNFTs);
+            setIsLoading(false);
 
-          let events = await getLastestBoughtFromNK(provider);
-        } catch (err) {
-          console.log({ err });
-          notify("error", err);
-        }
-      };
-
-      getNfts().catch((err) => console.log(err));
+            // let events = await getLastestBoughtFromNK(provider);
+          } catch (err) {
+            console.log({ err });
+            notify("error", err);
+          }
+        };
+        getNfts(user.provider, user.account).catch((err) => console.log(err));
+      }
     }
-  }, [account, chainId]);
+  }, [user]);
 
   //get nfts for paging
   const indexOfLastNFT = currentPage * nftsPerPage;

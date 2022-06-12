@@ -26,8 +26,9 @@ const nonHomeLinks = [
 
 const Navbar = () => {
   const router = useRouter();
-  const { account, chainId, connectWallet, disconnectWallet } =
-    useContext(UserContext);
+  // const { account, chainId, connectWallet, disconnectWallet } =
+  //   useContext(UserContext);
+  const { user, connectWallet, disconnectWallet } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [isHome, setIsHome] = useState(true);
 
@@ -121,8 +122,8 @@ const Navbar = () => {
               })}
           <li className="block sm:hidden pb-2 sm:pb-0">
             <ConnectWalletBtn
-              account={account}
-              chainId={chainId}
+              account={user?.account}
+              chainId={user?.chainId}
               connectWallet={connectWallet}
               disconnectWallet={disconnectWallet}
             />
@@ -130,8 +131,8 @@ const Navbar = () => {
         </ul>
         <div className="flex flex-1 justify-end hidden sm:flex">
           <ConnectWalletBtn
-            account={account}
-            chainId={chainId}
+            account={user?.account}
+            chainId={user?.chainId}
             connectWallet={connectWallet}
             disconnectWallet={disconnectWallet}
           />

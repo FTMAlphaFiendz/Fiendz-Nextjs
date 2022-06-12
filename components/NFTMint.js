@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import MintButton from "./MintButton";
+import { noWhitelist } from "../helpers/MintHelper";
 import { UserContext } from "../context/UserContext";
 import ProgressBar from "./ProgressBar";
 import { FaMinus, FaPlus } from "react-icons/fa";
@@ -20,14 +21,8 @@ const NFTMint = ({
   const [mintAmount, setMintAmount] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
   const [amountMinted, setAmountMinted] = useState(0);
-  const {
-    account,
-    chainId,
-    provider,
-    connectWallet,
-    disconnectWallet,
-    web3Modal,
-  } = useContext(UserContext);
+  const [isWhitelist, setIsWhitelist] = useState(true);
+  const { user } = useContext(UserContext);
 
   const increment = () => {
     if (mintAmount < maxMintAmount) {
@@ -42,6 +37,7 @@ const NFTMint = ({
   };
 
   useEffect(() => {
+    console.log({ user });
     if (mintAmountLeft === 0) {
       setMintingProgressText("Minting Complete");
     } else {
@@ -57,7 +53,9 @@ const NFTMint = ({
       <h1 className="font-freckle text-4xl md:text-5xl main-title-text-secondary ">
         <b>IN THE FAFZ UNIVERSE</b>
       </h1>
-      <p className="my-3">You can mint up to 5 NFT MAX at 30 $FTM</p>
+      <p className="my-3">
+        You can mint up to {maxMintAmount} NFT MAX at 22 $FTM
+      </p>
       <div className="flex justify-center items-center w-full">
         <div className="flex">
           <button
@@ -80,10 +78,8 @@ const NFTMint = ({
       <p className="my-8 w-11/12 md:w-10/12">
         <MintButton
           isLoading={isLoading}
-          account={account}
-          chainId={chainId}
+          user={user}
           mintAmount={mintAmount}
-          provider={provider}
           mintFunction={mintFunction}
           fmFunction={fmFunction}
           isFreeMintEligible={isFreeMintEligible}

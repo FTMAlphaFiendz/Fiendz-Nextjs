@@ -12,6 +12,8 @@ import {
   isAccountWhitelisted,
   getMaxMintAmount,
   checkEligibleFreeMint,
+  getRevertReason,
+  noWhitelist,
 } from "../helpers/MintHelper";
 import NFTMint from "../components/NFTMint";
 import SEOMeta from "../components/SEOMeta";
@@ -26,7 +28,8 @@ const Mint = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [nftContract, setNftContract] = useState(null);
   const [isFreeMintEligible, setIsFreeMintEligible] = useState(false);
-  const { account, chainId, provider } = useContext(UserContext);
+  // const { account, chainId, provider } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const appHeight = () => {
     const doc = document.documentElement;
@@ -52,18 +55,18 @@ const Mint = () => {
     return eligible;
   };
 
-  const mint = async (provider, mintAmount) => {
+  const mint = async (provider, account, mintAmount) => {
     let web3;
     if (!nftContract) return;
     if (provider) web3 = new Web3(provider);
     console.log("CONTRACT METHODS", nftContract.methods);
-    console.log("HERE");
     try {
       let isOnlyWhitelist = await getIsWhitelistOnly(nftContract);
-      isOnlyWhitelist = false;
+      // isOnlyWhitelist = false;
       console.log({ isOnlyWhitelist });
       if (isOnlyWhitelist) {
         let isAccWhitelist = await isAccountWhitelisted(nftContract, account);
+        isAccWhitelist = true;
         console.log({ isAccWhitelist });
         if (!isAccWhitelist) {
           notify(
@@ -73,18 +76,19 @@ const Mint = () => {
           return;
         }
       }
-      let tx = await mintNft(provider, account, nftContract, mintAmount, web3);
+      let tx = await mintNft(provider, nftContract, account, mintAmount, web3);
       notify("success", `Mint Successfully`);
       await checkingEligibility(provider, account);
       console.log({ tx });
-    } catch (e) {
-      getErrorMessage(e);
+    } catch (err) {
+      await getErrorMessage(err, web3);
     }
     return;
   };
 
-  const fmFunction = async (provider, mintAmount) => {
+  const fmFunction = async (provider, account, mintAmount) => {
     let web3;
+    console.log(account);
     if (!nftContract) return;
     if (provider) web3 = new Web3(provider);
     try {
@@ -92,21 +96,35 @@ const Mint = () => {
       console.log({ tx });
       await checkingEligibility(provider, account);
     } catch (err) {
-      getErrorMessage(e);
+      await getErrorMessage(err, web3);
     }
   };
 
-  const getErrorMessage = (e) => {
-    let initIndex = e.message.search("{");
-    if (initIndex > 0) {
-      let finalIndex = e.message.length;
-      let errorMessage = e.message.substring(initIndex, finalIndex);
-      errorMessage = JSON.parse(errorMessage);
-      let { message } = errorMessage;
-      notify("error", message);
+  const getErrorMessage = async (err, web3) => {
+    let message;
+    if (!err.hasOwnProperty("receipt")) {
+      if (err.message) {
+        message = err.message;
+      } else {
+        let s = JSON.parse(JSON.stringify(err));
+        console.log({ s });
+      }
     } else {
-      notify("error", e.message);
+      console.log("here");
+      let { transactionHash, blockNumber } = err.receipt;
+      let e = await getRevertReason(transactionHash, blockNumber, web3);
+      let initIndex = e.message.search("{");
+      if (initIndex > 0) {
+        let finalIndex = e.message.length;
+        let errorMessage = e.message.substring(initIndex, finalIndex);
+        errorMessage = JSON.parse(errorMessage);
+        message = errorMessage.message;
+      } else {
+        message = e.message;
+      }
     }
+    notify("error", message);
+    return;
   };
 
   const listenAndUpdateByEvent = async (contract) => {
@@ -119,11 +137,11 @@ const Mint = () => {
   };
 
   useEffect(() => {
-    if (chainId && chainId !== 4002) {
-      notify("error", `Need to change network to Fantom`);
-    } else {
-      console.log("here??", chainId);
-      if (account && provider) {
+    if (user?.chainId) {
+      let { provider, account, chainId } = user;
+      if (chainId !== 4002) {
+        notify("error", `Need to change network to Fantom`);
+      } else {
         let Contract = getContract(provider, "fafz");
         setNftContract(Contract);
         (async () => {
@@ -137,10 +155,12 @@ const Mint = () => {
           setMaxMintAmount(mmAmount);
         })();
       }
+      console.log("mint use effect", { user });
     }
-  }, [account, provider, chainId]);
+  }, [user]);
 
   useEffect(() => {
+    console.log({ user });
     window.addEventListener("resize", appHeight);
     appHeight();
   }, []);
@@ -150,6 +170,7 @@ const Mint = () => {
       <SEOMeta page="Mint" description={SEOdesc} path="/mint" />
       <NftPageViewWrapper>
         <NFTMint
+          isLoading={isLoading}
           isFreeMintEligible={isFreeMintEligible}
           mintFunction={mint}
           maxMintAmount={maxMintAmount}

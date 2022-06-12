@@ -15,14 +15,16 @@ const MyApp = ({ Component, pageProps }) => {
   const [account, setAccount] = useState(null);
   const [chainId, setChainId] = useState(null);
   const [provider, setProvider] = useState(null);
+  const [user, setUser] = useState(null);
   const [seCount, setSECount] = useState(0);
 
   const connectWallet = async () => {
     let userInfo = await connectWalletThruModel();
-    let { provider, account, chainId } = userInfo;
-    if (provider) {
-      setProvider(provider);
-      await connectToProviderEvents(provider);
+    // let { provider, account, chainId } = userInfo;
+    console.log({ userInfo });
+    setUser(userInfo);
+    if (userInfo?.provider) {
+      await connectToProviderEvents(userInfo.provider);
     }
     if (account) {
       setAccount(account);
@@ -30,6 +32,7 @@ const MyApp = ({ Component, pageProps }) => {
     if (chainId) {
       setChainId(chainId);
     }
+
     return;
   };
 
@@ -37,7 +40,6 @@ const MyApp = ({ Component, pageProps }) => {
     // Subscribe to accounts change
     provider.on("accountsChanged", (accounts) => {
       setAccount(accounts[0]);
-      window.location.reload();
     });
 
     // Subscribe to chainId change
@@ -64,15 +66,23 @@ const MyApp = ({ Component, pageProps }) => {
       web3Modal.clearCachedProvider();
       clearUserData();
     } catch (err) {
-      console.log("Error Disconnecting", err);
+      // console.log("Error Disconnecting", err);
     }
   };
 
   const clearUserData = () => {
     setAccount(null);
-    setProvider(null);
     setChainId(null);
+    setUser(null);
   };
+
+  useEffect(() => {
+    setUser({ ...user, chainId });
+  }, [chainId]);
+
+  useEffect(() => {
+    setUser({ ...user, account });
+  }, [account]);
 
   useEffect(() => {
     let web3Modal = getWeb3Modal();
@@ -86,19 +96,8 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     <>
-      {/* <MoralisProvider
-        serverUrl={process.env.NEXT_PUBLIC_MORALIS_URL}
-        appId={process.env.NEXT_PUBLIC_MORALIS_APP_ID}
-      > */}
       <UserContext.Provider
-        value={{
-          account,
-          chainId,
-          provider,
-          connectWallet,
-          disconnectWallet,
-          getWeb3Modal,
-        }}
+        value={{ user, connectWallet, disconnectWallet, getWeb3Modal }}
       >
         <Layout>
           <Component {...pageProps} />
@@ -114,7 +113,6 @@ const MyApp = ({ Component, pageProps }) => {
         closeOnClick
         pauseOnHover
       />
-      {/* </MoralisProvider> */}
     </>
   );
 };
