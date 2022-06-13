@@ -21,7 +21,6 @@ const NFTMint = ({
   const [mintAmount, setMintAmount] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
   const [amountMinted, setAmountMinted] = useState(0);
-  const [isWhitelist, setIsWhitelist] = useState(true);
   const { user } = useContext(UserContext);
 
   const increment = () => {
