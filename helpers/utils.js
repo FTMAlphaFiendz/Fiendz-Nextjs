@@ -1,6 +1,6 @@
 export const formatUrl = (tokenURI) => {
-  // let ipfsGateway = "https://cloudflare-ipfs.com/ipfs/";
-  let ipfsGateway = "https://ipfs.io/ipfs/";
+  let ipfsGateway = "https://ftmdead.mypinata.cloud/ipfs/";
+  // let ipfsGateway = "https://ipfs.io/ipfs/";
   if (!tokenURI) return;
   if (tokenURI.includes("https://gateway.pinata.cloud/ipfs/")) {
     return tokenURI.replace("https://gateway.pinata.cloud/ipfs/", ipfsGateway);
