@@ -63,6 +63,7 @@ export const getAllUserNFTs = async (provider, account) => {
   let seData = SEDATA;
   let fafzData = await getNFTData(provider, account, "fafz");
   let allData = seData.concat(fafzData);
+  console.log({ allData });
   return allData;
 };
 
