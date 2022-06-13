@@ -1,16 +1,15 @@
 export const formatUrl = (tokenURI) => {
+  // let ipfsGateway = "https://cloudflare-ipfs.com/ipfs/";
+  let ipfsGateway = "https://ipfs.io/ipfs/";
   if (!tokenURI) return;
   if (tokenURI.includes("https://gateway.pinata.cloud/ipfs/")) {
-    return tokenURI.replace(
-      "https://gateway.pinata.cloud/ipfs/",
-      "https://ipfs.io/ipfs/"
-    );
+    return tokenURI.replace("https://gateway.pinata.cloud/ipfs/", ipfsGateway);
   } else if (tokenURI.includes("ipfs://")) {
-    return tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/");
+    return tokenURI.replace("ipfs://", ipfsGateway);
   } else if (tokenURI.includes("https://potlucklabs.mypinata.cloud/ipfs/")) {
     return tokenURI.replace(
       "https://potlucklabs.mypinata.cloud/ipfs/",
-      "https://ipfs.io/ipfs/"
+      ipfsGateway
     );
   }
 };

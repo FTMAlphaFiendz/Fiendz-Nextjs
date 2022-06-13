@@ -44,7 +44,10 @@ const NFTModal = ({ show, onHide, activeNFT }) => {
               <div className="flex flex-wrap justify-center">
                 {activeNFT.attributes.map((attribute) => {
                   return (
-                    <div className="px-3 py-1 font-inter text-sm attributes ">
+                    <div
+                      key={attribute.trait_type}
+                      className="px-3 py-1 font-inter text-sm attributes "
+                    >
                       {`${attribute.trait_type}: `}
                       {"  "}
                       {attribute.value}
