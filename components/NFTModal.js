@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Image from "next/image";
@@ -24,17 +25,35 @@ const NFTModal = ({ show, onHide, activeNFT }) => {
       </Modal.Header>
       <Modal.Body>
         <div className="flex flex-col items-center">
-          <div className="my-3 ">
-            <Image
-              src={formatUrl(activeNFT.image)}
-              alt={activeNFT.name}
-              height={300}
-              width={275}
-            />
-          </div>
-          <p className="font-inter text-center md:w-10/12">
+          <div className="my-3 "></div>
+          <img
+            src={activeNFT.image}
+            alt={activeNFT.name}
+            style={{ height: "300px", width: "275px" }}
+            className="mb-2"
+          />
+          <h6 className="text-xl font-inter text-border my-1">Description</h6>
+          <p className="font-inter text-center md:w-10/12 text-base">
             {activeNFT.description}
           </p>
+          {activeNFT?.attributes && (
+            <>
+              <h6 className="text-lg font-inter text-border my-1">
+                Attributes
+              </h6>
+              <div className="flex flex-wrap justify-center">
+                {activeNFT.attributes.map((attribute) => {
+                  return (
+                    <div className="px-3 py-1 font-inter text-sm attributes ">
+                      {`${attribute.trait_type}: `}
+                      {"  "}
+                      {attribute.value}
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
       </Modal.Body>
       <Modal.Footer>

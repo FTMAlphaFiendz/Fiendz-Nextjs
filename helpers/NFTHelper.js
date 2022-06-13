@@ -1,8 +1,9 @@
 import { formatUrl } from "../helpers/utils";
 import { getContract } from "../helpers/Contract";
+import { formatName } from "../helpers/utils";
+import SEDATA from "../public/files/testSEData.json";
 import axios from "axios";
 import Web3 from "web3";
-import { GrInProgress } from "react-icons/gr";
 
 const getWeb3 = (provider) => {
   return new Web3(provider);
@@ -23,7 +24,18 @@ export const getTokenUriById = async (contract, id) => {
 export const getMetadata = async (tokenUri) => {
   let formattedURI = formatUrl(tokenUri);
   let { data } = await axios.get(formattedURI);
-  console.log("in get metadata", data);
+  data.image = formatUrl(data.image);
+  data.name = formatName(data.name);
+  if (data.hasOwnProperty("attributes")) {
+    for (const attribute of data.attributes) {
+      if (attribute.hasOwnProperty("trait_type")) {
+        attribute.trait_type = attribute.trait_type.replace("_", "");
+      }
+      if (attribute.hasOwnProperty("value")) {
+        attribute.value = attribute.value.replaceAll("_", " ");
+      }
+    }
+  }
   return data;
 };
 
@@ -36,20 +48,22 @@ export const getNFTData = async (provider, account, type) => {
   let dataArray = [];
   let contract = getContract(provider, type);
   let tokenIds = await getTokensFromWallet(contract, account);
-  console.log(tokenIds);
-  //this is temporary
-  tokenIds = [1, 2, 3, 4, 5, 6, 7, 8];
   if (tokenIds.length === 0) return dataArray;
   for (const id of tokenIds) {
-    console.log({ id });
     let uri = await getTokenUriById(contract, id);
-    console.log({ uri });
     dataArray.push(await getMetadata(uri));
-    console.log("pushed");
   }
   let data = await Promise.all(dataArray);
-  console.log(data);
   return data;
+};
+
+export const getAllUserNFTs = async (provider, account) => {
+  //this will work when it is live;
+  // const seData = await getNFTData(provider, account, "se");
+  let seData = SEDATA;
+  let fafzData = await getNFTData(provider, account, "fafz");
+  let allData = seData.concat(fafzData);
+  return allData;
 };
 
 //NFT FUNCTIONS

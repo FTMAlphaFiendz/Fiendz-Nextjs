@@ -17,7 +17,11 @@ export const formatUrl = (tokenURI) => {
 
 export const formatName = (name) => {
   if (name.includes("Fantom Alpha Fiendz:")) {
-    let n = name.replace("Fantom Alpha Fiendz:", "");
+    let n = name.replace("Fantom Alpha Fiendz:", "FAFz:");
+    return n;
+  } else if (name.includes("Fantom Alpha Fiendz")) {
+    let n = name.replace("Fantom Alpha Fiendz", "FAFz:");
     return n;
   }
+  return name;
 };

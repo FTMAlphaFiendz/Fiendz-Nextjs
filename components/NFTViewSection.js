@@ -1,9 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { formatUrl, formatName } from "../helpers/utils";
 import NFTModal from "./NFTModal";
 import { GrTransaction } from "react-icons/gr";
 
@@ -54,19 +53,14 @@ const NFTViewSection = ({ nfts, skeletonCount, isLoading }) => {
                         setActiveNFT(data);
                       }}
                     >
-                      <Image
-                        src={formatUrl(data.image)}
+                      <img
+                        src={data.image}
                         alt={data.name}
-                        height={150}
-                        width={150}
-                        className="view-nft"
-                        objectFit="contain"
-                        priority={true}
+                        className="view-nft mb-2"
+                        style={{ height: "150px", width: "150px" }}
                       />
                     </div>
-                    <h3 className="font-inter text-border">
-                      {formatName(data.name)}
-                    </h3>
+                    <h3 className="font-inter text-border">{data.name}</h3>
                   </div>
                 );
               })}

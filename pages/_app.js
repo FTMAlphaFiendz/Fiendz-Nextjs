@@ -9,7 +9,6 @@ import {
   getChainIdFromString,
 } from "../helpers/Web3Client";
 import "../styles/globals.css";
-import { MoralisProvider } from "react-moralis";
 
 const MyApp = ({ Component, pageProps }) => {
   const [account, setAccount] = useState(null);

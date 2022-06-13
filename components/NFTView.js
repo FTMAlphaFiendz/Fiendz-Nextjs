@@ -1,13 +1,10 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext } from "../context/UserContext";
-import { initMoralis, getUserNFTs, getSEUserNFTs } from "../helpers/Moralis";
 import ViewSelection from "../components/ViewSelection";
-// import { useMoralisWeb3Api } from "react-moralis";
-import { getContract } from "../helpers/Contract";
 import {
-  getTokenUriById,
-  getNFTData,
   getLastestBoughtFromNK,
+  getAllUserNFTs,
+  getIsWhitelistOnly,
 } from "../helpers/NFTHelper";
 import Pagination from "../components/Pagination";
 import toast from "../components/Toast";
@@ -17,10 +14,7 @@ const viewSelections = [
   // { title: "Staking", type: "stake", disabled: true },
   // { title: "Activity", type: "activity", disabled: true },
 ];
-
 const NFTView = () => {
-  // const Web3Api = useMoralisWeb3Api();
-  // const { account, provider, chainId } = useContext(UserContext);
   const { user } = useContext(UserContext);
   const [selected, setSelected] = useState("view");
   const [userNFTs, setUserNFTs] = useState("");
@@ -28,42 +22,11 @@ const NFTView = () => {
   const [nftsPerPage] = useState(6);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getAllNfts = async () => {
-    let nfts = await getUserNFTs(
-      "0xBc83cae02389fe6A719C49BbEA5f8bEc795c1147",
-      account,
-      chainId
-    );
-    setUserNFTs(nfts.result);
-  };
-
   const notify = useCallback((type, message) => {
     toast({ type, message });
   }, []);
 
-  // useEffect(() => {
-  //   if (!chainId) return;
-  //   if (account) {
-  //     const getNfts = async () => {
-  //       try {
-  //         let seNFTs = await getNFTData(provider, account, "fafz");
-  //         console.log({ seNFTs });
-  //         setUserNFTs(seNFTs);
-  //         setIsLoading(false);
-
-  //         // let events = await getLastestBoughtFromNK(provider);
-  //       } catch (err) {
-  //         console.log({ err });
-  //         notify("error", err);
-  //       }
-  //     };
-
-  //     getNfts().catch((err) => console.log(err));
-  //   }
-  // }, [account, chainId]);
-
   useEffect(() => {
-    console.log("in view", { user });
     if (user) {
       if (user?.chainId !== 4002) {
         console.log("view not right chain id");
@@ -71,11 +34,10 @@ const NFTView = () => {
       } else {
         const getNfts = async (provider, account) => {
           try {
-            let seNFTs = await getNFTData(provider, account, "fafz");
-            console.log({ seNFTs });
-            setUserNFTs(seNFTs);
+            let allData = await getAllUserNFTs(provider, account);
+            setUserNFTs(allData);
             setIsLoading(false);
-
+            //THIS WILL BE FOR THE FUTURE FOOTER SALE INFO
             // let events = await getLastestBoughtFromNK(provider);
           } catch (err) {
             console.log({ err });

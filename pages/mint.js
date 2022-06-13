@@ -28,7 +28,7 @@ const Mint = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [nftContract, setNftContract] = useState(null);
   const [isFreeMintEligible, setIsFreeMintEligible] = useState(false);
-  // const { account, chainId, provider } = useContext(UserContext);
+  const [isWhitelist, setIsWhitelist] = useState(false);
   const { user } = useContext(UserContext);
 
   const appHeight = () => {
@@ -145,6 +145,8 @@ const Mint = () => {
         let Contract = getContract(provider, "fafz");
         setNftContract(Contract);
         (async () => {
+          let isOnlyWhitelist = await getIsWhitelistOnly(Contract);
+          setIsWhitelist(isOnlyWhitelist);
           let isEligible = await checkingEligibility(provider, account);
           console.log({ isEligible });
           // getting percent of mint completed and left to mint
@@ -177,6 +179,7 @@ const Mint = () => {
           mintCompletePercent={mintCompletePercent}
           mintAmountLeft={mintAmountLeft}
           fmFunction={fmFunction}
+          isWhitelist={isWhitelist}
         />
       </NftPageViewWrapper>
     </div>

@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import MintButton from "./MintButton";
-import { noWhitelist } from "../helpers/MintHelper";
 import { UserContext } from "../context/UserContext";
 import ProgressBar from "./ProgressBar";
 import { FaMinus, FaPlus } from "react-icons/fa";
@@ -14,6 +13,7 @@ const NFTMint = ({
   mintAmountLeft,
   maxMintAmount,
   isFreeMintEligible,
+  isWhitelist,
 }) => {
   const [mintingProgressText, setMintingProgressText] = useState(
     "The minting is in progess"
@@ -56,6 +56,7 @@ const NFTMint = ({
       <p className="my-3">
         You can mint up to {maxMintAmount} NFT MAX at 22 $FTM
       </p>
+
       <div className="flex justify-center items-center w-full">
         <div className="flex">
           <button
