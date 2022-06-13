@@ -8,7 +8,7 @@ import Waves from "../Waves";
 import PerksCard from "../PerksCard";
 
 const pageContent =
-  "FAFz is a collection that we will only run for a limited time and limted mint, but we will have very long-term " +
+  "FAFz is a collection that we will only run for a limited time and limited mint, but we will have very long-term " +
   "benefits to holders. Each Fiend is unique in its own way, characterized by a rarity from Common to Legendary.";
 
 const imageCards = [
