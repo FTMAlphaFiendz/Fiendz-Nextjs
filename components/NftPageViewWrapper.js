@@ -11,7 +11,7 @@ const NftPageViewWrapper = ({ children }) => {
           className="w-full flex flex-col items-center justify-center"
         >
           <div className="fiendz-card-container w-5/6 lg:m-3 relative justify-center flex flex-col bg-white items-center lg:w-8/12">
-            <div className="flex items-center w-full">{children}</div>
+            <div className="flex items-center w-full z-10">{children}</div>
           </div>
         </div>
       </div>

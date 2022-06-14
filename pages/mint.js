@@ -61,12 +61,14 @@ const Mint = () => {
     if (provider) web3 = new Web3(provider);
     console.log("CONTRACT METHODS", nftContract.methods);
     try {
+      // let isPaused = await nftContract.methods.paused.call();
+      // console.log({ isPaused });
+
       let isOnlyWhitelist = await getIsWhitelistOnly(nftContract);
       // isOnlyWhitelist = false;
       console.log({ isOnlyWhitelist });
       if (isOnlyWhitelist) {
         let isAccWhitelist = await isAccountWhitelisted(nftContract, account);
-        isAccWhitelist = true;
         console.log({ isAccWhitelist });
         if (!isAccWhitelist) {
           notify(

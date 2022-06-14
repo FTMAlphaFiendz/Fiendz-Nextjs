@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
+  const [currentPage, setCurrentPage] = useState(1);
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalNFTs / nftsperpage); i++) {
     pageNumbers.push(i);
@@ -10,9 +11,18 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
       {pageNumbers.map((number) => (
         <li
           key={number}
-          className="inline-block mx-2 text-xl font-inter text-border cursor-pointer"
+          className={`inline-block mx-2 ${
+            currentPage === number ? "text-3xl" : "text-xl"
+          } font-inter text-border cursor-pointer`}
         >
-          <a onClick={() => paginate(number)}>{number}</a>
+          <a
+            onClick={() => {
+              setCurrentPage(number);
+              paginate(number);
+            }}
+          >
+            {number}
+          </a>
         </li>
       ))}
     </ul>
