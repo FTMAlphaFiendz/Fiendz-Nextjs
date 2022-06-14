@@ -5,6 +5,7 @@ const ConnectWalletBtn = ({
   chainId,
   connectWallet,
   disconnectWallet,
+  className,
 }) => {
   const [disconnectButtonTxt, setDisconnectButtonTxt] = useState("");
 
@@ -33,14 +34,22 @@ const ConnectWalletBtn = ({
           onMouseLeave={() =>
             setDisconnectButtonTxt(formatDisconnectText(account, chainId))
           }
-          className="p-2.5 sm:ml-2 rounded-full border-2 border-orange-700 hover:shadow-xl duration-500 hover:text-white font-freckle mr-16 lg:mx-2 w-48 connect-button"
+          className={`${
+            className
+              ? className
+              : "p-2.5 sm:ml-2 rounded-full border-2 border-orange-700 hover:shadow-xl duration-500 hover:text-white font-freckle mr-16 lg:mx-2 w-48 connect-button"
+          }`}
         >
           {disconnectButtonTxt}
         </button>
       ) : (
         <button
           onClick={connectWallet}
-          className="p-2.5 sm:ml-2 border-2 border-orange-700 hover:shadow-xl duration-500 hover:text-white font-freckle mr-16 lg:mx-2 w-48 connect-button"
+          className={`${
+            className
+              ? className
+              : "p-2.5 sm:ml-2 rounded-full border-2 border-orange-700 hover:shadow-xl duration-500 hover:text-white font-freckle mr-16 lg:mx-2 w-48 connect-button"
+          }`}
         >
           Connect Wallet
         </button>

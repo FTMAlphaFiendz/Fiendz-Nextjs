@@ -56,14 +56,21 @@ const Mint = () => {
   };
 
   const mint = async (provider, account, mintAmount) => {
+    console.log("here");
     let web3;
-    if (!nftContract) return;
     if (provider) web3 = new Web3(provider);
-    console.log("CONTRACT METHODS", nftContract.methods);
+    let chainId = await web3.eth.getChainId();
+    if (chainId !== 4002) {
+      notify("error", "Please connect to Fantom Mainnet and try again");
+      return;
+    }
+    if (!nftContract) return;
     try {
-      // let isPaused = await nftContract.methods.paused.call();
-      // console.log({ isPaused });
-
+      let isPaused = await nftContract.methods.paused().call();
+      if (isPaused) {
+        notify("error", "Contract is paused");
+        return;
+      }
       let isOnlyWhitelist = await getIsWhitelistOnly(nftContract);
       // isOnlyWhitelist = false;
       console.log({ isOnlyWhitelist });

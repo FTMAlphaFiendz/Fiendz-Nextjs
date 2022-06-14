@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import ConnectWalletBtn from "./ConnectWalletBtn";
 
 const MintButton = ({
   mintFunction,
@@ -6,8 +8,8 @@ const MintButton = ({
   isFreeMintEligible,
   mintAmount,
   buttonText,
-  user,
 }) => {
+  let { user, connectWallet, disconnectWallet } = useContext(UserContext);
   const isDisabled = true;
   const formatBtnText = (account, chainId) => {
     let text;
@@ -28,23 +30,33 @@ const MintButton = ({
   };
   return (
     <>
-      <button
-        className={`sm:ml-2 hover:shadow-xl duration-500 hover:text-white font-freckle check-whitelist-btn button-border mint-button`}
-        onClick={() => {
-          console.log({ isFreeMintEligible });
-          if (isFreeMintEligible) {
-            fmFunction(user?.provider, user?.account, mintAmount);
-            return;
-          }
-          mintFunction(user?.provider, user?.account, mintAmount);
-        }}
-      >
-        <span className="button-text text-border">
-          {buttonText
-            ? buttonText
-            : formatBtnText(user?.account, user?.chainId)}
-        </span>
-      </button>
+      {user?.account ? (
+        <button
+          className={`sm:ml-2 hover:shadow-xl duration-500 hover:text-white font-freckle check-whitelist-btn button-border mint-button`}
+          onClick={() => {
+            console.log({ isFreeMintEligible });
+            if (isFreeMintEligible) {
+              fmFunction(user?.provider, user?.account, mintAmount);
+              return;
+            }
+            mintFunction(user?.provider, user?.account, mintAmount);
+          }}
+        >
+          <span className="button-text text-border">
+            {buttonText
+              ? buttonText
+              : formatBtnText(user?.account, user?.chainId)}
+          </span>
+        </button>
+      ) : (
+        <ConnectWalletBtn
+          account={user?.account}
+          chainId={user?.chainId}
+          connectWallet={connectWallet}
+          disconnectWallet={disconnectWallet}
+          className="sm:ml-2 hover:shadow-xl duration-500 hover:text-white font-freckle check-whitelist-btn button-border mint-button"
+        />
+      )}
     </>
   );
 };

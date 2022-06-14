@@ -19,8 +19,6 @@ const MyApp = ({ Component, pageProps }) => {
 
   const connectWallet = async () => {
     let userInfo = await connectWalletThruModel();
-    // let { provider, account, chainId } = userInfo;
-    console.log({ userInfo });
     setUser(userInfo);
     if (userInfo?.provider) {
       await connectToProviderEvents(userInfo.provider);
