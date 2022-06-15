@@ -22,6 +22,7 @@ import toast from "../components/Toast";
 const SEOdesc = "Fantom Alpha Fiendz Mint Page";
 
 const Mint = () => {
+  const [isPaused, setIsPaused] = useState(true);
   const [mintAmountLeft, setMintAmountLeft] = useState(1111);
   const [mintCompletePercent, setMintCompletePercent] = useState(0);
   const [maxMintAmount, setMaxMintAmount] = useState(0);
@@ -68,7 +69,10 @@ const Mint = () => {
     try {
       let isPaused = await nftContract.methods.paused().call();
       if (isPaused) {
-        notify("error", "Contract is paused");
+        notify(
+          "error",
+          "Mint is not live yet, check back on June 17th @8pm UTC"
+        );
         return;
       }
       let isOnlyWhitelist = await getIsWhitelistOnly(nftContract);
@@ -154,10 +158,12 @@ const Mint = () => {
         let Contract = getContract(provider, "fafz");
         setNftContract(Contract);
         (async () => {
+          let paused = await Contract.methods.paused().call();
+          setIsPaused(paused);
           let isOnlyWhitelist = await getIsWhitelistOnly(Contract);
           setIsWhitelist(isOnlyWhitelist);
           let isEligible = await checkingEligibility(provider, account);
-          console.log({ isEligible });
+          setIsFreeMintEligible(isEligible);
           // getting percent of mint completed and left to mint
           await getUIUpdates(Contract);
           //subscribing to transfer event from contract
@@ -166,7 +172,6 @@ const Mint = () => {
           setMaxMintAmount(mmAmount);
         })();
       }
-      console.log("mint use effect", { user });
     }
   }, [user]);
 
@@ -189,6 +194,7 @@ const Mint = () => {
           mintAmountLeft={mintAmountLeft}
           fmFunction={fmFunction}
           isWhitelist={isWhitelist}
+          isPaused={isPaused}
         />
       </NftPageViewWrapper>
     </div>

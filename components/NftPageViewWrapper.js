@@ -8,10 +8,10 @@ const NftPageViewWrapper = ({ children }) => {
       <div className="flex justify-center items-center place-items-center w-full my-16 md:my-20">
         <div
           id="main"
-          className="w-full flex flex-col items-center justify-center"
+          className="w-full flex flex-col items-center justify-center z-10"
         >
-          <div className="fiendz-card-container w-5/6 lg:m-3 relative justify-center flex flex-col bg-white items-center lg:w-8/12">
-            <div className="flex items-center w-full z-10">{children}</div>
+          <div className="fiendz-card-container w-5/6 lg:m-3 relative justify-center flex flex-col bg-white items-center lg:w-8/12 ">
+            <div className="flex items-center w-full">{children}</div>
           </div>
         </div>
       </div>

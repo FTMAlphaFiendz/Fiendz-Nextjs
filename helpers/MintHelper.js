@@ -1,4 +1,5 @@
 import { getContract } from "./Contract";
+
 export const fmNft = async (provider, account, contract, mintAmount, web3) => {
   //THIS WILL GET ADDED WITH MAINNET
   // let seHolderCount = await getSEHolderCount(provider, account);
@@ -32,6 +33,7 @@ export const mintNft = async (
     nonce: nonce,
     gasLimit: 3000000,
   };
+  console.log({ mintAmount, seHolderCount });
   //sending transaction
   let tx = await contract.methods.mint(mintAmount, seHolderCount).send(params);
   return tx;
@@ -127,7 +129,7 @@ export const checkEligibleFreeMint = async (provider, account) => {
   // account = "0xa048736571f18948bba02f9c9f765d99f9c4d5f9";
   // let seCount = await seContract.methods.walletOfOwner(account).call();
   // seCount = seCount.length;
-  let seCount = 1;
+  let seCount = 0;
   let fafzContract = getContract(provider, "fafz");
   let fafzCount = await fafzContract.methods.walletOfOwner(account).call();
   let isEligible = await fafzContract.methods.isfreeMinted(account).call();

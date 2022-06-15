@@ -3,7 +3,6 @@ import MintButton from "./MintButton";
 import { UserContext } from "../context/UserContext";
 import ProgressBar from "./ProgressBar";
 import { FaMinus, FaPlus } from "react-icons/fa";
-import toast from "./Toast";
 
 const NFTMint = ({
   isLoading,
@@ -14,6 +13,7 @@ const NFTMint = ({
   maxMintAmount,
   isFreeMintEligible,
   isWhitelist,
+  isPaused,
 }) => {
   const [mintingProgressText, setMintingProgressText] = useState(
     "The minting is in progess"
@@ -36,7 +36,6 @@ const NFTMint = ({
   };
 
   useEffect(() => {
-    console.log({ user });
     if (mintAmountLeft === 0) {
       setMintingProgressText("Minting Complete");
     } else {
@@ -76,15 +75,21 @@ const NFTMint = ({
         </div>
       </div>
       <p className="my-8 w-11/12 md:w-10/12">
-        <MintButton
-          isLoading={isLoading}
-          user={user}
-          mintAmount={mintAmount}
-          mintFunction={mintFunction}
-          fmFunction={fmFunction}
-          isFreeMintEligible={isFreeMintEligible}
-          buttonText={isFreeMintEligible ? "Claim Free Mint" : "Mint"}
-        />
+        {isPaused ? (
+          <p className="font-inter text-border text-xl">
+            Mint is not live yet, check back on June 17th @8pm UTC
+          </p>
+        ) : (
+          <MintButton
+            isLoading={isLoading}
+            user={user}
+            mintAmount={mintAmount}
+            mintFunction={mintFunction}
+            fmFunction={fmFunction}
+            isFreeMintEligible={isFreeMintEligible}
+            buttonText={isFreeMintEligible ? "Claim Free Mint" : "Mint"}
+          />
+        )}
       </p>
       {isFinished ? (
         <p className="text-intern text-base mb-2">

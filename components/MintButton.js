@@ -10,7 +10,6 @@ const MintButton = ({
   buttonText,
 }) => {
   let { user, connectWallet, disconnectWallet } = useContext(UserContext);
-  const isDisabled = true;
   const formatBtnText = (account, chainId) => {
     let text;
     if (!account) {
