@@ -107,7 +107,6 @@ const MyApp = ({ Component, pageProps }) => {
         draggable={false}
         pauseOnVisibilityChange
         closeOnClick
-        pauseOnHover
       />
     </>
   );

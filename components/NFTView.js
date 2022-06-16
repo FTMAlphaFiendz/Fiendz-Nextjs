@@ -28,8 +28,9 @@ const NFTView = () => {
   }, []);
 
   useEffect(() => {
-    if (user) {
-      if (user?.chainId !== 4002) {
+    if (user?.account) {
+      let { provider, account, chainId } = user;
+      if (chainId !== 4002) {
         requestChainChange(provider);
         return;
       } else {
@@ -41,11 +42,14 @@ const NFTView = () => {
             //THIS WILL BE FOR THE FUTURE FOOTER SALE INFO
             // let events = await getLastestBoughtFromNK(provider);
           } catch (err) {
-            console.log({ err });
-            notify("error", err);
+            console.log(err);
+            if (err) {
+              notify("error", err.message);
+              return;
+            }
           }
         };
-        getNfts(user.provider, user.account).catch((err) => console.log(err));
+        getNfts(provider, account).catch((err) => console.log(err));
       }
     }
   }, [user]);

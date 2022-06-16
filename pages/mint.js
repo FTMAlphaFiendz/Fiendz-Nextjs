@@ -87,7 +87,7 @@ const Mint = () => {
         }
       }
       let tx = await mintNft(provider, nftContract, account, mintAmount, web3);
-      notify("success", `Mint Successfully`);
+      notify("success", `Mint Successful`);
       setIsSuccessfulMint(true);
       await checkingEligibility(provider, account);
     } catch (err) {

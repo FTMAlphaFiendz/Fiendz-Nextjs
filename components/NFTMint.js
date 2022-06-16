@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import MintButton from "./MintButton";
 import { UserContext } from "../context/UserContext";
 import ProgressBar from "./ProgressBar";
@@ -34,6 +34,19 @@ const NFTMint = ({
     if (mintAmount > 1) {
       setMintAmount(mintAmount - 1);
     }
+  };
+
+  const setProgressText = (isFinished, isPaused, amountMinted) => {
+    let progressText;
+    if (isPaused) {
+      progressText = "Mint has not started";
+    } else if (!isFinished && !isPaused) {
+      progressText = `The minting is in progess (${amountMinted} FAFz left)`;
+    } else if (isFinished) {
+      progressText =
+        "Mint is complete! Head over to the view page to see your NFTs";
+    }
+    return progressText;
   };
 
   useEffect(() => {
@@ -103,15 +116,9 @@ const NFTMint = ({
           </Link>
         </div>
       )}
-      {isFinished ? (
-        <p className="text-intern text-base mb-2">
-          Mint is complete! Head over to the view page to see your NFTs
-        </p>
-      ) : (
-        <p className="text-intern text-base mb-2">
-          {mintingProgressText} ({amountMinted} FAFz left)
-        </p>
-      )}
+      <p className="text-intern text-base mb-2">
+        {setProgressText(isFinished, isPaused, amountMinted)}
+      </p>
       <ProgressBar completed={mintCompletePercent} />
     </div>
   );

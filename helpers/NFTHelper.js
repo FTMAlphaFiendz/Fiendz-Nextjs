@@ -62,7 +62,7 @@ export const getAllUserNFTs = async (provider, account) => {
   // const seData = await getNFTData(provider, account, "se");
   // let seData = SEDATA;
   let seData = [];
-  let fafzData = await getNFTData(provider, account, "test"); //this needs to get changed to fafz
+  let fafzData = await getNFTData(provider, account, "test");
   let allData = seData.concat(fafzData);
   return allData;
 };
@@ -70,12 +70,7 @@ export const getAllUserNFTs = async (provider, account) => {
 //NFT FUNCTIONS
 export const getMetadataByURI = async (tokenUri) => {
   let url = formatUrl(tokenUri);
-  let data;
-  try {
-    data = await axios.get(url);
-  } catch (err) {
-    console.log("Err in fetching metadata: ", err);
-  }
+  let data = await axios.get(url);
   return data;
 };
 
