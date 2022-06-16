@@ -1,7 +1,6 @@
 import { formatUrl } from "../helpers/utils";
 import { getContract } from "../helpers/Contract";
 import { formatName } from "../helpers/utils";
-import SEDATA from "../public/files/testSEData.json";
 import axios from "axios";
 import Web3 from "web3";
 
@@ -51,6 +50,7 @@ export const getNFTData = async (provider, account, type) => {
   if (tokenIds.length === 0) return dataArray;
   for (const id of tokenIds) {
     let uri = await getTokenUriById(contract, id);
+    console.log({ uri });
     dataArray.push(await getMetadata(uri));
   }
   let data = await Promise.all(dataArray);
@@ -58,11 +58,8 @@ export const getNFTData = async (provider, account, type) => {
 };
 
 export const getAllUserNFTs = async (provider, account) => {
-  //this will work when it is live;
-  // const seData = await getNFTData(provider, account, "se");
-  // let seData = SEDATA;
-  let seData = [];
-  let fafzData = await getNFTData(provider, account, "test"); //this needs to get changed to fafz
+  const seData = await getNFTData(provider, account, "se");
+  let fafzData = await getNFTData(provider, account, "fafz");
   let allData = seData.concat(fafzData);
   return allData;
 };

@@ -61,7 +61,7 @@ const Mint = () => {
     let web3;
     if (provider) web3 = new Web3(provider);
     let chainId = await web3.eth.getChainId();
-    if (chainId !== 4002) {
+    if (chainId !== 250) {
       notify("error", "Please connect to Fantom Mainnet and try again");
       return;
     }
@@ -144,10 +144,10 @@ const Mint = () => {
   useEffect(() => {
     if (user?.chainId) {
       let { provider, account, chainId } = user;
-      if (chainId !== 4002) {
+      if (chainId !== 250) {
         requestChainChange(provider);
       } else {
-        let Contract = getContract(provider, "test");
+        let Contract = getContract(provider, "fafz");
         setNftContract(Contract);
         (async () => {
           let paused = await Contract.methods.paused().call();

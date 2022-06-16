@@ -1,12 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
 import Image from "next/image";
-import Div100vh from "react-div-100vh";
 import Waves from "../components/Waves";
-import logoBig from "../public/images/titles/logo-big.png";
 import { UserContext } from "../context/UserContext";
 import WhiteListButton from "../components/WhiteListButton";
 import WhiteListResult from "../components/WhiteListResult";
-// import { ids } from "../config/whitelist.json";
 import WAGMI from "../public/images/coming-soon/fafz-wgmi.png";
 import diamond from "../public/images/coming-soon/ftm-diamond.png";
 import ghost from "../public/images/coming-soon/ghost.png";
@@ -30,7 +27,7 @@ const ComingSoon = ({ ids }) => {
   const [whiteListResult, setWhiteListResult] = useState(false);
   const content =
     "Thanks for stopping by, make sure to check back frequently, mint will be open in the near future!";
-  const { account, chainId, provider, connectWallet } = useContext(UserContext);
+  const { user, connectWallet } = useContext(UserContext);
 
   const checkJson = (account) => {
     let result = ids.find((id) => id === account);
@@ -75,10 +72,10 @@ const ComingSoon = ({ ids }) => {
   }, []);
 
   useEffect(() => {
-    if (!account) {
+    if (!user?.account) {
       resetChecker();
     }
-  }, [account]);
+  }, [user]);
 
   return (
     <div
@@ -114,9 +111,11 @@ const ComingSoon = ({ ids }) => {
           ) : (
             <WhiteListButton
               isLoading={isLoading}
-              account={account}
-              chainId={chainId}
-              checkWhitelist={() => checkWhitelist(account, chainId)}
+              account={user?.account}
+              chainId={user?.chainId}
+              checkWhitelist={() =>
+                checkWhitelist(user?.account, user?.chainId)
+              }
             />
           )}
         </div>

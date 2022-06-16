@@ -29,8 +29,8 @@ const NFTView = () => {
 
   useEffect(() => {
     if (user) {
-      if (user?.chainId !== 4002) {
-        requestChainChange(provider);
+      if (user?.chainId !== 250) {
+        // requestChainChange(user.provider);
         return;
       } else {
         const getNfts = async (provider, account) => {

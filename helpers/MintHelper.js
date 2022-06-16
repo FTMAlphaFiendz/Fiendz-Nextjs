@@ -18,8 +18,7 @@ export const mintNft = async (
   web3
 ) => {
   let cost = await contract.methods.cost().call();
-  // let seHolderCount = await getSEHolderCount(provider, account); this needs to get added back with mainnet
-  let seHolderCount = 0;
+  let seHolderCount = await getSEHolderCount(provider, account);
   //calc mint cost
   let mintCost = cost * mintAmount;
   //checking transaction amount from wallet
@@ -124,10 +123,8 @@ export const checkEligibleFreeMint = async (provider, account) => {
   let seContract = getContract(provider, "se");
   //this is a holders address
   // account = "0xa048736571f18948bba02f9c9f765d99f9c4d5f9";
-  // let seCount = await seContract.methods.walletOfOwner(account).call();
-  // seCount = seCount.length;
-  let seCount = 0;
-  let fafzContract = getContract(provider, "test");
+  let seCount = await seContract.methods.walletOfOwner(account).call();
+  let fafzContract = getContract(provider, "fafz");
   let fafzCount = await fafzContract.methods.walletOfOwner(account).call();
   let isEligible = await fafzContract.methods.isfreeMinted(account).call();
   fafzCount = fafzCount.length;

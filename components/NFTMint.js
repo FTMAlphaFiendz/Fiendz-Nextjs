@@ -49,7 +49,7 @@ const NFTMint = ({
       <h1 className="font-freckle text-4xl md:text-5xl main-title-text-secondary mb-2">
         <b>YOU'RE ABOUT TO ENTER </b>
       </h1>
-      <h1 className="font-freckle text-4xl md:text-5xl main-title-text-secondary ">
+      <h1 className="font-freckle text-4xl md:text-5xl main-title-text-secondary">
         <b>IN THE FAFZ UNIVERSE</b>
       </h1>
       <p className="my-3">

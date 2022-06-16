@@ -104,15 +104,14 @@ const Navbar = () => {
               })
             : nonHomeLinks.map((link) => {
                 return (
-                  <div
-                    key={link.name}
-                    className="py-3 md:py-0"
-                    onClick={() => {
-                      setOpen(!open);
-                    }}
-                  >
+                  <div key={link.name} className="py-3 md:py-0">
                     <Link href={link.link}>
-                      <div className="md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border">
+                      <div
+                        className="md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
+                        onClick={() => {
+                          setOpen(!open);
+                        }}
+                      >
                         {link.name}
                       </div>
                     </Link>
