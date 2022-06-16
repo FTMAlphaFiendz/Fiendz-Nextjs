@@ -47,13 +47,12 @@ const MyApp = ({ Component, pageProps }) => {
 
     // Subscribe to provider connection
     provider.on("connect", (info) => {
-      console.log(info);
+      // console.log(info);
     });
 
     // Subscribe to provider disconnection
     provider.on("disconnect", (error) => {
-      console.log("DISCONNECTING");
-      console.log(error);
+      // console.log(error);
     });
   };
 
@@ -102,7 +101,7 @@ const MyApp = ({ Component, pageProps }) => {
       </UserContext.Provider>
       <ToastContainer
         position="bottom-right"
-        autoClose={8000}
+        autoClose={4000}
         hideProgressBar={false}
         newestOnTop={false}
         draggable={false}

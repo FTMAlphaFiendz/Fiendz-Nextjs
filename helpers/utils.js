@@ -1,5 +1,5 @@
 export const formatUrl = (tokenURI) => {
-  let ipfsGateway = "https://ftmdead.mypinata.cloud/ipfs/";
+  let ipfsGateway = "https://fafz.mypinata.cloud/ipfs/";
   // let ipfsGateway = "https://ipfs.io/ipfs/";
   if (!tokenURI) return;
   if (tokenURI.includes("https://gateway.pinata.cloud/ipfs/")) {

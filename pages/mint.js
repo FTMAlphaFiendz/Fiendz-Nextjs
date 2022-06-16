@@ -3,6 +3,7 @@ import NftPageViewWrapper from "../components/NftPageViewWrapper";
 import Web3 from "web3";
 import { UserContext } from "../context/UserContext";
 import { getContract } from "../helpers/Contract";
+import { requestChainChange } from "../helpers/Web3Client";
 import {
   mintNft,
   fmNft,
@@ -13,7 +14,6 @@ import {
   getMaxMintAmount,
   checkEligibleFreeMint,
   getRevertReason,
-  noWhitelist,
 } from "../helpers/MintHelper";
 import NFTMint from "../components/NFTMint";
 import SEOMeta from "../components/SEOMeta";
@@ -23,13 +23,14 @@ const SEOdesc = "Fantom Alpha Fiendz Mint Page";
 
 const Mint = () => {
   const [isPaused, setIsPaused] = useState(true);
-  const [mintAmountLeft, setMintAmountLeft] = useState(1111);
+  const [mintAmountLeft, setMintAmountLeft] = useState(777);
   const [mintCompletePercent, setMintCompletePercent] = useState(0);
   const [maxMintAmount, setMaxMintAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [nftContract, setNftContract] = useState(null);
   const [isFreeMintEligible, setIsFreeMintEligible] = useState(false);
   const [isWhitelist, setIsWhitelist] = useState(false);
+  const [isSuccessfulMint, setIsSuccessfulMint] = useState(false);
   const { user } = useContext(UserContext);
 
   const appHeight = () => {
@@ -57,7 +58,6 @@ const Mint = () => {
   };
 
   const mint = async (provider, account, mintAmount) => {
-    console.log("here");
     let web3;
     if (provider) web3 = new Web3(provider);
     let chainId = await web3.eth.getChainId();
@@ -76,11 +76,8 @@ const Mint = () => {
         return;
       }
       let isOnlyWhitelist = await getIsWhitelistOnly(nftContract);
-      // isOnlyWhitelist = false;
-      console.log({ isOnlyWhitelist });
       if (isOnlyWhitelist) {
         let isAccWhitelist = await isAccountWhitelisted(nftContract, account);
-        console.log({ isAccWhitelist });
         if (!isAccWhitelist) {
           notify(
             "error",
@@ -91,8 +88,8 @@ const Mint = () => {
       }
       let tx = await mintNft(provider, nftContract, account, mintAmount, web3);
       notify("success", `Mint Successfully`);
+      setIsSuccessfulMint(true);
       await checkingEligibility(provider, account);
-      console.log({ tx });
     } catch (err) {
       await getErrorMessage(err, web3);
     }
@@ -101,12 +98,10 @@ const Mint = () => {
 
   const fmFunction = async (provider, account, mintAmount) => {
     let web3;
-    console.log(account);
     if (!nftContract) return;
     if (provider) web3 = new Web3(provider);
     try {
       let tx = await fmNft(provider, account, nftContract, mintAmount, web3);
-      console.log({ tx });
       await checkingEligibility(provider, account);
     } catch (err) {
       await getErrorMessage(err, web3);
@@ -120,10 +115,8 @@ const Mint = () => {
         message = err.message;
       } else {
         let s = JSON.parse(JSON.stringify(err));
-        console.log({ s });
       }
     } else {
-      console.log("here");
       let { transactionHash, blockNumber } = err.receipt;
       let e = await getRevertReason(transactionHash, blockNumber, web3);
       let initIndex = e.message.search("{");
@@ -141,7 +134,6 @@ const Mint = () => {
   };
 
   const listenAndUpdateByEvent = async (contract) => {
-    console.log("LISTENING......");
     contract.events.Transfer({}).on("data", async (event) => {
       if (event) {
         await getUIUpdates(contract);
@@ -153,9 +145,9 @@ const Mint = () => {
     if (user?.chainId) {
       let { provider, account, chainId } = user;
       if (chainId !== 4002) {
-        notify("error", `Need to change network to Fantom`);
+        requestChainChange(provider);
       } else {
-        let Contract = getContract(provider, "fafz");
+        let Contract = getContract(provider, "test");
         setNftContract(Contract);
         (async () => {
           let paused = await Contract.methods.paused().call();
@@ -176,7 +168,6 @@ const Mint = () => {
   }, [user]);
 
   useEffect(() => {
-    console.log({ user });
     window.addEventListener("resize", appHeight);
     appHeight();
   }, []);
@@ -195,6 +186,7 @@ const Mint = () => {
           fmFunction={fmFunction}
           isWhitelist={isWhitelist}
           isPaused={isPaused}
+          isSuccessfulMint={isSuccessfulMint}
         />
       </NftPageViewWrapper>
     </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext } from "../context/UserContext";
 import ViewSelection from "../components/ViewSelection";
+import { requestChainChange } from "../helpers/Web3Client";
 import {
   getLastestBoughtFromNK,
   getAllUserNFTs,
@@ -29,7 +30,7 @@ const NFTView = () => {
   useEffect(() => {
     if (user) {
       if (user?.chainId !== 4002) {
-        console.log("view not right chain id");
+        requestChainChange(provider);
         return;
       } else {
         const getNfts = async (provider, account) => {

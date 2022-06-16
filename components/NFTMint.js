@@ -3,6 +3,7 @@ import MintButton from "./MintButton";
 import { UserContext } from "../context/UserContext";
 import ProgressBar from "./ProgressBar";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import Link from "next/link";
 
 const NFTMint = ({
   isLoading,
@@ -12,8 +13,8 @@ const NFTMint = ({
   mintAmountLeft,
   maxMintAmount,
   isFreeMintEligible,
-  isWhitelist,
   isPaused,
+  isSuccessfulMint,
 }) => {
   const [mintingProgressText, setMintingProgressText] = useState(
     "The minting is in progess"
@@ -54,7 +55,6 @@ const NFTMint = ({
       <p className="my-3">
         You can mint up to {maxMintAmount} NFT MAX at 22 $FTM
       </p>
-
       <div className="flex justify-center items-center w-full">
         <div className="flex">
           <button
@@ -91,6 +91,18 @@ const NFTMint = ({
           />
         )}
       </p>
+      {isSuccessfulMint && (
+        <div className="mb-2">
+          <p className="font-inter text-base">
+            Thank you for joining the FAFZ UNIVERSE!
+          </p>
+          <Link href="/view">
+            <a className="font-inter text-border cursor-pointer hover:scale-110 text-lg">
+              View your NFT!
+            </a>
+          </Link>
+        </div>
+      )}
       {isFinished ? (
         <p className="text-intern text-base mb-2">
           Mint is complete! Head over to the view page to see your NFTs

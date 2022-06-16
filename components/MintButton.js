@@ -33,7 +33,6 @@ const MintButton = ({
         <button
           className={`sm:ml-2 hover:shadow-xl duration-500 hover:text-white font-freckle check-whitelist-btn button-border mint-button`}
           onClick={() => {
-            console.log({ isFreeMintEligible });
             if (isFreeMintEligible) {
               fmFunction(user?.provider, user?.account, mintAmount);
               return;

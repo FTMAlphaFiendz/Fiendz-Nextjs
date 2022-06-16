@@ -2,9 +2,7 @@ import { getContract } from "./Contract";
 
 export const fmNft = async (provider, account, contract, mintAmount, web3) => {
   //THIS WILL GET ADDED WITH MAINNET
-  // let seHolderCount = await getSEHolderCount(provider, account);
-  let seHolderCount = 1;
-  console.log({ seHolderCount, mintAmount });
+  let seHolderCount = await getSEHolderCount(provider, account);
   const nonce = await web3.eth.getTransactionCount(account, "latest");
   let tx = await contract.methods
     .freemint(mintAmount, seHolderCount)
@@ -20,7 +18,7 @@ export const mintNft = async (
   web3
 ) => {
   let cost = await contract.methods.cost().call();
-  // let seHolderCount = await getSEHolderCount(provider, account);
+  // let seHolderCount = await getSEHolderCount(provider, account); this needs to get added back with mainnet
   let seHolderCount = 0;
   //calc mint cost
   let mintCost = cost * mintAmount;
@@ -33,7 +31,6 @@ export const mintNft = async (
     nonce: nonce,
     gasLimit: 3000000,
   };
-  console.log({ mintAmount, seHolderCount });
   //sending transaction
   let tx = await contract.methods.mint(mintAmount, seHolderCount).send(params);
   return tx;
@@ -89,7 +86,7 @@ export const getMintAmountLeft = async (contract) => {
 
 export const listenToContractTransfer = async (contract) => {
   contract.events.Transfer({}).on("data", (event) => {
-    console.log("in mint helper nft transfer", event);
+    // console.log("in mint helper nft transfer", event);
   });
 };
 
@@ -130,11 +127,10 @@ export const checkEligibleFreeMint = async (provider, account) => {
   // let seCount = await seContract.methods.walletOfOwner(account).call();
   // seCount = seCount.length;
   let seCount = 0;
-  let fafzContract = getContract(provider, "fafz");
+  let fafzContract = getContract(provider, "test");
   let fafzCount = await fafzContract.methods.walletOfOwner(account).call();
   let isEligible = await fafzContract.methods.isfreeMinted(account).call();
   fafzCount = fafzCount.length;
-  console.log("in check if eligible", { seCount, fafzCount, isEligible });
 
   if (seCount > 0 && isEligible) {
     if (fafzCount >= seCount) {

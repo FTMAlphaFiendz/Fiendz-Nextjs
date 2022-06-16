@@ -108,7 +108,6 @@ const Navbar = () => {
                     key={link.name}
                     className="py-3 md:py-0"
                     onClick={() => {
-                      console.log(open);
                       setOpen(!open);
                     }}
                   >
