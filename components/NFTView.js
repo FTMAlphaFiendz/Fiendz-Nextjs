@@ -2,11 +2,7 @@ import React, { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext } from "../context/UserContext";
 import ViewSelection from "../components/ViewSelection";
 import { requestChainChange } from "../helpers/Web3Client";
-import {
-  getLastestBoughtFromNK,
-  getAllUserNFTs,
-  getIsWhitelistOnly,
-} from "../helpers/NFTHelper";
+import { getLastestBoughtFromNK, getAllUserNFTs } from "../helpers/NFTHelper";
 import Pagination from "../components/Pagination";
 import toast from "../components/Toast";
 
@@ -30,7 +26,7 @@ const NFTView = () => {
   useEffect(() => {
     if (user?.account) {
       let { provider, account, chainId } = user;
-      if (chainId !== 4002) {
+      if (chainId !== 250) {
         requestChainChange(provider);
         return;
       } else {
