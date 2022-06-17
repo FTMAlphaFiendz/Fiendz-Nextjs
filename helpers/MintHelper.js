@@ -4,9 +4,10 @@ export const fmNft = async (provider, account, contract, mintAmount, web3) => {
   //THIS WILL GET ADDED WITH MAINNET
   let seHolderCount = await getSEHolderCount(provider, account);
   const nonce = await web3.eth.getTransactionCount(account, "latest");
+  const gasPrice = await web3.eth.getGasPrice();
   let tx = await contract.methods
     .freemint(mintAmount, seHolderCount)
-    .send({ from: account, nonce, gasLimit: 3000000 });
+    .send({ from: account, nonce, gasPrice: gasPrice });
   return tx;
 };
 
