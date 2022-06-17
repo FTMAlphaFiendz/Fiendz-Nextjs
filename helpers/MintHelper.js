@@ -31,7 +31,6 @@ export const mintNft = async (
     from: account,
     value: mintCost.toString(),
     nonce: nonce,
-    gasLimit: 3000000,
     gasPrice: gasPrice,
   };
   //sending transaction
