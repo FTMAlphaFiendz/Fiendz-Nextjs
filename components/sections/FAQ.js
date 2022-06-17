@@ -29,8 +29,8 @@ const FAQ = () => {
       answer: [
         "Date - June 17th",
         "Mint Party - Location: FtmAlphaFiendz Discord - Time: 20:00 UTC",
-        "Whitelist - 20:30 - 21:30 UTC",
-        "Public - 21:30 UTC",
+        "Whitelist - 20:30 - 21:00 UTC",
+        "Public - 21:00 UTC",
       ],
     },
   ];
