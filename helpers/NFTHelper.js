@@ -11,7 +11,6 @@ const getWeb3 = (provider) => {
 export const getSEHolderCount = async (provider, account) => {
   let contract = getContract(provider, "se");
   let tokenCount = await contract.methods.walletOfOwner(account).call();
-  tokenCount = [1];
   return tokenCount.length;
 };
 
@@ -21,9 +20,7 @@ export const getTokenUriById = async (contract, id) => {
 };
 
 export const getMetadata = async (tokenUri) => {
-  let formattedURI = formatUrl(tokenUri);
-  let { data } = await axios.get(formattedURI);
-  data.image = formatUrl(data.image);
+  let { data } = await axios.get(tokenUri);
   data.name = formatName(data.name);
   if (data.hasOwnProperty("attributes")) {
     for (const attribute of data.attributes) {
@@ -50,7 +47,6 @@ export const getNFTData = async (provider, account, type) => {
   if (tokenIds.length === 0) return dataArray;
   for (const id of tokenIds) {
     let uri = await getTokenUriById(contract, id);
-    console.log({ uri });
     dataArray.push(await getMetadata(uri));
   }
   let data = await Promise.all(dataArray);
