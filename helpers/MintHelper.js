@@ -52,6 +52,12 @@ export const getRevertReason = async (txHash, blockNumber, web3) => {
   }
 };
 
+export const isPaused = async (provider) => {
+  let contract = getContract(provider, "fafz");
+  let paused = await contract.methods.paused().call();
+  return paused;
+};
+
 export const getSEHolderCount = async (provider, account) => {
   let contract = getContract(provider, "se");
   let tokenCount = await contract.methods.walletOfOwner(account).call();

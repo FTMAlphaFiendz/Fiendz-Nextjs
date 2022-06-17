@@ -8,36 +8,20 @@ import WAGMI from "../public/images/coming-soon/fafz-wgmi.png";
 import diamond from "../public/images/coming-soon/ftm-diamond.png";
 import ghost from "../public/images/coming-soon/ghost.png";
 import planet from "../public/images/coming-soon/planet.png";
-import whitelist from "../public/files/FAFz_WL.json";
 import SEOMeta from "../components/SEOMeta";
-import { isAccountWhitelisted } from "../helpers/MintHelper";
+import { isAccountWhitelisted, isPaused } from "../helpers/MintHelper";
 
 const SEOdesc =
   "Check you whitelist status on this page for the upcoming FAFZ Mint. Mint Date TBA";
 
-export const getStaticProps = async () => {
-  let ids = whitelist.ids;
-  return {
-    props: { ids },
-  };
-};
-
 const ComingSoon = ({ ids }) => {
+  const [isContractPaused, setIsContractPaused] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isResult, setIsResult] = useState(false);
   const [whiteListResult, setWhiteListResult] = useState(false);
   const content =
     "Thanks for stopping by, make sure to check back frequently, mint will be open in the near future!";
   const { user, connectWallet } = useContext(UserContext);
-
-  const checkJson = (account) => {
-    let result = ids.find((id) => id === account);
-    if (!result) {
-      return false;
-    } else {
-      return true;
-    }
-  };
 
   const checkWhitelist = async (account, chainId, provider) => {
     //if no account then connect wallet and exit
@@ -78,6 +62,12 @@ const ComingSoon = ({ ids }) => {
     if (!user?.account) {
       resetChecker();
     }
+    (async () => {
+      if (user?.provider) {
+        let paused = await isPaused(user.provider);
+        setIsContractPaused(paused);
+      }
+    })();
   }, [user]);
 
   return (
@@ -101,8 +91,8 @@ const ComingSoon = ({ ids }) => {
 
       <Waves fillColor="#fedf87" />
       <div className="fiendz-card-container w-5/6 md:w-7/12 lg:m-3 relative justify-center mt-16 flex flex-col bg-white items-center pt-10 lg:w-8/12">
-        <h1 className="font-freckle text-4xl md:text-6xl main-title-text-secondary text-center">
-          MINT IS COMING SOON
+        <h1 className="font-freckle text-4xl md:text-6xl main-title-text-secondary text-center mx-2">
+          {isContractPaused ? "MINT SOON" : "MINT HAS STARTED!"}
         </h1>
         <div className="flex flex-col font-inter content-line text-base sm:text-lg md:text-xl font-normal text-center w-full my-4 md:my-10 xl:mt-18 items-center px-4">
           <p className="mb-8 w-11/12 md:w-10/12">{content}</p>

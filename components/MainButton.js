@@ -1,7 +1,7 @@
 const MainButton = ({ link, text, icon, closeModal }) => {
   return (
     <button
-      className={`link-button bg-white p-3 font-freckle w-150 text-center flex items-center justify-center text-border m-2 button-border px-5`}
+      className={`link-button bg-white p-3 font-freckle w-150 text-center flex items-center justify-center text-border m-2 button-border px-3`}
       onClick={() => {
         if (link) {
           window.open(link);
