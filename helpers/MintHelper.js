@@ -24,12 +24,15 @@ export const mintNft = async (
   let mintCost = new BN(cost).mul(new BN(mintAmount));
   //checking transaction amount from wallet
   const nonce = await web3.eth.getTransactionCount(account, "latest");
+
+  const gasPrice = await web3.eth.getGasPrice();
   //setting params
   let params = {
     from: account,
     value: mintCost.toString(),
     nonce: nonce,
     gasLimit: 3000000,
+    gasPrice: gasPrice,
   };
   //sending transaction
   let tx = await contract.methods.mint(mintAmount, seHolderCount).send(params);
