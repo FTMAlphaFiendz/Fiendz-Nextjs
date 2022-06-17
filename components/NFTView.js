@@ -2,11 +2,7 @@ import React, { useEffect, useState, useContext, useCallback } from "react";
 import { UserContext } from "../context/UserContext";
 import ViewSelection from "../components/ViewSelection";
 import { requestChainChange } from "../helpers/Web3Client";
-import {
-  getLastestBoughtFromNK,
-  getAllUserNFTs,
-  getIsWhitelistOnly,
-} from "../helpers/NFTHelper";
+import { getLastestBoughtFromNK, getAllUserNFTs } from "../helpers/NFTHelper";
 import Pagination from "../components/Pagination";
 import toast from "../components/Toast";
 
@@ -28,9 +24,10 @@ const NFTView = () => {
   }, []);
 
   useEffect(() => {
-    if (user) {
-      if (user?.chainId !== 250) {
-        // requestChainChange(user.provider);
+    if (user?.account) {
+      let { provider, account, chainId } = user;
+      if (chainId !== 250) {
+        requestChainChange(provider);
         return;
       } else {
         const getNfts = async (provider, account) => {
@@ -41,11 +38,14 @@ const NFTView = () => {
             //THIS WILL BE FOR THE FUTURE FOOTER SALE INFO
             // let events = await getLastestBoughtFromNK(provider);
           } catch (err) {
-            console.log({ err });
-            notify("error", err);
+            console.log(err);
+            if (err) {
+              notify("error", err.message);
+              return;
+            }
           }
         };
-        getNfts(user.provider, user.account).catch((err) => console.log(err));
+        getNfts(provider, account).catch((err) => console.log(err));
       }
     }
   }, [user]);

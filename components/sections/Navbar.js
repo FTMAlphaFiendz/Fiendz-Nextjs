@@ -26,8 +26,6 @@ const nonHomeLinks = [
 
 const Navbar = () => {
   const router = useRouter();
-  // const { account, chainId, connectWallet, disconnectWallet } =
-  //   useContext(UserContext);
   const { user, connectWallet, disconnectWallet } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [isHome, setIsHome] = useState(true);

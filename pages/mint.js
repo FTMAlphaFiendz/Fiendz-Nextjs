@@ -25,7 +25,7 @@ const Mint = () => {
   const [isPaused, setIsPaused] = useState(true);
   const [mintAmountLeft, setMintAmountLeft] = useState(777);
   const [mintCompletePercent, setMintCompletePercent] = useState(0);
-  const [maxMintAmount, setMaxMintAmount] = useState(0);
+  const [maxMintAmount, setMaxMintAmount] = useState(3);
   const [isLoading, setIsLoading] = useState(false);
   const [nftContract, setNftContract] = useState(null);
   const [isFreeMintEligible, setIsFreeMintEligible] = useState(false);
@@ -87,7 +87,7 @@ const Mint = () => {
         }
       }
       let tx = await mintNft(provider, nftContract, account, mintAmount, web3);
-      notify("success", `Mint Successfully`);
+      notify("success", `Mint Successful`);
       setIsSuccessfulMint(true);
       await checkingEligibility(provider, account);
     } catch (err) {

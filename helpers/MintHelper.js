@@ -17,16 +17,17 @@ export const mintNft = async (
   mintAmount,
   web3
 ) => {
+  let BN = web3.utils.BN;
   let cost = await contract.methods.cost().call();
   let seHolderCount = await getSEHolderCount(provider, account);
   //calc mint cost
-  let mintCost = cost * mintAmount;
+  let mintCost = new BN(cost).mul(new BN(mintAmount));
   //checking transaction amount from wallet
   const nonce = await web3.eth.getTransactionCount(account, "latest");
   //setting params
   let params = {
     from: account,
-    value: web3.utils.toWei(mintCost.toString(), "ether"),
+    value: mintCost.toString(),
     nonce: nonce,
     gasLimit: 3000000,
   };
@@ -124,6 +125,7 @@ export const checkEligibleFreeMint = async (provider, account) => {
   //this is a holders address
   // account = "0xa048736571f18948bba02f9c9f765d99f9c4d5f9";
   let seCount = await seContract.methods.walletOfOwner(account).call();
+  seCount = seCount.length;
   let fafzContract = getContract(provider, "fafz");
   let fafzCount = await fafzContract.methods.walletOfOwner(account).call();
   let isEligible = await fafzContract.methods.isfreeMinted(account).call();
