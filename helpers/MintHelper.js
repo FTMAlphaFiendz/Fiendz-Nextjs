@@ -113,7 +113,10 @@ export const getIsWhitelistOnly = async (contract) => {
   return isWhitelist;
 };
 
-export const isAccountWhitelisted = async (contract, account) => {
+export const isAccountWhitelisted = async (contract, account, provider) => {
+  if (!contract) {
+    contract = getContract(provider, "fafz");
+  }
   let isAccountWhitelisted = await contract.methods
     .isWhitelisted(account)
     .call();

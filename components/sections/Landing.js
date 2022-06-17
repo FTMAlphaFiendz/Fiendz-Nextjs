@@ -4,7 +4,7 @@ import Link from "next/link";
 import logoBig from "../../public/images/titles/logo-big.png";
 import Div100vh from "react-div-100vh";
 import { FaTwitter, FaDiscord, FaRegPaperPlane } from "react-icons/fa";
-import { GrTransaction } from "react-icons/gr";
+import { GrTransaction, GrView } from "react-icons/gr";
 import MainButton from "../MainButton";
 import Waves from "../Waves";
 import FiendsFooter from "../FiendsFooter";
@@ -64,6 +64,16 @@ const Landing = () => {
                 <GrTransaction />
               </span>
               <span className="button-text">Go To Mint</span>
+            </button>
+          </Link>
+          <Link href="/view">
+            <button
+              className={`link-button bg-white p-3 font-freckle w-150 text-center flex items-center justify-center text-border m-2 button-border px-10`}
+            >
+              <span className="text-2xl mr-1 button-text">
+                <GrView />
+              </span>
+              <span className="button-text">View NFTs</span>
             </button>
           </Link>
         </div>

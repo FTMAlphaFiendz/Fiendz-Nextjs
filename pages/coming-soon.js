@@ -10,6 +10,7 @@ import ghost from "../public/images/coming-soon/ghost.png";
 import planet from "../public/images/coming-soon/planet.png";
 import whitelist from "../public/files/FAFz_WL.json";
 import SEOMeta from "../components/SEOMeta";
+import { isAccountWhitelisted } from "../helpers/MintHelper";
 
 const SEOdesc =
   "Check you whitelist status on this page for the upcoming FAFZ Mint. Mint Date TBA";
@@ -38,7 +39,7 @@ const ComingSoon = ({ ids }) => {
     }
   };
 
-  const checkWhitelist = async (account, chainId) => {
+  const checkWhitelist = async (account, chainId, provider) => {
     //if no account then connect wallet and exit
     if (!account) {
       await connectWallet();
@@ -47,13 +48,15 @@ const ComingSoon = ({ ids }) => {
     //if the chain is not fantom then exit
     if (chainId !== 250) return;
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      //checking array and getting result
-      setWhiteListResult(checkJson(account));
-      //after getting the result from checking the whitelist array
+    (async () => {
+      let isAccWhitelisted = await isAccountWhitelisted(
+        null,
+        account,
+        provider
+      );
+      setWhiteListResult(isAccWhitelisted);
       setIsResult(true);
-    }, "2000");
+    })();
   };
 
   const resetChecker = () => {
@@ -114,7 +117,7 @@ const ComingSoon = ({ ids }) => {
               account={user?.account}
               chainId={user?.chainId}
               checkWhitelist={() =>
-                checkWhitelist(user?.account, user?.chainId)
+                checkWhitelist(user?.account, user?.chainId, user?.provider)
               }
             />
           )}
