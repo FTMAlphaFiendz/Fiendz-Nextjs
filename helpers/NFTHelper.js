@@ -111,14 +111,14 @@ const getDataFromEvents = async (provider, contract, events) => {
 
 export const getLastestBoughtFromNK = async (provider, maxLength = 15) => {
   //THIS WILL GET REPLACED WITH FAFZ
-  let astrokids = "0x3d7E7157459A352ada13ed8dA1Ba54a08A883965";
+  let fafz = "0xB183341A1FC7C851df05E01bf98EE683080B7e8C";
   let asContract = getContract(provider, "astrokid");
   //THIS WILL GET REPLACED WITH FAFZ
   let currentBlock = await getCurrentBlock(provider);
   let fromBlock = currentBlock - 1000000;
   let nkContract = getContract(provider, "nftkey");
   let events = await nkContract.getPastEvents("TokenBought", {
-    filter: { erc721Address: astrokids },
+    filter: { erc721Address: fafz },
     fromBlock,
     toBlock: "latest",
   });
