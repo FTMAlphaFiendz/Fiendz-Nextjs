@@ -75,8 +75,7 @@ export const getMetadataById = async (
   boughtPrice,
   blockNumber
 ) => {
-  let n = await contract.methods.tokenURI(tokenId).call();
-  let url = formatUrl(n);
+  let url = await contract.methods.tokenURI(tokenId).call();
   let data = await axios.get(url);
   if (boughtPrice) data["purchasedPrice"] = boughtPrice;
   if (blockNumber) data["blockNumber"] = blockNumber;
@@ -105,13 +104,10 @@ const getDataFromEvents = async (provider, contract, events) => {
   return data;
 };
 
-export const getLastestBoughtFromNK = async (provider, maxLength = 15) => {
-  //THIS WILL GET REPLACED WITH FAFZ
+export const getLatestBoughtFromNK = async (provider, maxLength = 15) => {
   let fafz = "0xB183341A1FC7C851df05E01bf98EE683080B7e8C";
-  let asContract = getContract(provider, "astrokid");
-  //THIS WILL GET REPLACED WITH FAFZ
-  let currentBlock = await getCurrentBlock(provider);
-  let fromBlock = currentBlock - 1000000;
+  let fafzContract = getContract(provider, "fafz");
+  let fromBlock = 40598710;
   let nkContract = getContract(provider, "nftkey");
   let events = await nkContract.getPastEvents("TokenBought", {
     filter: { erc721Address: fafz },
@@ -120,6 +116,6 @@ export const getLastestBoughtFromNK = async (provider, maxLength = 15) => {
   });
   events = events.reverse();
   events = events.slice(0, maxLength);
-  let formattedData = await getDataFromEvents(provider, asContract, events);
-  console.log({ formattedData });
+  let formattedData = await getDataFromEvents(provider, fafzContract, events);
+  return formattedData;
 };

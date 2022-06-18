@@ -481,6 +481,24 @@ nav:after {
 	}
   }
 
+  .latestSoldFooter {
+	display: block;
+	width: 100%;
+	height: 60px;
+	max-height: 60px;
+	margin: 0;
+	z-index:8;
+	bottom:0;
+	position:absolute;
+	left:0px;
+	float:left;
+  }
+
+  .latest-sold-img {
+	  height: 75px;
+	  width: 75px;
+  }
+
   /* ACCORDION CSS */
   .accordion {
 	font-size: 17px;
