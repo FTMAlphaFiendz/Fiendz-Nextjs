@@ -44,28 +44,8 @@ const Landing = () => {
           {pageText}
         </p>
         <div className="flex justify-center items-center mt-3 flex-wrap">
-          {/* <MainButton link={twitterLink} icon={<FaTwitter />} text="Join us" />
-          <MainButton link={discordLink} icon={<FaDiscord />} text="Join us" /> */}
-          <Link href="/coming-soon">
-            <button
-              className={`link-button bg-white p-3 font-freckle w-150 text-center flex items-center justify-center text-border m-2 button-border px-10`}
-            >
-              <span className="text-2xl mr-1 button-text">
-                <FaRegPaperPlane />
-              </span>
-              <span className="button-text">Check Whitelist</span>
-            </button>
-          </Link>
-          <Link href="/mint">
-            <button
-              className={`link-button bg-white p-3 font-freckle w-150 text-center flex items-center justify-center text-border m-2 button-border px-10`}
-            >
-              <span className="text-2xl mr-1 button-text">
-                <GrTransaction />
-              </span>
-              <span className="button-text">Go To Mint</span>
-            </button>
-          </Link>
+          <MainButton link={twitterLink} icon={<FaTwitter />} text="Join us" />
+          <MainButton link={discordLink} icon={<FaDiscord />} text="Join us" />
           <Link href="/view">
             <button
               className={`link-button bg-white p-3 font-freckle w-150 text-center flex items-center justify-center text-border m-2 button-border px-10`}
