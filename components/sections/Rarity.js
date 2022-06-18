@@ -8,8 +8,8 @@ import Waves from "../Waves";
 import PerksCard from "../PerksCard";
 
 const pageContent =
-  "FAFz is a collection that we will only run for a limited time and limted mint, but we will have very long-term " +
-  "benefits to holders. Each Fiend is unique in its own way, characterized by a rarity from Common to Legendary.";
+  "The FAFz Genesis collection is our first edition. Genesis holders will be able to receive long term benefits including exclusive WL access to our future collections. " +
+  "Each Fiend is unique in its own way, characterized by a rarity from Common to Legendary.";
 
 const imageCards = [
   { title: "common", alt: "common card", image: CommonCard },

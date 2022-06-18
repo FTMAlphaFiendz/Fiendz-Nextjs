@@ -1,7 +1,6 @@
 import { formatUrl } from "../helpers/utils";
 import { getContract } from "../helpers/Contract";
 import { formatName } from "../helpers/utils";
-import SEDATA from "../public/files/testSEData.json";
 import axios from "axios";
 import Web3 from "web3";
 
@@ -12,7 +11,6 @@ const getWeb3 = (provider) => {
 export const getSEHolderCount = async (provider, account) => {
   let contract = getContract(provider, "se");
   let tokenCount = await contract.methods.walletOfOwner(account).call();
-  tokenCount = [1];
   return tokenCount.length;
 };
 
@@ -22,9 +20,7 @@ export const getTokenUriById = async (contract, id) => {
 };
 
 export const getMetadata = async (tokenUri) => {
-  let formattedURI = formatUrl(tokenUri);
-  let { data } = await axios.get(formattedURI);
-  data.image = formatUrl(data.image);
+  let { data } = await axios.get(tokenUri);
   data.name = formatName(data.name);
   if (data.hasOwnProperty("attributes")) {
     for (const attribute of data.attributes) {

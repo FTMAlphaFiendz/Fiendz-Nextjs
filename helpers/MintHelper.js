@@ -4,9 +4,10 @@ export const fmNft = async (provider, account, contract, mintAmount, web3) => {
   //THIS WILL GET ADDED WITH MAINNET
   let seHolderCount = await getSEHolderCount(provider, account);
   const nonce = await web3.eth.getTransactionCount(account, "latest");
+  const gasPrice = await web3.eth.getGasPrice();
   let tx = await contract.methods
     .freemint(mintAmount, seHolderCount)
-    .send({ from: account, nonce, gasLimit: 3000000 });
+    .send({ from: account, nonce, gasPrice: gasPrice });
   return tx;
 };
 
@@ -24,12 +25,14 @@ export const mintNft = async (
   let mintCost = new BN(cost).mul(new BN(mintAmount));
   //checking transaction amount from wallet
   const nonce = await web3.eth.getTransactionCount(account, "latest");
+
+  const gasPrice = await web3.eth.getGasPrice();
   //setting params
   let params = {
     from: account,
     value: mintCost.toString(),
     nonce: nonce,
-    gasLimit: 3000000,
+    gasPrice: gasPrice,
   };
   //sending transaction
   let tx = await contract.methods.mint(mintAmount, seHolderCount).send(params);
@@ -50,6 +53,12 @@ export const getRevertReason = async (txHash, blockNumber, web3) => {
   } catch (err) {
     return err;
   }
+};
+
+export const isPaused = async (provider) => {
+  let contract = getContract(provider, "fafz");
+  let paused = await contract.methods.paused().call();
+  return paused;
 };
 
 export const getSEHolderCount = async (provider, account) => {
@@ -113,7 +122,10 @@ export const getIsWhitelistOnly = async (contract) => {
   return isWhitelist;
 };
 
-export const isAccountWhitelisted = async (contract, account) => {
+export const isAccountWhitelisted = async (contract, account, provider) => {
+  if (!contract) {
+    contract = getContract(provider, "fafz");
+  }
   let isAccountWhitelisted = await contract.methods
     .isWhitelisted(account)
     .call();

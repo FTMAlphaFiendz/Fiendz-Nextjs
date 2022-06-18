@@ -6,25 +6,32 @@ const FAQ = () => {
   const hiddenTexts = [
     {
       question: "What does FAFz mean?",
-      answer:
+      answer: [
         "FAFz is short for FTM Alpha Fiendz! The Fiendz is a Fantom Opera community that shares alpha primarily focused on Fantom related projects.",
+      ],
     },
     {
       question: "What utility will FAFz have? ",
-      answer:
+      answer: [
         "FAFz is primarily a way to give back to the community that supported us and helped us make this collection possible. We will be launching staking in Potluck Protocol along with adding several community perks in the near future",
+      ],
     },
     {
       question: "How many FAFz are there?",
-      answer: "Our FAFz Genesis launch will consist of 777 Pieces.",
+      answer: ["Our FAFz Genesis launch will consist of 777 Pieces."],
     },
     {
       question: "How much is mint for FAFz?",
-      answer: "Mint will be 22 FTM.",
+      answer: ["Mint will be 22 FTM."],
     },
     {
       question: "Wen Launch?",
-      answer: "Soon! We are hoping to Launch June. Actual date and time TBA",
+      answer: [
+        "Date - June 17th",
+        "Mint Party - Location: FtmAlphaFiendz Discord - Time: 20:00 UTC",
+        "Whitelist - 20:30 - 21:00 UTC",
+        "Public - 21:00 UTC",
+      ],
     },
   ];
 
@@ -85,7 +92,9 @@ const AccordionItem = ({ question, answer }) => {
           visibility ? "active" : ""
         } content-line font-inter text-base sm:text-lg md:text-xl  text-border`}
       >
-        {answer}
+        {answer.map((item) => {
+          return <p>{item}</p>;
+        })}
       </p>
     </div>
   );
