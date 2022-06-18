@@ -5,6 +5,7 @@ import NFTView from "../components/NFTView";
 import LatestSold from "../components/LatestSold";
 import { UserContext } from "../context/UserContext";
 import { getLatestBoughtFromNK } from "../helpers/NFTHelper";
+import FantomIcon from "../public/images/misc/illustration-404.png";
 
 const SEOdesc =
   "Page to view all Special Edition FAFz and FAFz generative collection";
@@ -23,9 +24,10 @@ const View = () => {
   }, []);
 
   useEffect(() => {
-    if (user) {
+    if (user && user?.provider) {
       (async () => {
         let events = await getLatestBoughtFromNK(user?.provider);
+        console.log({ events });
         setLastSold(events);
       })();
     }
@@ -33,7 +35,7 @@ const View = () => {
 
   return (
     <div>
-      <SEOMeta page="View" description={SEOdesc} path="/view" />
+      <SEOMeta description={SEOdesc} path="/view" />
       <NftPageViewWrapper>
         <NFTView />
         <LatestSold lastSold={lastSold} />

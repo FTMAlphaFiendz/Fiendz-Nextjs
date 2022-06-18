@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import Waves from "./Waves";
-import LatestSold from "./LatestSold";
 import { UserContext } from "../context/UserContext";
 import { useRouter } from "next/router";
 
@@ -30,7 +29,6 @@ const NftPageViewWrapper = ({ children }) => {
   return (
     <div className="mint-page relative flex">
       <Waves fillColor="#fedf87" className="editorial-fixed" />
-      {isPage === "view" && <LatestSold />}
       <div className="flex justify-center items-center place-items-center w-full my-16 md:my-20">
         <div
           id="main"

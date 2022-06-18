@@ -73,12 +73,14 @@ export const getMetadataById = async (
   contract,
   tokenId = 1,
   boughtPrice,
-  blockNumber
+  blockNumber,
+  marketplace
 ) => {
   let url = await contract.methods.tokenURI(tokenId).call();
   let data = await axios.get(url);
   if (boughtPrice) data["purchasedPrice"] = boughtPrice;
   if (blockNumber) data["blockNumber"] = blockNumber;
+  if (marketplace) data["marketplace"] = marketplace;
   return data;
 };
 
@@ -88,7 +90,7 @@ export const getCurrentBlock = async (provider) => {
   return currentBlock.number;
 };
 
-const getDataFromEvents = async (provider, contract, events) => {
+const getDataFromEvents = async (provider, contract, events, marketplace) => {
   let web3 = getWeb3(provider);
   if (events.length === 0) throw "No events present";
   let promises = [];
@@ -96,8 +98,15 @@ const getDataFromEvents = async (provider, contract, events) => {
     let boughtPrice = event.returnValues["3"].value;
     boughtPrice = web3.utils.fromWei(boughtPrice, "ether");
     let tokenId = event.returnValues["3"].tokenId;
+    event.marketplace = marketplace;
     promises.push(
-      await getMetadataById(contract, tokenId, boughtPrice, event.blockNumber)
+      await getMetadataById(
+        contract,
+        tokenId,
+        boughtPrice,
+        event.blockNumber,
+        event.marketplace
+      )
     );
   }
   let data = await Promise.all(promises);
@@ -116,6 +125,11 @@ export const getLatestBoughtFromNK = async (provider, maxLength = 15) => {
   });
   events = events.reverse();
   events = events.slice(0, maxLength);
-  let formattedData = await getDataFromEvents(provider, fafzContract, events);
+  let formattedData = await getDataFromEvents(
+    provider,
+    fafzContract,
+    events,
+    "nftkey"
+  );
   return formattedData;
 };
