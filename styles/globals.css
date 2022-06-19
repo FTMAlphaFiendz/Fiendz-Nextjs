@@ -242,6 +242,17 @@ nav:after {
 	min-height: 700px;
 	}
 
+	.page-not-found-bg {
+		background: url("../public/images/backgrounds/background-stars-clouds.png"), linear-gradient(170deg, rgba(255,255,255,1) 0%, rgba(255,223,134,1) 0%, rgba(255,223,134,1) 100%);		bottom: 0;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+		z-index: 1;
+		min-height: 100%;
+		height: var(--app-height);
+	}
+
 	.community-title {
 		top: -80px;
 		left: 110px;

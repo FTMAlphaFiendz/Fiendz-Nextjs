@@ -5,6 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import NFTModal from "./NFTModal";
 import { GrTransaction } from "react-icons/gr";
+import { GiCampfire } from "react-icons/gi";
 
 const NFTViewSection = ({ nfts, skeletonCount, isLoading }) => {
   const [metaData, setMetadata] = useState([]);
@@ -67,20 +68,11 @@ const NFTViewSection = ({ nfts, skeletonCount, isLoading }) => {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center w-full">
-              <p className="font-inter text-border my-3">
-                You have no FAFz in this wallet
+              <p>
+                You have no FAFZ in this wallet! Check us out on secondary!!
               </p>
-              <p className="font-inter text-border mb-3">Lets Mint Some!!</p>
-              <Link href="/mint">
-                <button
-                  className={`link-button bg-white p-3 font-freckle w-150 text-center flex items-center justify-center text-border m-2 button-border px-10`}
-                >
-                  <span className="text-2xl mr-1 button-text">
-                    <GrTransaction />
-                  </span>
-                  <span className="button-text">Go To Mint</span>
-                </button>
-              </Link>
+              <p>Campfire.exchange</p>
+              <p>Nftkey.app</p>
             </div>
           )}
         </div>

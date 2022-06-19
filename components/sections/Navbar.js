@@ -20,7 +20,6 @@ const links = [
 
 const nonHomeLinks = [
   { name: "Back To Home", link: "/" },
-  { name: "Mint", link: "/mint" },
   { name: "View NFTs", link: "/view" },
 ];
 
