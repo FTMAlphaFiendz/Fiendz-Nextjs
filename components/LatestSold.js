@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import FantomIcon from "../public/images/misc/illustration-404.png";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
@@ -9,6 +8,7 @@ import { GoKey } from "react-icons/go";
 import { GiCampfire } from "react-icons/gi";
 const LatestSold = ({ lastSold }) => {
   const getMarketplaceIcon = (marketplace) => {
+    console.log(marketplace);
     let icon;
     switch (marketplace) {
       case "nftkey":
@@ -17,13 +17,13 @@ const LatestSold = ({ lastSold }) => {
       case "campfire":
         icon = <GiCampfire />;
       default:
-        throw "No Marketplace Icon Found";
+        console.log(marketplace);
     }
     return icon;
   };
+
   return (
-    <div className="latestSoldFooter mx-2">
-      {/* <div className="flex justify-around"> */}
+    <div className="latestSoldFooter mx-2 hidden md:block">
       <Swiper
         slidesPerView={6}
         spaceBetween={20}

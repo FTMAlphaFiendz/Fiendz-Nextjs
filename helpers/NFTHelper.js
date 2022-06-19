@@ -95,9 +95,15 @@ const getDataFromEvents = async (provider, contract, events, marketplace) => {
   if (events.length === 0) throw "No events present";
   let promises = [];
   for (const event of events) {
-    let boughtPrice = event.returnValues["3"].value;
+    let boughtPrice, tokenId;
+    if (marketplace === "campfire") {
+      boughtPrice = event.returnValues.price;
+      tokenId = event.returnValues.nftTokenId;
+    } else if (marketplace === "nftkey") {
+      boughtPrice = event.returnValues["3"].value;
+      tokenId = event.returnValues["3"].tokenId;
+    }
     boughtPrice = web3.utils.fromWei(boughtPrice, "ether");
-    let tokenId = event.returnValues["3"].tokenId;
     event.marketplace = marketplace;
     promises.push(
       await getMetadataById(
@@ -113,7 +119,29 @@ const getDataFromEvents = async (provider, contract, events, marketplace) => {
   return data;
 };
 
-export const getLatestBoughtFromNK = async (provider, maxLength = 15) => {
+export const getLatestBoughtFromCampfire = async (provider, maxLength = 15) => {
+  let fafz = "0xB183341A1FC7C851df05E01bf98EE683080B7e8C";
+  let fafzContract = getContract(provider, "fafz");
+  let fromBlock = 40598710;
+  let campfireContract = getContract(provider, "campfire");
+  console.log(campfireContract.methods);
+  let events = await campfireContract.getPastEvents("Sale", {
+    filter: { nftContractAddress: fafz },
+    fromBlock,
+    toBlock: "latest",
+  });
+  events = events.reverse();
+  events = events.slice(0, maxLength);
+  let formattedData = await getDataFromEvents(
+    provider,
+    fafzContract,
+    events,
+    "campfire"
+  );
+  return formattedData;
+};
+
+export const getLatestBoughtFromNFTKey = async (provider, maxLength = 15) => {
   let fafz = "0xB183341A1FC7C851df05E01bf98EE683080B7e8C";
   let fafzContract = getContract(provider, "fafz");
   let fromBlock = 40598710;
@@ -132,4 +160,16 @@ export const getLatestBoughtFromNK = async (provider, maxLength = 15) => {
     "nftkey"
   );
   return formattedData;
+};
+
+export const getAllBoughtEvents = async (provider, maxLength = 20) => {
+  let eventPromises = [
+    await getLatestBoughtFromNFTKey(provider, maxLength),
+    await getLatestBoughtFromCampfire(provider, maxLength),
+  ];
+  let data = await Promise.all(eventPromises);
+  data = data.flat();
+  data = data.sort((a, b) => b.blockNumber - a.blockNumber);
+  data = data.slice(0, maxLength);
+  return data;
 };
