@@ -37,7 +37,7 @@ const View = () => {
 
   return (
     <div>
-      <SEOMeta description={SEOdesc} path="/view" />
+      <SEOMeta description={SEOdesc} path="/view" page="View" />
       <NftPageViewWrapper>
         <NFTView />
         <LatestSold lastSold={lastSold} />
