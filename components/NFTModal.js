@@ -7,6 +7,8 @@ import MainButton from "./MainButton";
 import { AiOutlineClose } from "react-icons/ai";
 
 const NFTModal = ({ show, onHide, activeNFT }) => {
+  console.log(activeNFT);
+
   return (
     <Modal
       show={show}
@@ -47,6 +49,9 @@ const NFTModal = ({ show, onHide, activeNFT }) => {
                       {`${attribute.trait_type}: `}
                       {"  "}
                       {attribute.value}
+
+                      {attribute.rarityPercent &&
+                        `${" - "}${attribute.rarityPercent}%`}
                     </div>
                   );
                 })}
