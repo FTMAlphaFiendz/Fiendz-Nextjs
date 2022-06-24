@@ -492,6 +492,45 @@ nav:after {
 	}
   }
 
+.wallet-stats {
+	border: 2px solid #1d1f91;
+	border-radius: 10px;
+}
+
+.border-right {
+	border-right: 1px solid #1d1f91;
+	height: 50px;
+	  margin: 0;
+}
+
+.border-bottom {
+	border-bottom: 1px solid #1d1f91;
+	width: 185px;
+	  margin: 0;
+}
+
+.nft-border {
+	border: 2px solid #1d1f91;
+	border-radius: 10px;
+}
+
+.nft-card {
+	background: white;
+	min-height: 250px;
+	width: 225px;
+	border: 2px solid #1d1f91;
+	border-radius: 10px;
+}
+
+.nft-card:hover {
+	transform: scale(1.05);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+#sold {
+	max-width: 225px;
+	height: fit-content;
+}
   .latestSoldFooter {
 	width: 100%;
 	height: 60px;
@@ -505,10 +544,13 @@ nav:after {
   }
 
   .latest-sold-img {
-	  height: 75px;
-	  width: 75px;
+	  height: 60px;
+	  width: 60px;
   }
 
+  .border-around {
+	  border: 2px solid black;
+  }
   .f-icon {
 	  height: 30px;
 	  width: 30px;

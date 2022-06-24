@@ -3,6 +3,8 @@ import { getContract } from "../helpers/Contract";
 import { formatName } from "../helpers/utils";
 import axios from "axios";
 import Web3 from "web3";
+import SEDATA from "../public/files/testSEData.json";
+import rarityMap from "../public/files/rarityMap.json";
 
 const getWeb3 = (provider) => {
   return new Web3(provider);
@@ -19,20 +21,62 @@ export const getTokenUriById = async (contract, id) => {
   return tokenUri;
 };
 
-export const getMetadata = async (tokenUri) => {
+export const getMetadata = async (tokenUri, rarityMap) => {
+  let totalRarity = 0;
   let { data } = await axios.get(tokenUri);
+  console.log({ rarityMap });
   data.name = formatName(data.name);
   if (data.hasOwnProperty("attributes")) {
     for (const attribute of data.attributes) {
+      let traitType = attribute.trait_type;
+      let traitValue = attribute.value;
+      if (rarityMap[`${traitType}`]) {
+        if (rarityMap[`${traitType}`].hasOwnProperty(traitValue)) {
+          attribute.rarityPercent =
+            rarityMap[`${traitType}`][`${traitValue}`].rarityPercent;
+        }
+      }
       if (attribute.hasOwnProperty("trait_type")) {
-        attribute.trait_type = attribute.trait_type.replace("_", "");
+        attribute.trait_type = traitType.replace("_", "");
       }
       if (attribute.hasOwnProperty("value")) {
         attribute.value = attribute.value.replaceAll("_", " ");
       }
+      totalRarity += attribute.rarityPercent;
     }
+    let { rarityStatus, walletScore } = getFAFzRarityStatus(totalRarity);
+    data.rarityStatus = rarityStatus;
+    data.walletScore = walletScore;
+  } else if (!data.hasOwnProperty("attributes") && type === "se") {
+    data.attributes = {
+      trait_type: "Special Edition",
+      value: "Special Edition",
+    };
+    data.rarityStatus = "Legendary";
+    data.walletScore = 700;
   }
+  console.log({ data });
   return data;
+};
+
+export const getFAFzRarityStatus = (totalRarity) => {
+  let rarityStatus, walletScore;
+  if (totalRarity > 0 && totalRarity <= 1) {
+    rarityStatus = "Legendary";
+    walletScore = 2250;
+  } else if (totalRarity > 1 && totalRarity <= 24) {
+    rarityStatus = "Epic";
+    walletScore = 750;
+  } else if (totalRarity > 24 && totalRarity <= 67) {
+    rarityStatus = "Rare";
+    walletScore = 250;
+  } else if (totalRarity > 67 && totalRarity <= 78) {
+    rarityStatus = "Common";
+    walletScore = 100;
+  } else {
+    throw "Rarity does not exist";
+  }
+  return { rarityStatus, walletScore };
 };
 
 export const getTokensFromWallet = async (contract, account) => {
@@ -40,26 +84,37 @@ export const getTokensFromWallet = async (contract, account) => {
   return tokensInWallet;
 };
 
-export const getNFTData = async (provider, account, type) => {
+export const getNFTData = async (provider, account, type, rarityMap) => {
   let dataArray = [];
   let contract = getContract(provider, type);
   let tokenIds = await getTokensFromWallet(contract, account);
   if (tokenIds.length === 0) return dataArray;
   for (const id of tokenIds) {
     let uri = await getTokenUriById(contract, id);
-    dataArray.push(await getMetadata(uri));
+    dataArray.push(await getMetadata(uri, rarityMap));
   }
   let data = await Promise.all(dataArray);
   return data;
 };
 
-export const getAllUserNFTs = async (provider, account) => {
+const getTotalWalletScore = (data) => {
+  let totalWalletScore = 0;
+  for (const d of data) {
+    totalWalletScore += d.walletScore;
+  }
+  return totalWalletScore;
+};
+
+export const getAllUserNFTs = async (provider, account, rarityMap) => {
   //this will work when it is live;
-  const seData = await getNFTData(provider, account, "se");
-  // let seData = SEDATA;
-  let fafzData = await getNFTData(provider, account, "fafz");
-  let allData = seData.concat(fafzData);
-  return allData;
+  // const seData = await getNFTData(provider, account, "se", rarityMap);
+  let seData = SEDATA;
+  let seCount = seData.length;
+  let fafzData = await getNFTData(provider, account, "fafz", rarityMap);
+  let fafzCount = fafzData.length;
+  let data = seData.concat(fafzData);
+  let totalWallet = getTotalWalletScore(data);
+  return { data, seCount, fafzCount, totalWallet };
 };
 
 //NFT FUNCTIONS
@@ -124,7 +179,6 @@ export const getLatestBoughtFromCampfire = async (provider, maxLength = 15) => {
   let fafzContract = getContract(provider, "fafz");
   let fromBlock = 40598710;
   let campfireContract = getContract(provider, "campfire");
-  console.log(campfireContract.methods);
   let events = await campfireContract.getPastEvents("Sale", {
     filter: { nftContractAddress: fafz },
     fromBlock,
@@ -162,7 +216,7 @@ export const getLatestBoughtFromNFTKey = async (provider, maxLength = 15) => {
   return formattedData;
 };
 
-export const getAllBoughtEvents = async (provider, maxLength = 20) => {
+export const getAllBoughtEvents = async (provider, maxLength = 10) => {
   let eventPromises = [
     await getLatestBoughtFromNFTKey(provider, maxLength),
     await getLatestBoughtFromCampfire(provider, maxLength),

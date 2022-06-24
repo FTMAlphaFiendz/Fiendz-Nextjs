@@ -10,7 +10,6 @@ const nftKeyContract = "0x1A7d6ed890b6C284271AD27E7AbE8Fb5211D0739";
 const campfireContract = "0x3f4301e574d0484fa138D933578d200f23c3E4b0";
 const mainnetContract = "0xB183341A1FC7C851df05E01bf98EE683080B7e8C";
 
-//types are fafz and se
 const contractFactory = (type) => {
   let contract, abi;
   switch (type) {

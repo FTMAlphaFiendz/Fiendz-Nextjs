@@ -30,12 +30,8 @@ const NFTModal = ({ show, onHide, activeNFT }) => {
             src={activeNFT.image}
             alt={activeNFT.name}
             style={{ height: "300px", width: "275px" }}
-            className="mb-2"
+            className="mb-2 nft-border"
           />
-          <h6 className="text-xl font-inter text-border my-1">Description</h6>
-          <p className="font-inter text-center md:w-10/12 text-base">
-            {activeNFT.description}
-          </p>
           {activeNFT?.attributes && (
             <>
               <h6 className="text-lg font-inter text-border my-1">
