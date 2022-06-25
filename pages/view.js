@@ -15,6 +15,7 @@ const View = () => {
   const [lastSold, setLastSold] = useState(null);
   const [isNFTDataLoading, setIsNFTDataLoading] = useState(true);
   const [isSoldDataLoading, setIsSoldDataLoading] = useState(true);
+
   const appHeight = () => {
     const doc = document.documentElement;
     doc.style.setProperty("--app-height", `${window.innerHeight}px`);
