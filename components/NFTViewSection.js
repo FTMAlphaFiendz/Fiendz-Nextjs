@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import NFTModal from "./NFTModal";
-import { GrTransaction } from "react-icons/gr";
-import { GiCampfire } from "react-icons/gi";
 import { ThreeDots } from "react-loading-icons";
 
 const NFTViewSection = ({ nftData, isLoading }) => {
@@ -97,9 +95,10 @@ const NFTViewSection = ({ nftData, isLoading }) => {
                             Score: {data.walletScore}
                           </p>
                           <p
-                            className={`${
-                              data.rarityBackground && data.rarityBackground
-                            } text-border font-inter px-2 rounded-lg`}
+                            className={`text-border font-inter px-2 rounded-lg`}
+                            style={{
+                              backgroundColor: data.rarityBackground.toString(),
+                            }}
                           >
                             {data.rarityStatus}
                           </p>

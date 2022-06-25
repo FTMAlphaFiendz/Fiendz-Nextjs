@@ -54,7 +54,7 @@ export const getMetadata = async (tokenUri, rarityMap) => {
       trait_type: "Special Edition",
       value: "Special Edition",
     };
-    data.rarityBackground = "bg-legendary";
+    data.rarityBackground = "#fee235";
     data.rarityStatus = "Legendary";
     data.walletScore = 700;
   }
@@ -67,19 +67,19 @@ export const getFAFzRarityStatus = (totalRarity) => {
   if (totalRarity > 0 && totalRarity <= 1) {
     rarityStatus = "Legendary";
     walletScore = 2250;
-    rarityBg = "bg-legendary";
+    rarityBg = "#fee235";
   } else if (totalRarity > 1 && totalRarity <= 24) {
     rarityStatus = "Epic";
     walletScore = 750;
-    rarityBg = "bg-epic";
+    rarityBg = "#bbb2ff";
   } else if (totalRarity > 24 && totalRarity <= 67) {
     rarityStatus = "Rare";
     walletScore = 250;
-    rarityBg = "bg-rare";
+    rarityBg = "#fdb077";
   } else if (totalRarity > 67 && totalRarity <= 78) {
     rarityStatus = "Common";
     walletScore = 100;
-    rarityBg = "bg-common";
+    rarityBg = "#92e8fd";
   } else {
     throw "Rarity does not exist";
   }
