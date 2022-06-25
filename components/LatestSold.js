@@ -21,17 +21,20 @@ const LatestSold = ({ lastSold, isLoading }) => {
     }
     return icon;
   };
-
+  isLoading = true;
   return (
     <div className="px-3">
       <h2 className="text-border font-inter p-2 text-xl">Recent Sales</h2>
       {isLoading ? (
         <div className="flex flex-col justify-center items-center mb-6 text-border">
-          <span className="text-sm my-4">
-            <ThreeDots stroke="#1d1f91" fill="#1d1f91" speed={0.75} />
-          </span>
+          <ThreeDots
+            stroke="#1d1f91"
+            fill="#1d1f91"
+            speed={0.75}
+            style={{ height: "50px", width: "70px" }}
+          />
 
-          <h2 className="text-border font-inter text-lg">
+          <h2 className="text-border font-inter text-lg my-2">
             Fetching Sold Data....
           </h2>
         </div>

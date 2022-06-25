@@ -46,6 +46,7 @@ const NFTViewSection = ({ nftData, isLoading }) => {
         fafzCount={nftData?.fafzCount}
         sortFAFZ={sortFAFZ}
         isHighSorted={isHighSorted}
+        isLoading={isLoading}
       />
       <div id="card-section" className="w-full">
         {isLoading ? (
