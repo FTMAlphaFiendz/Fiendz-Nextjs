@@ -20,7 +20,7 @@ const links = [
 
 const nonHomeLinks = [
   { name: "Back To Home", link: "/" },
-  // { name: "View NFTs", link: "/view" },
+  { name: "Token Checker", link: "/token-checker" },
 ];
 
 const Navbar = () => {

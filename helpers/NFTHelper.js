@@ -117,9 +117,7 @@ const getTotalWalletScore = (data) => {
 };
 
 export const getAllUserNFTs = async (provider, account, rarityMap) => {
-  //this will work when it is live;
   const seData = await getNFTData(provider, account, "se", rarityMap);
-  // let seData = SEDATA;
   let seCount = seData.length;
   let fafzData = await getNFTData(provider, account, "fafz", rarityMap);
   let fafzCount = fafzData.length;
