@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import fafzRarity from "../public/files/fafzWithRarity.json";
 import NFTModal from "../components/NFTModal";
 
-const SEOdesc = "Page to check wallet score by token id";
+const SEOdesc = "Page to check wallet score, rarity and attributes by token id";
 const TokenChecker = () => {
   const [tokenId, setTokenId] = useState(0);
   const [errorText, setErrorText] = useState("");
@@ -44,7 +44,11 @@ const TokenChecker = () => {
 
   return (
     <div>
-      <SEOMeta description={SEOdesc} path="/view" page="View" />
+      <SEOMeta
+        description={SEOdesc}
+        path="/token-checker"
+        page="Token Checker"
+      />
       <div className="mint-page relative flex">
         <div className="w-full mt-16 md:mt-20 mx-10">
           <header className="flex justify-center mb-4 lg:mt-8">
