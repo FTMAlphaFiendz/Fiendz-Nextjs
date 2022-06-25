@@ -8,7 +8,7 @@ import { ThreeDots } from "react-loading-icons";
 const NFTViewSection = ({ nftData, isLoading }) => {
   const [metaData, setMetadata] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [activeNFT, setActiveNFT] = useState({});
+  const [activeNFT, setActiveNFT] = useState(null);
 
   const handleShowModal = () => {
     setModalOpen(true);
@@ -70,7 +70,7 @@ const NFTViewSection = ({ nftData, isLoading }) => {
           </div>
         ) : (
           <div className="my-8 ">
-            {nftData?.data.length > 0 ? (
+            {nftData?.data?.length > 0 ? (
               <div className="flex flex-wrap justify-center">
                 {metaData.map((data, i) => {
                   return (
@@ -93,9 +93,11 @@ const NFTViewSection = ({ nftData, isLoading }) => {
                           {data.name}
                         </div>
                         <div className="flex flex-row justify-around">
-                          <p className="text-border font-inter">Score: 123</p>
+                          <p className="text-border font-inter">
+                            Score: {data.walletScore}
+                          </p>
                           <p
-                            className={`capitalize text-border font-inter bg-common px-2 rounded-lg`}
+                            className={`capitalize text-border font-inter ${data.rarityBackground} px-2 rounded-lg`}
                           >
                             {data.rarityStatus}
                           </p>

@@ -44,14 +44,17 @@ export const getMetadata = async (tokenUri, rarityMap) => {
       }
       totalRarity += attribute.rarityPercent;
     }
-    let { rarityStatus, walletScore } = getFAFzRarityStatus(totalRarity);
+    let { rarityStatus, walletScore, rarityBg } =
+      getFAFzRarityStatus(totalRarity);
     data.rarityStatus = rarityStatus;
     data.walletScore = walletScore;
+    data.rarityBackground = rarityBg;
   } else if (!data.hasOwnProperty("attributes") && type === "se") {
     data.attributes = {
       trait_type: "Special Edition",
       value: "Special Edition",
     };
+    data.rarityBackground = "bg-legendary";
     data.rarityStatus = "Legendary";
     data.walletScore = 700;
   }
@@ -60,23 +63,27 @@ export const getMetadata = async (tokenUri, rarityMap) => {
 };
 
 export const getFAFzRarityStatus = (totalRarity) => {
-  let rarityStatus, walletScore;
+  let rarityStatus, walletScore, rarityBg;
   if (totalRarity > 0 && totalRarity <= 1) {
     rarityStatus = "Legendary";
     walletScore = 2250;
+    rarityBg = "bg-legendary";
   } else if (totalRarity > 1 && totalRarity <= 24) {
     rarityStatus = "Epic";
     walletScore = 750;
+    rarityBg = "bg-epic";
   } else if (totalRarity > 24 && totalRarity <= 67) {
     rarityStatus = "Rare";
     walletScore = 250;
+    rarityBg = "bg-rare";
   } else if (totalRarity > 67 && totalRarity <= 78) {
     rarityStatus = "Common";
     walletScore = 100;
+    rarityBg = "bg-common";
   } else {
     throw "Rarity does not exist";
   }
-  return { rarityStatus, walletScore };
+  return { rarityStatus, walletScore, rarityBg };
 };
 
 export const getTokensFromWallet = async (contract, account) => {

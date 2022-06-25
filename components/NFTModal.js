@@ -1,14 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import Image from "next/image";
-import { formatUrl } from "../helpers/utils";
+import { Modal } from "react-bootstrap";
 import MainButton from "./MainButton";
 import { AiOutlineClose } from "react-icons/ai";
 
 const NFTModal = ({ show, onHide, activeNFT }) => {
-  console.log(activeNFT);
-
   return (
     <Modal
       show={show}
@@ -19,7 +15,7 @@ const NFTModal = ({ show, onHide, activeNFT }) => {
     >
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
-          <h4 className="text-lg font-inter">{activeNFT.name}</h4>
+          <h4 className="text-lg font-inter">{activeNFT?.name}</h4>
         </Modal.Title>
         <button className="text-2xl" onClick={onHide}>
           <AiOutlineClose />
@@ -29,8 +25,8 @@ const NFTModal = ({ show, onHide, activeNFT }) => {
         <div className="flex flex-col items-center">
           <div className="my-3 "></div>
           <img
-            src={activeNFT.image}
-            alt={activeNFT.name}
+            src={activeNFT?.image}
+            alt={activeNFT?.name}
             style={{ height: "300px", width: "275px" }}
             className="mb-2 nft-border"
           />
