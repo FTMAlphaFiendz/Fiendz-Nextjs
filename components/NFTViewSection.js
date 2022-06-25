@@ -54,7 +54,7 @@ const NFTViewSection = ({ nftData, isLoading }) => {
         isHighSorted={isHighSorted}
         isLoading={isLoading}
       />
-      <div id="card-section" className="w-full">
+      <div id="card-section" className="">
         {isLoading ? (
           <div className="flex flex-col justify-center items-center mt-16">
             <ThreeDots speed={0.75} />
@@ -105,42 +105,47 @@ const NFTViewSection = ({ nftData, isLoading }) => {
                 })}
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center bg-white nft-border p-4">
-                <h1 className="text-border font-inter text-3xl mb-2">
-                  NO NFTs
-                </h1>
-                <p className="text-border font-inter text-base md:w-8/12 text-center my-2">
-                  Our genesis mint is complete but check us out on secondary
-                  markets!
-                </p>
-                <div className="flex flex-col items-center">
-                  <a
-                    className="py-1 text-border text-xl font-freckle"
-                    href={nftKeyLink}
-                    target="_blank"
-                  >
-                    NFTKey
-                  </a>
-                  <a
-                    className="py-1 text-border text-xl font-freckle"
-                    href={campfireLink}
-                    target="_blank"
-                  >
-                    Campfire
-                  </a>
-                  <a
-                    className="py-1 text-border text-xl font-freckle"
-                    href={operaHouseLink}
-                    target="_blank"
-                  >
-                    Operahouse
-                  </a>
+              <div className="flex justify-center">
+                <div className="flex flex-col items-center justify-center bg-white nft-border p-4 lg:w-8/12">
+                  <h1 className="text-border font-inter text-3xl mb-2">
+                    NO NFTs
+                  </h1>
+                  <p className="text-border font-inter text-base md:w-8/12 text-center my-2">
+                    Our genesis mint is complete but check us out on secondary
+                    markets!
+                  </p>
+                  <div className="flex flex-col items-center">
+                    <a
+                      className="py-1 text-border text-xl font-freckle"
+                      href={nftKeyLink}
+                      target="_blank"
+                    >
+                      NFTKey
+                    </a>
+                    <a
+                      className="py-1 text-border text-xl font-freckle"
+                      href={campfireLink}
+                      target="_blank"
+                    >
+                      Campfire
+                    </a>
+                    <a
+                      className="py-1 text-border text-xl font-freckle"
+                      href={operaHouseLink}
+                      target="_blank"
+                    >
+                      Operahouse
+                    </a>
+                  </div>
+                  <div className="w-8/12">
+                    <p className="mt-3 text-border text-sm text-center font-inter">
+                      If you are staking your FAFZ in the coffins with Potluck
+                      Protocol. Your NFTs will not appear here as they are not
+                      in your wallet. But dont worry they are safe in the
+                      coffins!{" "}
+                    </p>
+                  </div>
                 </div>
-                <p className="mt-3 text-border text-sm text-center font-inter">
-                  If you are staking your FAFZ in the coffins with Potluck
-                  Protocol. Your NFTs will not appear here as they are not in
-                  your wallet. But dont worry they are safe in the coffins!{" "}
-                </p>
               </div>
             )}
           </div>

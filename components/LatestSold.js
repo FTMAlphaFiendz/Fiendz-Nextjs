@@ -22,7 +22,7 @@ const LatestSold = ({ lastSold, isLoading }) => {
     return icon;
   };
   return (
-    <div className="px-3">
+    <div className="px-3 w-full">
       <h2 className="text-border font-inter p-2 text-xl">Recent Sales</h2>
       {isLoading ? (
         <div className="flex flex-col justify-center items-center mb-6 text-border">

@@ -51,17 +51,19 @@ const View = () => {
             <h1 className="text-white font-inter text-3xl">MY NFTs</h1>
           </header>
           <div className="flex flex-col md:flex-row h-full w-full">
-            <div id="view" className="w-full md:w-8/12 lg:w-9/12 md:mr-4">
+            <div id="view" className="w-full md:w-8/12 lg:w-9/12 ">
               <NFTViewSection
                 nftData={userNFTData}
                 isLoading={isNFTDataLoading}
               />
             </div>
-            <div
-              id="sold"
-              className="flex justify-center md:w-4/12 lg:3/12 nft-border bg-white mb-3 hidden md:block"
-            >
-              <LatestSold lastSold={lastSold} isLoading={isSoldDataLoading} />
+            <div className="w-4/12 flex justify-center">
+              <div
+                id="sold"
+                className="flex justify-center nft-border bg-white mb-3 hidden md:block"
+              >
+                <LatestSold lastSold={lastSold} isLoading={isSoldDataLoading} />
+              </div>
             </div>
           </div>
         </div>
