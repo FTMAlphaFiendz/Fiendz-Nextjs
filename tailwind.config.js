@@ -5,10 +5,10 @@ module.exports = {
   ],
   theme: {
     backgroundColor: (theme) => ({
-      common: "#B5EAFF",
-      rare: "#FFDABE",
-      epic: "#DEDAFF",
-      legendary: "#F8E78E",
+      common: "#92e8fd",
+      rare: "#fdb077",
+      epic: "#bbb2ff",
+      legendary: "#fee235",
       white: "#fffefe",
       green: "#44de62",
       red: "#fc937e",

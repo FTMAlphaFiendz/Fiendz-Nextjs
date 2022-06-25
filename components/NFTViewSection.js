@@ -97,7 +97,9 @@ const NFTViewSection = ({ nftData, isLoading }) => {
                             Score: {data.walletScore}
                           </p>
                           <p
-                            className={`${data.rarityBackground} text-border font-inter px-2 rounded-lg`}
+                            className={`${
+                              data.rarityBackground && data.rarityBackground
+                            } text-border font-inter px-2 rounded-lg`}
                           >
                             {data.rarityStatus}
                           </p>
