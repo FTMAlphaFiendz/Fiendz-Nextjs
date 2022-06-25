@@ -13,7 +13,6 @@ const View = () => {
   const { user } = useContext(UserContext);
   const [userNFTData, setUserNFTData] = useState(null);
   const [lastSold, setLastSold] = useState(null);
-  const [totalWalletScore, setTotalWalletScore] = useState(0);
   const [isNFTDataLoading, setIsNFTDataLoading] = useState(true);
   const [isSoldDataLoading, setIsSoldDataLoading] = useState(true);
   const appHeight = () => {

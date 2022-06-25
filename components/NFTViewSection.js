@@ -32,7 +32,7 @@ const NFTViewSection = ({ nftData, isLoading }) => {
         id="wallet-stats"
         className="bg-white flex w-full md:px-4 wallet-stats items-center"
       >
-        <div className="w-3/12 flex-col text-center py-2">
+        <div className="w-3/12 flex-col text-center py-2 px-1">
           <p className="font-inter text-border text-lg md:text-xl">
             {nftData?.totalWallet}
           </p>
@@ -41,19 +41,19 @@ const NFTViewSection = ({ nftData, isLoading }) => {
           </p>
         </div>
         <span className="border-right"></span>
-        <div className="w-3/12 flex-col text-center py-2">
+        <div className="w-3/12 flex-col text-center py-2 px-1">
           <p className="font-inter text-border text-lg md:text-xl">3</p>
           <p className="font-inter text-border text-sm md:text-base">Tier</p>
         </div>
         <span className="border-right"></span>
-        <div className="w-3/12 flex-col text-center py-2">
+        <div className="w-3/12 flex-col text-center py-2 px-1">
           <p className="font-inter text-border text-lg md:text-xl">
             {nftData?.fafzCount}
           </p>
           <p className="font-inter text-border text-sm md:text-base">FAFz</p>
         </div>
         <span className="border-right"></span>
-        <div className="w-3/12 flex-col text-center py-2">
+        <div className="w-3/12 flex-col text-center py-2 px-1">
           <p className="font-inter text-border text-lg md:text-xl">
             {nftData?.seCount}
           </p>
@@ -75,7 +75,7 @@ const NFTViewSection = ({ nftData, isLoading }) => {
                 {metaData.map((data, i) => {
                   return (
                     <div
-                      key={i}
+                      key={data.name}
                       className="w-3/12 m-2 flex flex-col nft-card nft-border cursor-pointer"
                       onClick={() => {
                         handleShowModal();
@@ -97,7 +97,7 @@ const NFTViewSection = ({ nftData, isLoading }) => {
                             Score: {data.walletScore}
                           </p>
                           <p
-                            className={`capitalize text-border font-inter ${data.rarityBackground} px-2 rounded-lg`}
+                            className={`${data.rarityBackground} text-border font-inter px-2 rounded-lg`}
                           >
                             {data.rarityStatus}
                           </p>
