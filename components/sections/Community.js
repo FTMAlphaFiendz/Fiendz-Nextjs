@@ -16,7 +16,7 @@ const Community = () => {
       id="community"
       className="flex lg:flex-row mx-auto w-full justify-center items-center md:place-items-center overflow-hidden community-bg relative h-full"
     >
-      <Waves fillColor="#cc5ef5" />
+      <Waves fillColor="#80e2ff" />
       <CommunityImageOverlay />
       <div className="w-5/6 lg:w-6/12 flex flex-col items-center bg-white relative community-content my-32 md:my-20 py-5">
         <div className="flex flex-col font-inter content-line text-base sm:text-lg md:text-xl  font-normal text-center w-10/12 lg:w-full p-6 ">

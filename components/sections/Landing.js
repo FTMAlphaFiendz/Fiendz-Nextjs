@@ -17,6 +17,7 @@ const Landing = () => {
     "We are building the biggest community on the FTM Network and " +
     "for that we need your help. We are offering the FAFz Collection " +
     "to the community that will help us build our project and give exclusive and unique perks to the holders.";
+
   const appHeight = () => {
     const doc = document.documentElement;
     doc.style.setProperty("--app-height", `${window.innerHeight}px`);

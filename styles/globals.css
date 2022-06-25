@@ -415,6 +415,18 @@ nav:after {
 	z-index: 1;
 }
 
+.footer-bg-y {
+	background: white;  /* fallback colour. Make sure this is just one solid colour. */
+    background: url("../public/images/backgrounds/background-stars-clouds.png"), linear-gradient(170deg, rgba(255,255,255,1) 0%, rgba(255,223,134,1) 0%, rgba(255,223,134,1) 100%);
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
 .editorial {
 	display: block;
 	width: 100%;
@@ -769,6 +781,14 @@ nav:after {
 	max-height: 50px;
 	height: 60px;
 	background: linear-gradient(167deg, rgba(255,255,255,1) 0%, rgba(254,152,147,1) 0%, rgba(254,202,138,1) 86%);
+}
+
+.skew {
+	transform: skew(-8deg);
+}
+
+.no-skew {
+	transform: skew(8deg);
 }
 
 .main-title-text {
