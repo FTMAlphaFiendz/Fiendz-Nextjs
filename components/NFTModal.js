@@ -59,9 +59,6 @@ const NFTModal = ({ show, onHide, activeNFT }) => {
           </h6>
         </div>
       </Modal.Body>
-      <Modal.Footer>
-        <MainButton text="Close" closeModal={onHide} />
-      </Modal.Footer>
     </Modal>
   );
 };
