@@ -109,7 +109,7 @@ const NFTViewSection = ({ nftData, isLoading }) => {
                 <h1 className="text-border font-inter text-3xl mb-2">
                   NO NFTs
                 </h1>
-                <p className="text-border font-inter text-base w-8/12 text-center my-2">
+                <p className="text-border font-inter text-base md:w-8/12 text-center my-2">
                   Our genesis mint is complete but check us out on secondary
                   markets!
                 </p>
