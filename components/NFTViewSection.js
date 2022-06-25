@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import NFTModal from "./NFTModal";
 import { GrTransaction } from "react-icons/gr";
 import { GiCampfire } from "react-icons/gi";
@@ -32,11 +30,7 @@ const NFTViewSection = ({ nfts, skeletonCount, isLoading }) => {
         <div className="my-8 w-11/12 md:w-12/12">
           <div className="grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {skeletonCount.map((skeleton) => {
-              return (
-                <div key={skeleton} className="px-3">
-                  <Skeleton count={1} height={150} width={150} />
-                </div>
-              );
+              return <div key={skeleton} className="px-3"></div>;
             })}
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Script from "next/script";
 import Layout from "../components/sections/Layout";
 import { UserContext } from "../context/UserContext";
 import { ToastContainer } from "react-toastify";
@@ -92,6 +93,18 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     <>
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+          `}
+      </Script>
       <UserContext.Provider
         value={{ user, connectWallet, disconnectWallet, getWeb3Modal }}
       >
