@@ -3,6 +3,7 @@ import SEOMeta from "../components/SEOMeta";
 import { FaSearch } from "react-icons/fa";
 import fafzRarity from "../public/files/fafzWithRarity.json";
 import NFTModal from "../components/NFTModal";
+import { formatName } from "../helpers/utils";
 
 const SEOdesc = "Page to check wallet score, rarity and attributes by token id";
 const TokenChecker = () => {
@@ -118,7 +119,7 @@ const TokenChecker = () => {
                   />
                   <div id="nft-stats" className="mb-3">
                     <div className="text-center font-inter text-border mb-1">
-                      {searchedFAFZ?.name}
+                      {formatName(searchedFAFZ?.name)}
                     </div>
                     <div className="flex flex-row justify-around">
                       <p className="text-border font-inter">
