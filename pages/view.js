@@ -33,7 +33,6 @@ const View = () => {
           user?.account,
           rarityMap
         );
-        console.log(userData);
         setUserNFTData(userData);
         setIsNFTDataLoading(false);
         let allEvents = await getAllBoughtEvents(user?.provider);

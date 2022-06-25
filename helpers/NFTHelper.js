@@ -4,7 +4,6 @@ import { formatName } from "../helpers/utils";
 import axios from "axios";
 import Web3 from "web3";
 import SEDATA from "../public/files/testSEData.json";
-import rarityMap from "../public/files/rarityMap.json";
 
 const getWeb3 = (provider) => {
   return new Web3(provider);
@@ -24,7 +23,6 @@ export const getTokenUriById = async (contract, id) => {
 export const getMetadata = async (tokenUri, rarityMap) => {
   let totalRarity = 0;
   let { data } = await axios.get(tokenUri);
-  console.log({ rarityMap });
   data.name = formatName(data.name);
   if (data.hasOwnProperty("attributes")) {
     for (const attribute of data.attributes) {
@@ -44,11 +42,12 @@ export const getMetadata = async (tokenUri, rarityMap) => {
       }
       totalRarity += attribute.rarityPercent;
     }
-    let { rarityStatus, walletScore, rarityBg } =
+    let { rarityStatus, walletScore, rarityBg, sortIndex } =
       getFAFzRarityStatus(totalRarity);
     data.rarityStatus = rarityStatus;
     data.walletScore = walletScore;
     data.rarityBackground = rarityBg;
+    data.sortIndex = sortIndex;
   } else if (!data.hasOwnProperty("attributes") && type === "se") {
     data.attributes = {
       trait_type: "Special Edition",
@@ -57,33 +56,38 @@ export const getMetadata = async (tokenUri, rarityMap) => {
     data.rarityBackground = "#fee235";
     data.rarityStatus = "Legendary";
     data.walletScore = 700;
+    data.sortIndex = 0;
   }
-  console.log({ data });
+
   return data;
 };
 
 export const getFAFzRarityStatus = (totalRarity) => {
-  let rarityStatus, walletScore, rarityBg;
+  let rarityStatus, walletScore, rarityBg, sortIndex;
   if (totalRarity > 0 && totalRarity <= 1) {
     rarityStatus = "Legendary";
     walletScore = 2250;
     rarityBg = "#fee235";
+    sortIndex = 0;
   } else if (totalRarity > 1 && totalRarity <= 24) {
     rarityStatus = "Epic";
     walletScore = 750;
     rarityBg = "#bbb2ff";
+    sortIndex = 1;
   } else if (totalRarity > 24 && totalRarity <= 67) {
     rarityStatus = "Rare";
     walletScore = 250;
     rarityBg = "#fdb077";
+    sortIndex = 2;
   } else if (totalRarity > 67 && totalRarity <= 78) {
     rarityStatus = "Common";
     walletScore = 100;
     rarityBg = "#92e8fd";
+    sortIndex = 3;
   } else {
     throw "Rarity does not exist";
   }
-  return { rarityStatus, walletScore, rarityBg };
+  return { rarityStatus, walletScore, rarityBg, sortIndex };
 };
 
 export const getTokensFromWallet = async (contract, account) => {
@@ -114,12 +118,13 @@ const getTotalWalletScore = (data) => {
 
 export const getAllUserNFTs = async (provider, account, rarityMap) => {
   //this will work when it is live;
-  // const seData = await getNFTData(provider, account, "se", rarityMap);
-  let seData = SEDATA;
+  const seData = await getNFTData(provider, account, "se", rarityMap);
+  // let seData = SEDATA;
   let seCount = seData.length;
   let fafzData = await getNFTData(provider, account, "fafz", rarityMap);
   let fafzCount = fafzData.length;
   let data = seData.concat(fafzData);
+  data = data.sort((a, b) => a.sortIndex - b.sortIndex);
   let totalWallet = getTotalWalletScore(data);
   return { data, seCount, fafzCount, totalWallet };
 };

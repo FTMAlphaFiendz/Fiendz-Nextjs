@@ -54,6 +54,9 @@ const NFTModal = ({ show, onHide, activeNFT }) => {
               </div>
             </>
           )}
+          <h6 className="text-lg font-inter text-border mt-3 ">
+            Wallet Score - {activeNFT?.walletScore}
+          </h6>
         </div>
       </Modal.Body>
       <Modal.Footer>

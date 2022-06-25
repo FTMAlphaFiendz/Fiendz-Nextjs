@@ -1,12 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import NFTModal from "./NFTModal";
+import WalletStatsBar from "./WalletStatsBar";
 import { ThreeDots } from "react-loading-icons";
 
 const NFTViewSection = ({ nftData, isLoading }) => {
   const [metaData, setMetadata] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [activeNFT, setActiveNFT] = useState(null);
+  const [isHighSorted, setIsHighSorted] = useState(true);
 
   const handleShowModal = () => {
     setModalOpen(true);
@@ -18,6 +20,17 @@ const NFTViewSection = ({ nftData, isLoading }) => {
 
   const getTier = (walletScore) => {};
 
+  const sortFAFZ = (nfts, isHighSorted) => {
+    let sortedNfts;
+    if (isHighSorted) {
+      sortedNfts = nfts.sort((a, b) => a.sortIndex - b.sortIndex);
+    } else {
+      sortedNfts = nfts.sort((a, b) => b.sortIndex - a.sortIndex);
+    }
+    setIsHighSorted(!isHighSorted);
+    setMetadata(nfts);
+  };
+
   useEffect(() => {
     if (nftData?.data) {
       setMetadata(nftData.data);
@@ -26,38 +39,14 @@ const NFTViewSection = ({ nftData, isLoading }) => {
 
   return (
     <div className="flex flex-col w-full">
-      <div
-        id="wallet-stats"
-        className="bg-white flex w-full md:px-4 wallet-stats items-center"
-      >
-        <div className="w-3/12 flex-col text-center py-2 px-1">
-          <p className="font-inter text-border text-lg md:text-xl">
-            {nftData?.totalWallet}
-          </p>
-          <p className="font-inter text-border text-sm md:text-base">
-            Wallet Score
-          </p>
-        </div>
-        <span className="border-right"></span>
-        <div className="w-3/12 flex-col text-center py-2 px-1">
-          <p className="font-inter text-border text-lg md:text-xl">3</p>
-          <p className="font-inter text-border text-sm md:text-base">Tier</p>
-        </div>
-        <span className="border-right"></span>
-        <div className="w-3/12 flex-col text-center py-2 px-1">
-          <p className="font-inter text-border text-lg md:text-xl">
-            {nftData?.fafzCount}
-          </p>
-          <p className="font-inter text-border text-sm md:text-base">FAFz</p>
-        </div>
-        <span className="border-right"></span>
-        <div className="w-3/12 flex-col text-center py-2 px-1">
-          <p className="font-inter text-border text-lg md:text-xl">
-            {nftData?.seCount}
-          </p>
-          <p className="font-inter text-border text-sm md:text-base">FAFz SE</p>
-        </div>
-      </div>
+      <WalletStatsBar
+        nfts={nftData?.data}
+        walletScore={nftData?.totalWallet}
+        seCount={nftData?.seCount}
+        fafzCount={nftData?.fafzCount}
+        sortFAFZ={sortFAFZ}
+        isHighSorted={isHighSorted}
+      />
       <div id="card-section" className="w-full">
         {isLoading ? (
           <div className="flex flex-col justify-center items-center mt-16">

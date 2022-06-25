@@ -38,8 +38,8 @@ const LatestSold = ({ lastSold, isLoading }) => {
       ) : (
         lastSold?.map((nft, i) => {
           return (
-            <>
-              <div className="flex flex-row mx-2 my-2" key={nft.data?.name}>
+            <div key={`${nft.data?.name}${i}`}>
+              <div className="flex flex-row mx-2 my-2">
                 <img
                   src={nft.data?.image}
                   className="latest-sold-img nft-border"
@@ -58,7 +58,7 @@ const LatestSold = ({ lastSold, isLoading }) => {
                 </div>
               </div>
               <div className="border-bottom"></div>
-            </>
+            </div>
           );
         })
       )}
