@@ -21,7 +21,6 @@ const LatestSold = ({ lastSold, isLoading }) => {
     }
     return icon;
   };
-  isLoading = true;
   return (
     <div className="px-3">
       <h2 className="text-border font-inter p-2 text-xl">Recent Sales</h2>
