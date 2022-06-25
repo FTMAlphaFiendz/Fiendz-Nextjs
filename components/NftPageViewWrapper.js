@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Waves from "./Waves";
+import { UserContext } from "../context/UserContext";
+import { useRouter } from "next/router";
 
 const NftPageViewWrapper = ({ children }) => {
+  const router = useRouter();
+  const { user } = useContext(UserContext);
+  const [isPage, setIsPage] = useState(null);
+
+  const getPath = () => {
+    let currentPath;
+    let path = router.asPath;
+    switch (path) {
+      case "/view":
+        currentPath = "view";
+        break;
+      default:
+        throw "No matching path found.";
+    }
+    return currentPath;
+  };
+
+  useEffect(() => {
+    let currentPath = getPath();
+    setIsPage(currentPath);
+  }, []);
+
   return (
     <div className="mint-page relative flex">
       <Waves fillColor="#fedf87" className="editorial-fixed" />

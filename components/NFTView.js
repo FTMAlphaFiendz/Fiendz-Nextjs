@@ -35,8 +35,6 @@ const NFTView = () => {
             let allData = await getAllUserNFTs(provider, account);
             setUserNFTs(allData);
             setIsLoading(false);
-            //THIS WILL BE FOR THE FUTURE FOOTER SALE INFO
-            // let events = await getLastestBoughtFromNK(provider);
           } catch (err) {
             console.log(err);
             if (err) {

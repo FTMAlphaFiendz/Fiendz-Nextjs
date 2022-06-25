@@ -21,15 +21,15 @@ const leftContent = [
   },
   {
     title: "PHASE 3",
-    phaseComplete: false,
+    phaseComplete: true,
     phaseItems: [
       {
         content: "Live Discord launch party",
-        completed: false,
+        completed: true,
       },
       {
         content: "FAFz NFT Exclusive mint goes live",
-        completed: false,
+        completed: true,
       },
     ],
   },
@@ -61,12 +61,12 @@ const rightContent = [
   },
   {
     title: "PHASE 4",
-    phaseComplete: false,
+    phaseComplete: true,
     phaseItems: [
       {
         content:
           "Staking live on Potluck Protocol to earn Fang once we reach 50% mint",
-        completed: false,
+        completed: true,
       },
     ],
   },

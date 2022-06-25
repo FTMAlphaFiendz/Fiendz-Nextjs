@@ -1,0 +1,464 @@
+{
+  "Background_": {
+    "Flame_On": {
+      "count": 10,
+      "rarityPercent": 1.29
+    },
+    "Galactic": {
+      "count": 11,
+      "rarityPercent": 1.42
+    },
+    "Toxic_Clouds": {
+      "count": 12,
+      "rarityPercent": 1.54
+    },
+    "Donut_Sky": {
+      "count": 62,
+      "rarityPercent": 7.98
+    },
+    "Ghoulish": {
+      "count": 12,
+      "rarityPercent": 1.54
+    },
+    "Engulfed": {
+      "count": 10,
+      "rarityPercent": 1.29
+    },
+    "Hell": {
+      "count": 12,
+      "rarityPercent": 1.54
+    },
+    "Ooze": {
+      "count": 40,
+      "rarityPercent": 5.15
+    },
+    "Cumulocitrus": {
+      "count": 39,
+      "rarityPercent": 5.02
+    },
+    "Psychedelic": {
+      "count": 43,
+      "rarityPercent": 5.53
+    },
+    "Nebula": {
+      "count": 42,
+      "rarityPercent": 5.41
+    },
+    "Waavvyyy": {
+      "count": 42,
+      "rarityPercent": 5.41
+    },
+    "Harmony": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "Stinky_Green": {
+      "count": 49,
+      "rarityPercent": 6.31
+    },
+    "Sunset": {
+      "count": 52,
+      "rarityPercent": 6.69
+    },
+    "Blue": {
+      "count": 36,
+      "rarityPercent": 4.63
+    },
+    "Deep_Sea": {
+      "count": 46,
+      "rarityPercent": 5.92
+    },
+    "Tequila_Sunrise": {
+      "count": 39,
+      "rarityPercent": 5.02
+    },
+    "Sunrise": {
+      "count": 40,
+      "rarityPercent": 5.15
+    },
+    "Sweet_16": {
+      "count": 46,
+      "rarityPercent": 5.92
+    },
+    "Midnight": {
+      "count": 43,
+      "rarityPercent": 5.53
+    },
+    "Purple": {
+      "count": 44,
+      "rarityPercent": 5.66
+    },
+    "Lavender": {
+      "count": 45,
+      "rarityPercent": 5.79
+    },
+    "Chalkboard": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "Ocean": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "totalRarityPercent": 100
+  },
+  "Body_": {
+    "Purple_Fiend": {
+      "count": 41,
+      "rarityPercent": 5.28
+    },
+    "Yellow_Fiend": {
+      "count": 38,
+      "rarityPercent": 4.89
+    },
+    "Orange_Fiend": {
+      "count": 248,
+      "rarityPercent": 31.92
+    },
+    "Green_Fiend": {
+      "count": 221,
+      "rarityPercent": 28.44
+    },
+    "Blue_Fiend": {
+      "count": 227,
+      "rarityPercent": 29.21
+    },
+    "Golden_Buddha": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "Einstein": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "Water_Monster": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "totalRarityPercent": 100
+  },
+  "Clothes_": {
+    "Kimono": {
+      "count": 18,
+      "rarityPercent": 2.32
+    },
+    "Biker_Chic": {
+      "count": 23,
+      "rarityPercent": 2.96
+    },
+    "Mummy": {
+      "count": 18,
+      "rarityPercent": 2.32
+    },
+    "The_Count": {
+      "count": 20,
+      "rarityPercent": 2.57
+    },
+    "Professional_Fantom": {
+      "count": 58,
+      "rarityPercent": 7.46
+    },
+    "The_Dude": {
+      "count": 71,
+      "rarityPercent": 9.14
+    },
+    "Vesticle": {
+      "count": 65,
+      "rarityPercent": 8.37
+    },
+    "Letterman": {
+      "count": 62,
+      "rarityPercent": 7.98
+    },
+    "Meditation_Robes": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "Wario": {
+      "count": 67,
+      "rarityPercent": 8.62
+    },
+    "Super_Luigi": {
+      "count": 42,
+      "rarityPercent": 5.41
+    },
+    "Purple_Hoodie": {
+      "count": 64,
+      "rarityPercent": 8.24
+    },
+    "Candy_Coated_Hoodie": {
+      "count": 77,
+      "rarityPercent": 9.91
+    },
+    "Super_Mario": {
+      "count": 64,
+      "rarityPercent": 8.24
+    },
+    "Blue_Hoodie": {
+      "count": 63,
+      "rarityPercent": 8.11
+    },
+    "Starburst_Hoodie": {
+      "count": 63,
+      "rarityPercent": 8.11
+    },
+    "Professor": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "Vegan_Vibes": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "totalRarityPercent": 100
+  },
+  "Mouth_": {
+    "mustache_rainbow": {
+      "count": 20,
+      "rarityPercent": 2.57
+    },
+    "Lipstick": {
+      "count": 11,
+      "rarityPercent": 1.42
+    },
+    "Ranibow_Smiley": {
+      "count": 18,
+      "rarityPercent": 2.32
+    },
+    "Skittles": {
+      "count": 20,
+      "rarityPercent": 2.57
+    },
+    "Colorful_Cheese": {
+      "count": 10,
+      "rarityPercent": 1.29
+    },
+    "Yum": {
+      "count": 71,
+      "rarityPercent": 9.14
+    },
+    "Taboo": {
+      "count": 57,
+      "rarityPercent": 7.34
+    },
+    "Uncle_Cousin": {
+      "count": 66,
+      "rarityPercent": 8.49
+    },
+    "Monster": {
+      "count": 62,
+      "rarityPercent": 7.98
+    },
+    "Peaceful": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "Purple_People_Eater": {
+      "count": 43,
+      "rarityPercent": 5.53
+    },
+    "Ahhhh": {
+      "count": 58,
+      "rarityPercent": 7.46
+    },
+    "Yosemite_Sam": {
+      "count": 34,
+      "rarityPercent": 4.38
+    },
+    "Chompers": {
+      "count": 47,
+      "rarityPercent": 6.05
+    },
+    "Smile": {
+      "count": 40,
+      "rarityPercent": 5.15
+    },
+    "Frownie": {
+      "count": 39,
+      "rarityPercent": 5.02
+    },
+    "Asphyxia_Smile": {
+      "count": 52,
+      "rarityPercent": 6.69
+    },
+    "Lord_Longfellow": {
+      "count": 45,
+      "rarityPercent": 5.79
+    },
+    "Cheese": {
+      "count": 34,
+      "rarityPercent": 4.38
+    },
+    "LoL": {
+      "count": 48,
+      "rarityPercent": 6.18
+    },
+    "Einstein": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "Caveman": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "totalRarityPercent": 100
+  },
+  "Eyes_": {
+    "Scar": {
+      "count": 15,
+      "rarityPercent": 1.93
+    },
+    "Starstruck": {
+      "count": 14,
+      "rarityPercent": 1.8
+    },
+    "Goblin": {
+      "count": 12,
+      "rarityPercent": 1.54
+    },
+    "Greased_Lightning": {
+      "count": 18,
+      "rarityPercent": 2.32
+    },
+    "Ghost": {
+      "count": 20,
+      "rarityPercent": 2.57
+    },
+    "Adderral": {
+      "count": 58,
+      "rarityPercent": 7.46
+    },
+    "Wolfy": {
+      "count": 62,
+      "rarityPercent": 7.98
+    },
+    "Total_Recall": {
+      "count": 68,
+      "rarityPercent": 8.75
+    },
+    "Mummy": {
+      "count": 68,
+      "rarityPercent": 8.75
+    },
+    "Meditation": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "Pissed_Off": {
+      "count": 68,
+      "rarityPercent": 8.75
+    },
+    "Weirdo": {
+      "count": 67,
+      "rarityPercent": 8.62
+    },
+    "Bored": {
+      "count": 64,
+      "rarityPercent": 8.24
+    },
+    "RLY?": {
+      "count": 53,
+      "rarityPercent": 6.82
+    },
+    "Insecure": {
+      "count": 54,
+      "rarityPercent": 6.95
+    },
+    "Peepers": {
+      "count": 59,
+      "rarityPercent": 7.59
+    },
+    "Whos_That": {
+      "count": 75,
+      "rarityPercent": 9.65
+    },
+    "Smart_AF": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "Heavy_Brow": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "totalRarityPercent": 100
+  },
+  "Hat_": {
+    "Mecha": {
+      "count": 10,
+      "rarityPercent": 1.29
+    },
+    "Halo": {
+      "count": 16,
+      "rarityPercent": 2.06
+    },
+    "Samurai": {
+      "count": 18,
+      "rarityPercent": 2.32
+    },
+    "Horny_Fiend": {
+      "count": 15,
+      "rarityPercent": 1.93
+    },
+    "King_Fiend": {
+      "count": 20,
+      "rarityPercent": 2.57
+    },
+    "Beatnik": {
+      "count": 39,
+      "rarityPercent": 5.02
+    },
+    "Blue": {
+      "count": 43,
+      "rarityPercent": 5.53
+    },
+    "The_Pony": {
+      "count": 43,
+      "rarityPercent": 5.53
+    },
+    "Fiendhawk": {
+      "count": 35,
+      "rarityPercent": 4.5
+    },
+    "Hombre": {
+      "count": 50,
+      "rarityPercent": 6.44
+    },
+    "Gangster": {
+      "count": 46,
+      "rarityPercent": 5.92
+    },
+    "Man_Bun": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "Orange": {
+      "count": 84,
+      "rarityPercent": 10.81
+    },
+    "Sk8ter_Boi": {
+      "count": 98,
+      "rarityPercent": 12.61
+    },
+    "Purple": {
+      "count": 99,
+      "rarityPercent": 12.74
+    },
+    "Emo_Boi": {
+      "count": 77,
+      "rarityPercent": 9.91
+    },
+    "FAFz_Cap": {
+      "count": 82,
+      "rarityPercent": 10.55
+    },
+    "Einstein Spikes": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "Water_Mane": {
+      "count": 1,
+      "rarityPercent": 0.13
+    },
+    "totalRarityPercent": 100
+  }
+}
