@@ -535,6 +535,13 @@ nav:after {
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
+.token-checker {
+	width: 70px;
+	height: 40px;
+	border: 1px solid #1d1f91;
+	border-radius: 10px;
+}
+
 #sold {
 	max-width: 225px;
 	height: fit-content;
