@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import NFTModal from "./NFTModal";
 import WalletStatsBar from "./WalletStatsBar";
+import FiendCard from "./FiendCard";
 import { ThreeDots } from "react-loading-icons";
 
 const nftKeyLink = "https://nftkey.app/collections/ftmalphafiendz/";
@@ -68,38 +69,12 @@ const NFTViewSection = ({ nftData, isLoading }) => {
               <div className="flex flex-wrap justify-center">
                 {metaData.map((data, i) => {
                   return (
-                    <div
-                      key={data.name}
-                      className="w-3/12 m-2 flex flex-col nft-card nft-border cursor-pointer"
-                      onClick={() => {
-                        handleShowModal();
-                        setActiveNFT(data);
-                      }}
-                    >
-                      <img
-                        src={data.image}
-                        alt={data.name}
-                        className="nft-border m-auto my-3"
-                        style={{ height: "190px", width: "185px" }}
+                    <div key={data.name}>
+                      <FiendCard
+                        data={data}
+                        handleShowModal={handleShowModal}
+                        setActiveNFT={setActiveNFT}
                       />
-                      <div id="nft-stats" className="mb-3">
-                        <div className="text-center font-inter text-border mb-1">
-                          {data.name}
-                        </div>
-                        <div className="flex flex-row justify-around">
-                          <p className="text-border font-inter">
-                            Score: {data.walletScore}
-                          </p>
-                          <p
-                            className={`text-border font-inter px-2 rounded-lg`}
-                            style={{
-                              backgroundColor: data.rarityBackground.toString(),
-                            }}
-                          >
-                            {data.rarityStatus}
-                          </p>
-                        </div>
-                      </div>
                     </div>
                   );
                 })}

@@ -3,6 +3,7 @@ import SEOMeta from "../components/SEOMeta";
 import { FaSearch } from "react-icons/fa";
 import fafzRarity from "../public/files/fafzWithRarity.json";
 import NFTModal from "../components/NFTModal";
+import FiendCard from "../components/FiendCard";
 import { formatName } from "../helpers/utils";
 
 const SEOdesc = "Page to check wallet score, rarity and attributes by token id";
@@ -103,40 +104,12 @@ const TokenChecker = () => {
             </div>
             <div className="w-full md:w-5/12 flex justify-center">
               {searchedFAFZ && (
-                <div
-                  key={activeNFT?.name}
-                  className="w-3/12 m-2 flex flex-col nft-card nft-border cursor-pointer"
-                  onClick={() => {
-                    handleShowModal();
-                    setActiveNFT(searchedFAFZ);
-                  }}
-                >
-                  <img
-                    src={searchedFAFZ?.image}
-                    alt={searchedFAFZ?.name}
-                    className="nft-border m-auto my-3"
-                    style={{ height: "190px", width: "185px" }}
-                  />
-                  <div id="nft-stats" className="mb-3">
-                    <div className="text-center font-inter text-border mb-1">
-                      {formatName(searchedFAFZ?.name)}
-                    </div>
-                    <div className="flex flex-row justify-around">
-                      <p className="text-border font-inter">
-                        Score: {searchedFAFZ?.walletScore}
-                      </p>
-                      <p
-                        className={`text-border font-inter px-2 rounded-lg`}
-                        style={{
-                          backgroundColor:
-                            searchedFAFZ?.rarityBackground.toString(),
-                        }}
-                      >
-                        {searchedFAFZ?.rarityStatus}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <FiendCard
+                  data={searchedFAFZ}
+                  name={searchedFAFZ?.name}
+                  handleShowModal={handleShowModal}
+                  setActiveNFT={setActiveNFT}
+                />
               )}
             </div>
           </div>
