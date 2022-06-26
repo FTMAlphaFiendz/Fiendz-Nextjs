@@ -58,7 +58,7 @@ const TokenChecker = () => {
           <div className="flex flex-col items-center w-full">
             <div
               id="wallet-stats"
-              className="bg-white flex flex-col w-5/12 md:px-4 wallet-stats items-center mb-2 p-4"
+              className="bg-white flex flex-col w-11/12 md:w-6/12 lg:w-5/12 md:px-4 wallet-stats items-center mb-2 p-4"
             >
               <div className="text-center">
                 <p className="font-inter text-border">
@@ -69,7 +69,7 @@ const TokenChecker = () => {
               <div className="mt-3 flex justify-center items-center w-full">
                 <input
                   type="number"
-                  className="token-checker border-2 font-inter text-border text-center"
+                  className="token-checker border-2 font-inter text-border text-center mx-1"
                   value={tokenId}
                   onChange={(e) => {
                     let { value } = e.target;
@@ -90,7 +90,7 @@ const TokenChecker = () => {
                       setIsError(false);
                     }
                   }}
-                  className="p-2.5 sm:ml-2 rounded-full border-2 border-orange-700 hover:shadow-xl duration-500 hover:text-white font-freckle connect-button"
+                  className="p-2.5 sm:ml-2 rounded-full border-2 border-orange-700 hover:shadow-xl duration-500 hover:text-white font-freckle connect-button mx-1"
                 >
                   <FaSearch />
                 </button>
@@ -101,7 +101,7 @@ const TokenChecker = () => {
                 </p>
               )}
             </div>
-            <div className="w-5/12 flex justify-center">
+            <div className="w-full md:w-5/12 flex justify-center">
               {searchedFAFZ && (
                 <div
                   key={activeNFT?.name}
