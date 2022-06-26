@@ -19,8 +19,8 @@ const links = [
 ];
 
 const nonHomeLinks = [
-  { name: "Back To Home", link: "/" },
-  { name: "Token Checker", link: "/token-checker" },
+  { name: "My NFTS", link: "/view" },
+  { name: "Collection", link: "/token-checker" },
 ];
 
 const Navbar = () => {
@@ -115,16 +115,6 @@ const Navbar = () => {
                   </div>
                 );
               })}
-          <Link href="/view">
-            <li
-              className=" py-3 md:py-0 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
-              onClick={() => {
-                setOpen(!open);
-              }}
-            >
-              View NFTs
-            </li>
-          </Link>
           <li className="block sm:hidden pb-2 sm:pb-0">
             <ConnectWalletBtn
               account={user?.account}

@@ -40,6 +40,8 @@ module.exports = {
     extend: {
       backgroundImage: {
         titleBg: "url('../public/images/titles/title-community-bg.png')",
+        filterFafzBg: "url('../public/images/misc/fafz-filter.png')",
+        filterSeBg: "url('../public/images/misc/se-filter.png')",
       },
       textColor: {
         border: "#1d1f91",

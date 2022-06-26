@@ -23,7 +23,7 @@ const LatestSold = ({ lastSold, isLoading }) => {
   };
   return (
     <div className="px-3 w-full">
-      <h2 className="text-border font-inter p-2 text-xl">Recent Sales</h2>
+      <h2 className="text-border font-freckle p-2 text-xl">Recent Sales</h2>
       {isLoading ? (
         <div className="flex flex-col justify-center items-center mb-6 text-border">
           <ThreeDots

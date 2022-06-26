@@ -91,15 +91,18 @@ nav:after {
 	height: 100%;
 	/* background: url("./images/backgrounds/bg-head-background.png"), linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(209,89,244,1) 0%, rgba(147,195,253,1) 92%); */
     background: url("../public/images/backgrounds/bg-head-background.png"), linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(209,89,244,1) 0%, rgba(147,195,253,1) 92%);
-    bottom: 0;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 	background-position: fixed;
+	position: fixed;
+	overflow-y:scroll;
 	z-index: 1;
-    min-height: var(--app-height);
+	min-height: var(--app-height);
 }
+
+
 
 .test-div {
 	max-height: 500px !important;
@@ -499,10 +502,14 @@ nav:after {
 	  transform: translate(85px, 0%);
 	}
   }
+  .filter-section {
+	  height: fit-content;
+	  max-height: 450px;
+  }
 
 .wallet-stats {
 	border: 2px solid #1d1f91;
-	border-radius: 10px;
+	border-radius: 50px;
 }
 
 .border-right {
@@ -536,10 +543,9 @@ nav:after {
 }
 
 .token-checker {
-	width: 70px;
-	height: 40px;
 	border: 1px solid #1d1f91;
-	border-radius: 10px;
+	border-radius: 50px;
+	height: 35px;
 }
 
 #sold {
