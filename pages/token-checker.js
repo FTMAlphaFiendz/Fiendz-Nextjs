@@ -76,7 +76,6 @@ const TokenChecker = () => {
                     let { value } = e.target;
                     setTokenId(value);
                   }}
-                  onKeyDown={onKeyDown}
                   min="0"
                   max="777"
                 />

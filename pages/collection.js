@@ -3,15 +3,16 @@ import React, { useEffect, useState, useContext } from "react";
 import SEOMeta from "../components/SEOMeta";
 import { UserContext } from "../context/UserContext";
 import { getAllUserNFTs } from "../helpers/NFTHelper";
-import { FaSearch } from "react-icons/fa";
+
 import FiendCard from "../components/FiendCard";
 import NFTModal from "../components/NFTModal";
 import fafzRarity from "../public/files/fafzWithRarity.json";
 import rarityMap from "../public/files/rarityMap.json";
-import FilterFAFZ from "../public/images/misc/fafz-filter.png";
-import FilterSE from "../public/images/misc/se-filter.png";
-import Image from "next/image";
-import { isInput } from "dom-helpers";
+import Pagination from "../components/Pagination";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+
+import CollectionFilter from "../components/CollectionFilter";
+import CollectionDesktopFilterBar from "../components/CollectionDesktopFilterBar";
 
 const SEOdesc = "Collection page to filter by rarities!";
 
@@ -59,7 +60,11 @@ const Collection = ({ data }) => {
   const [fiendFilters, setFiendFilters] = useState(null);
   const [searchedFAFZ, setSearchedFAFZ] = useState(null);
   const [collectionCount, setCollectionCount] = useState(null);
-  const [searchedToken, setSearchedToken] = useState(null);
+  const [searchedToken, setSearchedToken] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [nftsPerPage] = useState(20);
+  const [isError, setIsError] = useState(false);
+  const [errorText, setErrorText] = useState("");
 
   const handleShowModal = () => {
     setModalOpen(true);
@@ -97,29 +102,41 @@ const Collection = ({ data }) => {
     setCollectionData(filteredCollection);
   };
 
-  const checkTokenId = (tokenId, collectionData) => {
+  const handleFilterCollection = (e, filter) => {
+    let checked = e.target.checked;
+    setFiendFilters(
+      fiendFilters.map((f) => {
+        if (filter.id === f.id) {
+          f.select = checked;
+        }
+        return f;
+      })
+    );
+    filterCollection(fiendFilters);
+  };
+
+  const checkTokenId = (tokenId) => {
     if (typeof tokenId === "string") tokenId = Number(tokenId);
-    let searched = collectionData.find((e) => e.edition === tokenId);
+    let searched = data.find((e) => e.edition === tokenId);
     if (!searched) {
       setErrorText("No FAFZ found!");
     }
     return searched;
   };
 
-  const onKeyDown = (event) => {
-    // 'keypress' event misbehaves on mobile so we track 'Enter' key via 'keydown' event
-    if (event.key === "Enter") {
-      event.preventDefault();
-      event.stopPropagation();
-      onSearchForToken(event);
+  const handleTokenOnChange = (e) => {
+    let { value } = e.target;
+    if (value === "") {
+      setCollectionData(data);
+    }
+    if (!isNaN(value)) {
+      setSearchedToken(value);
     }
   };
 
   const onSearchForToken = (e) => {
     e.preventDefault();
     if (searchedToken === undefined || !searchedToken) {
-      console.log("here");
-      console.log(data);
       setCollectionData(data);
       setIsError(false);
       return;
@@ -134,8 +151,15 @@ const Collection = ({ data }) => {
     }
   };
 
-  const [isError, setIsError] = useState(false);
-  const [errorText, setErrorText] = useState("");
+  const sortDataById = (type, collectionData) => {
+    let sortedData = [...collectionData];
+    if (type === "asc") {
+      sortedData.sort((a, b) => a.edition - b.edition);
+    } else {
+      sortedData.sort((a, b) => b.edition - a.edition);
+    }
+    setCollectionData(sortedData);
+  };
 
   useEffect(() => {
     setCollectionData(data);
@@ -143,10 +167,19 @@ const Collection = ({ data }) => {
     setFiendFilters(fFilters);
   }, [user]);
 
+  //get nfts for paging
+  const indexOfLastNFT = currentPage * nftsPerPage;
+  const indexOfFirstNFT = indexOfLastNFT - nftsPerPage;
+  const currentNFTs = collectionData?.slice(indexOfFirstNFT, indexOfLastNFT);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div>
       <SEOMeta description={SEOdesc} path="/collection" page="Collection" />
-      <div className="mint-page flex ">
+      <div className="mint-page flex overflow-x-hidden">
         <div className="w-full mt-16 md:mt-20 mx-10">
           <header className="flex justify-center mb-4 lg:mt-8">
             <h1 className="font-freckle text-5xl md:text-7xl text-border page-title ">
@@ -154,119 +187,48 @@ const Collection = ({ data }) => {
             </h1>
           </header>
           <div className="flex flex-col md:flex-row w-full">
-            <div className="w-3/12 flex justify-center">
-              <div
-                id="filter"
-                className="flex justify-center nft-border bg-white mb-3 hidden md:block filter-section py-2 px-3"
-              >
-                <div className="w-full">
-                  <h2 className="text-border font-freckle text-xl mb-2">
-                    Collection
-                  </h2>
-                  <div className="w-full flex flex-row">
-                    <div className="w-6/12 p-2">
-                      <Image
-                        src={FilterFAFZ}
-                        alt="Fiend from FAFZ Collection"
-                      />
-                      <p className="text-border font-freckle">FAFZ</p>
-                    </div>
-                    <div className="w-6/12 p-2">
-                      <Image src={FilterSE} alt="Fiend from SE Collection" />
-                      <p className="text-border font-freckle">FAFZ SE</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="border-bottom my-1"></div>
-                <div className="">
-                  <h2 className="text-border font-freckle text-xl my-2">
-                    Filter
-                  </h2>
-                  <div className="flex flex-col">
-                    {fiendFilters?.map((filter) => {
-                      return (
-                        <div
-                          className="flex items-center py-1"
-                          key={filter.name}
-                        >
-                          <input
-                            type="checkbox"
-                            className="cursor-pointer"
-                            name={filter.name}
-                            style={{ height: "20px", width: "20px" }}
-                            onChange={(e) => {
-                              let checked = e.target.checked;
-                              setFiendFilters(
-                                fiendFilters.map((f) => {
-                                  if (filter.id === f.id) {
-                                    f.select = checked;
-                                  }
-                                  return f;
-                                })
-                              );
-                              filterCollection(fiendFilters);
-                            }}
-                            checked={filter.select}
-                          />
-                          <label
-                            className="font-inter ml-2"
-                            style={{ color: filter.fontColor }}
-                          >
-                            {filter.name}
-                          </label>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
+            <div className="w-3/12 flex justify-center collection-filter">
+              <CollectionFilter
+                fiendFilters={fiendFilters}
+                handleFilterCollection={handleFilterCollection}
+              />
             </div>
 
-            <div
-              id="collection"
-              className="w-full md:w-9/12 lg:w-9/12 collection-area"
-            >
+            <div id="collection" className="w-full md:w-8/12 lg:w-9/12 ml-6">
               <div
                 id="filter-bar"
-                className="mx-3 flex flex-row items-center w-full mb-2"
+                className="flex md:px-4 items-center mb-2 justify-around"
               >
-                <div className="font-freckle text-2xl text-border text-white w-full">
-                  {collectionCount} NFTS FOUND
-                </div>
-                <div className="w-full nft-border bg-white token-checker mx-2 flex flex-row items-center">
-                  <button className="ml-2 text-border cursor-pointer">
-                    <FaSearch />
-                  </button>
-                  <input
-                    type="text"
-                    className={`font-inter text-border bg-transparent ml-2`}
-                    placeholder="Search by ID....."
-                    value={searchedToken}
-                    onChange={(e) => {
-                      let { value } = e.target;
-                      if (!isNaN(value)) {
-                        setSearchedToken(value);
-                      }
-                    }}
-                    onKeyDown={onKeyDown}
-                    min="0"
-                    max="777"
-                  />
-                </div>
-                <div className="w-full">DROP DOWN FILTER</div>
+                <CollectionDesktopFilterBar
+                  collectionData={collectionData}
+                  sortDataById={sortDataById}
+                  collectionCount={collectionCount}
+                  onSearchForToken={onSearchForToken}
+                  searchedToken={searchedToken}
+                  handleTokenOnChange={handleTokenOnChange}
+                />
               </div>
-              <div className="flex flex-wrap justify-center h-auto">
-                {collectionData &&
-                  collectionData.map((data) => {
+              <div className="flex flex-wrap justify-center">
+                {currentNFTs &&
+                  currentNFTs.map((data) => {
                     return (
-                      <FiendCard
-                        data={data}
-                        name={data?.name}
-                        handleShowModal={handleShowModal}
-                        setActiveNFT={setActiveNFT}
-                      />
+                      <div key={data.name}>
+                        <FiendCard
+                          data={data}
+                          name={data?.name}
+                          handleShowModal={handleShowModal}
+                          setActiveNFT={setActiveNFT}
+                        />
+                      </div>
                     );
                   })}
+              </div>
+              <div className="flex text-center">
+                <Pagination
+                  nftsperpage={nftsPerPage}
+                  totalNFTs={collectionData?.length}
+                  paginate={paginate}
+                />
               </div>
             </div>
           </div>

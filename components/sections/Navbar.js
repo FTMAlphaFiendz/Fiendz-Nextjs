@@ -20,7 +20,7 @@ const links = [
 
 const nonHomeLinks = [
   { name: "My NFTS", link: "/view" },
-  { name: "Collection", link: "/token-checker" },
+  { name: "Collection", link: "/collection" },
 ];
 
 const Navbar = () => {
