@@ -2,12 +2,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import SEOMeta from "../components/SEOMeta";
 import { UserContext } from "../context/UserContext";
-import { getAllUserNFTs } from "../helpers/NFTHelper";
-
 import FiendCard from "../components/FiendCard";
 import NFTModal from "../components/NFTModal";
 import fafzRarity from "../public/files/fafzWithRarity.json";
-import rarityMap from "../public/files/rarityMap.json";
+import seRarity from "../public/files/seData.json";
 import Pagination from "../components/Pagination";
 import CollectionFilter from "../components/CollectionFilter";
 import CollectionDesktopFilterBar from "../components/CollectionDesktopFilterBar";
@@ -45,12 +43,14 @@ const fFilters = [
 export async function getStaticProps(context) {
   let data = fafzRarity;
   data = data.sort((a, b) => a.edition - b.edition);
+  let seData = seRarity;
+  seData = seData.sort((a, b) => a.edition - b.edition);
   return {
-    props: { data }, // will be passed to the page component as props
+    props: { data, seData }, // will be passed to the page component as props
   };
 }
 
-const Collection = ({ data }) => {
+const Collection = ({ data, seData }) => {
   const { user } = useContext(UserContext);
   const [userNFTData, setUserNFTData] = useState(null);
   const [activeNFT, setActiveNFT] = useState(null);
@@ -62,6 +62,7 @@ const Collection = ({ data }) => {
   const [searchedToken, setSearchedToken] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [nftsPerPage] = useState(20);
+  const [isFAFZActiveCollection, setIsFAFZActiveCollection] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState("");
 
@@ -78,7 +79,17 @@ const Collection = ({ data }) => {
     doc.style.setProperty("--app-height", `${window.innerHeight}px`);
   };
 
-  const switchCollection = (type, data, seData) => {};
+  const switchCollection = (type) => {
+    if (type === "fafz") {
+      setCollectionData(data);
+      setIsFAFZActiveCollection(true);
+      setCollectionCount(data.length);
+    } else if (type === "se") {
+      setCollectionData(seData);
+      setIsFAFZActiveCollection(false);
+      setCollectionCount(seData.length);
+    }
+  };
 
   useEffect(() => {
     window.addEventListener("resize", appHeight);
@@ -87,9 +98,15 @@ const Collection = ({ data }) => {
 
   const filterCollection = (filters) => {
     let filteredCollection;
+    let filterData;
+    if (isFAFZActiveCollection) {
+      filterData = data;
+    } else {
+      filterData = seData;
+    }
     let selectedFilters = filters.filter((el) => el.select === true);
     if (selectedFilters.length > 0) {
-      filteredCollection = data.filter((d) => {
+      filteredCollection = filterData.filter((d) => {
         for (const f of selectedFilters) {
           if (f.name === d.rarityStatus) {
             return data;
@@ -97,7 +114,7 @@ const Collection = ({ data }) => {
         }
       });
     } else {
-      filteredCollection = data;
+      filteredCollection = filterData;
     }
     setCollectionCount(filteredCollection.length);
     setCollectionData(filteredCollection);
@@ -117,8 +134,14 @@ const Collection = ({ data }) => {
   };
 
   const checkTokenId = (tokenId) => {
+    let checkData;
+    if (isFAFZActiveCollection) {
+      checkData = data;
+    } else {
+      checkData = seData;
+    }
     if (typeof tokenId === "string") tokenId = Number(tokenId);
-    let searched = data.find((e) => e.edition === tokenId);
+    let searched = checkData.find((e) => e.edition === tokenId);
     if (!searched) {
       setErrorText("No FAFZ found!");
     }
@@ -142,17 +165,25 @@ const Collection = ({ data }) => {
       setIsError(false);
       return;
     }
-    if (searchedToken < 0 || searchedToken > 777) {
-      setErrorText("Token Id is not within collection range");
-      setIsError(true);
+    if (isFAFZActiveCollection) {
+      if (searchedToken < 1 || searchedToken > 777) {
+        setErrorText("Token Id is not within collection range");
+        setIsError(true);
+        return;
+      }
     } else {
-      let searchedFafz = checkTokenId(searchedToken, collectionData);
-      setCollectionData([searchedFafz]);
-      setIsError(false);
+      if (searchedToken < 1 || searchedToken > 10) {
+        setErrorText("Token Id is not within collection range");
+        setIsError(true);
+        return;
+      }
     }
+    let searchedFafz = checkTokenId(searchedToken, collectionData);
+    setCollectionData([searchedFafz]);
+    setIsError(false);
   };
 
-  const sortDataById = (type, collectionData, filters) => {
+  const sortDataById = (type, collectionData) => {
     let sortedData = [...collectionData];
     if (type === "asc") {
       sortedData.sort((a, b) => a.edition - b.edition);
@@ -192,6 +223,8 @@ const Collection = ({ data }) => {
               <CollectionFilter
                 fiendFilters={fiendFilters}
                 handleFilterCollection={handleFilterCollection}
+                switchCollection={switchCollection}
+                isFAFZActiveCollection={isFAFZActiveCollection}
               />
             </div>
 
@@ -210,6 +243,7 @@ const Collection = ({ data }) => {
                   onSearchForToken={onSearchForToken}
                   searchedToken={searchedToken}
                   handleTokenOnChange={handleTokenOnChange}
+                  isFAFZActiveCollection={isFAFZActiveCollection}
                 />
               </div>
               <div className="flex md:hidden w-full justify-center">
@@ -222,6 +256,8 @@ const Collection = ({ data }) => {
                   handleTokenOnChange={handleTokenOnChange}
                   fiendFilters={fiendFilters}
                   handleFilterCollection={handleFilterCollection}
+                  switchCollection={switchCollection}
+                  isFAFZActiveCollection={isFAFZActiveCollection}
                 />
               </div>
               <div className="flex flex-wrap justify-center">

@@ -36,6 +36,8 @@ const CollectionMobileFilterBar = ({
   sortDataById,
   fiendFilters,
   handleFilterCollection,
+  switchCollection,
+  isFAFZActiveCollection,
 }) => {
   const [openCollectionFilter, setOpenCollectionFilter] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
@@ -89,11 +91,25 @@ const CollectionMobileFilterBar = ({
         {openCollectionFilter && (
           <div>
             <div className="w-full flex flex-row">
-              <div className="w-6/12 p-2">
+              <div
+                className={`w-6/12 p-2 cursor-pointer ${
+                  !isFAFZActiveCollection && "non-active-collection"
+                }`}
+                onClick={() => {
+                  switchCollection("fafz");
+                }}
+              >
                 <Image src={FilterFAFZ} alt="Fiend from FAFZ Collection" />
                 <p className="text-border font-freckle">FAFZ</p>
               </div>
-              <div className="w-6/12 p-2">
+              <div
+                className={`w-6/12 p-2 cursor-pointer ${
+                  isFAFZActiveCollection && "non-active-collection"
+                }`}
+                onClick={() => {
+                  switchCollection("se");
+                }}
+              >
                 <Image src={FilterSE} alt="Fiend from SE Collection" />
                 <p className="text-border font-freckle">FAFZ SE</p>
               </div>
@@ -205,6 +221,9 @@ const CollectionMobileFilterBar = ({
             </button>
           </div>
         )}
+      </div>
+      <div className="font-freckle text-2xl text-border text-white my-2 count-title">
+        {collectionCount} NFTS FOUND
       </div>
     </div>
   );

@@ -46,7 +46,7 @@ const CollectionDesktopFilterBar = ({
 
   return (
     <>
-      <div className="font-freckle text-2xl text-border text-white lg:ml-6">
+      <div className="font-freckle text-2xl text-border text-white lg:ml-6 count-title">
         {collectionCount} NFTS FOUND
       </div>
       <div className="flex">

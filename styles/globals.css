@@ -548,7 +548,9 @@ nav:after {
 .filter-dropdown {
 	max-width: 100px !important;
 }
-
+.non-active-collection {
+	opacity: 0.5;
+}
 .token-checker {
 	border: 1px solid #1d1f91;
 	border-radius: 50px;
@@ -570,6 +572,12 @@ nav:after {
 	padding: .5rem;
 	min-width: 100px !important;
 	z-index: 5;
+}
+
+.count-title {
+	text-shadow: #1d1f92 3px 3px 0;
+-webkit-text-stroke: 1px #1d1f91;
+-webkit-text-fill-color: #fff;
 }
 
 .paginate-button {

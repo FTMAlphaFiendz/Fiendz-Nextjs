@@ -3,7 +3,12 @@ import FilterFAFZ from "../public/images/misc/fafz-filter.png";
 import FilterSE from "../public/images/misc/se-filter.png";
 import Image from "next/image";
 
-const CollectionFilter = ({ fiendFilters, handleFilterCollection }) => {
+const CollectionFilter = ({
+  fiendFilters,
+  handleFilterCollection,
+  switchCollection,
+  isFAFZActiveCollection,
+}) => {
   return (
     <div
       id="filter"
@@ -12,11 +17,25 @@ const CollectionFilter = ({ fiendFilters, handleFilterCollection }) => {
       <div className="w-full">
         <h2 className="text-border font-freckle text-xl mb-2">Collection</h2>
         <div className="w-full flex flex-row">
-          <div className="w-6/12 p-2">
+          <div
+            className={`w-6/12 p-2 cursor-pointer ${
+              !isFAFZActiveCollection && "non-active-collection"
+            }`}
+            onClick={() => {
+              switchCollection("fafz");
+            }}
+          >
             <Image src={FilterFAFZ} alt="Fiend from FAFZ Collection" />
             <p className="text-border font-freckle">FAFZ</p>
           </div>
-          <div className="w-6/12 p-2">
+          <div
+            className={`w-6/12 p-2 cursor-pointer ${
+              isFAFZActiveCollection && "non-active-collection"
+            }`}
+            onClick={() => {
+              switchCollection("se");
+            }}
+          >
             <Image src={FilterSE} alt="Fiend from SE Collection" />
             <p className="text-border font-freckle">FAFZ SE</p>
           </div>
