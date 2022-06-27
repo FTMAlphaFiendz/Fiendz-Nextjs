@@ -4,12 +4,14 @@ import { FaSearch, FaArrowDown, FaArrowUp } from "react-icons/fa";
 
 const dropdownSelections = [
   {
+    id: 1,
     icon: <FaArrowUp />,
     text: "NFT ID",
     active: false,
     sort: "asc",
   },
   {
+    id: 2,
     icon: <FaArrowDown />,
     text: "NFT ID",
     active: true,
@@ -44,65 +46,75 @@ const CollectionDesktopFilterBar = ({
 
   return (
     <>
-      <div className="font-freckle text-2xl text-border text-white">
+      <div className="font-freckle text-2xl text-border text-white lg:ml-6">
         {collectionCount} NFTS FOUND
       </div>
-      <div className="w-4/12 nft-border bg-white token-checker mx-2 flex flex-row items-center">
-        <button
-          className="ml-2 text-border cursor-pointer"
-          onClick={(e) => {
-            onSearchForToken(e);
-          }}
-        >
-          <FaSearch />
-        </button>
-        <input
-          type="text"
-          className={`font-inter text-border bg-transparent ml-2 overflow-hidden text-sm`}
-          placeholder="Search by ID....."
-          value={searchedToken}
-          onChange={handleTokenOnChange}
-          onKeyDown={onKeyDown}
-          min="0"
-          max="777"
-        />
-      </div>
-      <div className="w-3/12 nft-border bg-white token-checker mx-2 flex flex-row items-center justify-between filter-dropdown relative">
-        <div className="flex items-center font-inter text-border ml-4">
-          {activeFilter?.text}
-          <span className="ml-2">{activeFilter?.icon}</span>
-        </div>
-
-        <div
-          className="mr-2 text-xl font-inter text-border cursor-pointer"
-          onClick={() => {
-            setOpenFilterDropdown(!openFilterDropdown);
-          }}
-        >
-          <IoMdArrowDropdown />
-        </div>
-        {openFilterDropdown && (
-          <DropdownMenu
-            filters={dropdownSelections}
-            collectionData={collectionData}
-            onFilterSelect={onFilterSelect}
+      <div className="flex">
+        <div className="w-4/12 nft-border bg-white token-checker mx-2 flex flex-row items-center">
+          <button
+            className="ml-2 text-border cursor-pointer"
+            onClick={(e) => {
+              onSearchForToken(e);
+            }}
+          >
+            <FaSearch />
+          </button>
+          <input
+            type="text"
+            className={`font-inter text-border bg-transparent ml-2 overflow-hidden text-sm`}
+            placeholder="Search by ID....."
+            value={searchedToken}
+            onChange={handleTokenOnChange}
+            onKeyDown={onKeyDown}
+            min="0"
+            max="777"
           />
-        )}
+        </div>
+        <div className="w-3/12 nft-border bg-white token-checker mx-2 flex flex-row items-center justify-between filter-dropdown relative">
+          <div className="flex items-center font-inter text-border ml-4">
+            {activeFilter?.text}
+            <span className="ml-2">{activeFilter?.icon}</span>
+          </div>
+
+          <div
+            className="mr-2 text-xl font-inter text-border cursor-pointer"
+            onClick={() => {
+              setOpenFilterDropdown(!openFilterDropdown);
+            }}
+          >
+            <IoMdArrowDropdown />
+          </div>
+          {openFilterDropdown && (
+            <DropdownMenu
+              filters={dropdownSelections}
+              collectionData={collectionData}
+              onFilterSelect={onFilterSelect}
+              activeFilter={activeFilter}
+            />
+          )}
+        </div>
       </div>
     </>
   );
 };
 
-const DropdownMenu = ({ filters, collectionData, onFilterSelect }) => {
+const DropdownMenu = ({
+  filters,
+  collectionData,
+  onFilterSelect,
+  activeFilter,
+}) => {
   return (
     <div className="text-border dropdown-test nft-border w-full">
       {filters.map((filter, i) => {
         return (
           <div
             key={i}
-            className="flex items-center font-inter text-border ml-4 cursor-pointer"
+            className={`flex items-center font-inter ${
+              activeFilter.id === filter.id ? "text-orange-500" : "text-border"
+            }  ml-4 cursor-pointer my-1`}
             onClick={() => {
-              onFilterSelect(collectionData, filter);
+              onFilterSelect(collectionData, filter, filters);
             }}
           >
             {filter.text}

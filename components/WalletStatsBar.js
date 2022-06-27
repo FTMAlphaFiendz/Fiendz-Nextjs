@@ -15,7 +15,7 @@ const WalletStatsBar = ({
     <>
       <div
         id="wallet-stats"
-        className="bg-white flex w-full md:px-4 wallet-stats items-center mb-2"
+        className="bg-white flex w-full px-2 md:px-4 wallet-stats items-center mb-2"
       >
         <div className="w-3/12 flex flex-col items-center text-center py-2 px-1">
           {isLoading ? (

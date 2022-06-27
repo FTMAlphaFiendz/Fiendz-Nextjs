@@ -9,10 +9,9 @@ import NFTModal from "../components/NFTModal";
 import fafzRarity from "../public/files/fafzWithRarity.json";
 import rarityMap from "../public/files/rarityMap.json";
 import Pagination from "../components/Pagination";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa";
-
 import CollectionFilter from "../components/CollectionFilter";
 import CollectionDesktopFilterBar from "../components/CollectionDesktopFilterBar";
+import CollectionMobileFilterBar from "../components/CollectionMobileFilterBar";
 
 const SEOdesc = "Collection page to filter by rarities!";
 
@@ -78,6 +77,8 @@ const Collection = ({ data }) => {
     const doc = document.documentElement;
     doc.style.setProperty("--app-height", `${window.innerHeight}px`);
   };
+
+  const switchCollection = (type, data, seData) => {};
 
   useEffect(() => {
     window.addEventListener("resize", appHeight);
@@ -151,7 +152,7 @@ const Collection = ({ data }) => {
     }
   };
 
-  const sortDataById = (type, collectionData) => {
+  const sortDataById = (type, collectionData, filters) => {
     let sortedData = [...collectionData];
     if (type === "asc") {
       sortedData.sort((a, b) => a.edition - b.edition);
@@ -182,7 +183,7 @@ const Collection = ({ data }) => {
       <div className="mint-page flex overflow-x-hidden">
         <div className="w-full mt-16 md:mt-20 mx-10">
           <header className="flex justify-center mb-4 lg:mt-8">
-            <h1 className="font-freckle text-5xl md:text-7xl text-border page-title ">
+            <h1 className="font-freckle text-5xl md:text-7xl text-border page-title">
               Collection
             </h1>
           </header>
@@ -194,10 +195,13 @@ const Collection = ({ data }) => {
               />
             </div>
 
-            <div id="collection" className="w-full md:w-8/12 lg:w-9/12 ml-6">
+            <div
+              id="collection"
+              className="w-full md:w-8/12 lg:w-9/12 md:ml-6 flex flex-col items-center"
+            >
               <div
                 id="filter-bar"
-                className="flex md:px-4 items-center mb-2 justify-around"
+                className="hidden md:flex md:px-4 items-center mb-2 justify-between w-full"
               >
                 <CollectionDesktopFilterBar
                   collectionData={collectionData}
@@ -206,6 +210,18 @@ const Collection = ({ data }) => {
                   onSearchForToken={onSearchForToken}
                   searchedToken={searchedToken}
                   handleTokenOnChange={handleTokenOnChange}
+                />
+              </div>
+              <div className="flex md:hidden w-full justify-center">
+                <CollectionMobileFilterBar
+                  collectionData={collectionData}
+                  sortDataById={sortDataById}
+                  collectionCount={collectionCount}
+                  onSearchForToken={onSearchForToken}
+                  searchedToken={searchedToken}
+                  handleTokenOnChange={handleTokenOnChange}
+                  fiendFilters={fiendFilters}
+                  handleFilterCollection={handleFilterCollection}
                 />
               </div>
               <div className="flex flex-wrap justify-center">
@@ -223,7 +239,7 @@ const Collection = ({ data }) => {
                     );
                   })}
               </div>
-              <div className="flex text-center">
+              <div className="flex flex-wrap text-center justify-center">
                 <Pagination
                   nftsperpage={nftsPerPage}
                   totalNFTs={collectionData?.length}

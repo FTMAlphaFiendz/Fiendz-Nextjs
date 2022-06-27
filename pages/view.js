@@ -49,7 +49,9 @@ const View = () => {
       <div className="mint-page relative flex">
         <div className="w-full mt-16 md:mt-20 mx-10">
           <header className="flex justify-center mb-4 lg:mt-8">
-            <h1 className="text-white font-inter text-3xl">MY NFTs</h1>
+            <h1 className="font-freckle text-5xl md:text-7xl text-border page-title">
+              MY NFTs
+            </h1>
           </header>
           <div className="flex flex-col md:flex-row h-full w-full">
             <div id="view" className="w-full md:w-8/12 lg:w-9/12 ">

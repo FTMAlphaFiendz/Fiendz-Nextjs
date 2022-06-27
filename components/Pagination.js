@@ -13,7 +13,7 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
     }
     let lastPage = numbers.length;
     setLastIndex(lastPage);
-    numbers = getRange(numbers, currentPage, 4);
+    numbers = getRange(numbers, currentPage, 3);
     return numbers;
   };
 
@@ -37,6 +37,7 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
     }
     return currentPage;
   };
+
   useEffect(() => {
     let newPageNumbers = getSlicedPageNumbers(totalNFTs, nftsperpage);
     setPageNumbers(newPageNumbers);
@@ -47,7 +48,7 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
       {pageNumbers.length > 0 && (
         <ul className="flex">
           <li
-            className={`mx-2 text-2xl font-inter text-border cursor-pointer paginate-button flex items-center justify-center`}
+            className={`hidden md:block md:mx-2 text-2xl font-inter text-border cursor-pointer paginate-button flex items-center justify-center`}
             onClick={() => {
               let cp = changePageByRange(currentPage, lastIndex, "minus");
               setCurrentPage(cp);
@@ -118,9 +119,8 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
             </a>
           </li>
           <li
-            className={`mx-2 text-2xl font-inter text-border cursor-pointer paginate-button flex items-center justify-center`}
+            className={`hidden md:block md:mx-2 text-2xl font-inter text-border cursor-pointer paginate-button flex items-center justify-center`}
             onClick={() => {
-              console.log("here");
               let cp = changePageByRange(currentPage, lastIndex, "plus");
               setCurrentPage(cp);
               paginate(cp);
