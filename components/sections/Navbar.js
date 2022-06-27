@@ -18,10 +18,7 @@ const links = [
   { name: "FAQs", link: "faqs" },
 ];
 
-const nonHomeLinks = [
-  { name: "My NFTS", link: "/view" },
-  { name: "Collection", link: "/collection" },
-];
+const nonHomeLinks = [{ name: "Collection", link: "/collection" }];
 
 const Navbar = () => {
   const router = useRouter();
@@ -115,6 +112,16 @@ const Navbar = () => {
                   </div>
                 );
               })}
+          <Link href="/view">
+            <li
+              className=" py-3 md:py-0 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              My NFTs
+            </li>
+          </Link>
           <li className="block sm:hidden pb-2 sm:pb-0">
             <ConnectWalletBtn
               account={user?.account}
