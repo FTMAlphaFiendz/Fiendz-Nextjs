@@ -222,7 +222,7 @@ const CollectionMobileFilterBar = ({
           </div>
         )}
       </div>
-      <div className="font-freckle text-2xl text-border text-white my-2 count-title">
+      <div className="font-freckle text-3xl text-border text-white my-2 count-title">
         {collectionCount} NFTS FOUND
       </div>
     </div>
