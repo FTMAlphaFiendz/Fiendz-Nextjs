@@ -1,33 +1,26 @@
-import { rejects } from "assert";
 import connectMongo from "../../../lib/connectMongo";
 import Leaderboard from "../../../models/Leaderboard";
 
 export default async function addAccount(req, res) {
-  let { account, walletScore, displayName } = req.body;
+  console.log("CONNECTING TO MONGO");
+  await connectMongo();
   const method = req.method;
   const { secret } = req.headers;
-  console.log({ account, secret });
-  if (method === "POST") {
+  if (method === "GET") {
     if (secret !== process.env.FAFZ_SECRET) {
       res
         .status(403)
         .json({ error: "You must not know the secret password..." });
     }
-    console.log("CONNECTING TO MONGO");
+    let leaderboardRecords = await Leaderboard.find().sort({
+      walletScore: "descending",
+    });
+    res.json(leaderboardRecords);
     try {
-      await connectMongo();
-      const doc = await Leaderboard.findOneAndUpdate(
-        {
-          account,
-        },
-        { account, walletScore, displayName },
-        { upsert: true, useFindAndModify: false }
-      );
-      res.json(doc);
-      return;
+      res.json({ here: "here" });
     } catch (err) {
       console.log({ err });
-      res.status(500).json(err);
+      res.json(err);
     }
   } else {
     res.status(404).json({ error: "Wrong HTTP Method" });
