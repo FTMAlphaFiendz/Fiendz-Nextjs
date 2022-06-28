@@ -809,6 +809,9 @@ nav:after {
 	transition: 1s ease-in-out;
 }
 
+.modal-status {
+	width: fit-content !important;
+}
 .center-div {
 	margin: 0;
 	position: absolute;
