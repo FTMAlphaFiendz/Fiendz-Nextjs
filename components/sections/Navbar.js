@@ -112,7 +112,6 @@ const Navbar = () => {
                   </div>
                 );
               })}
-<<<<<<< HEAD
           <div className="py-3 md:py-0">
             <Link href="/view">
               <li
@@ -125,18 +124,6 @@ const Navbar = () => {
               </li>
             </Link>
           </div>
-=======
-          <Link href="/view">
-            <li
-              className=" py-3 md:py-0 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
-              onClick={() => {
-                setOpen(!open);
-              }}
-            >
-              My NFTs
-            </li>
-          </Link>
->>>>>>> dev
           <li className="block sm:hidden pb-2 sm:pb-0">
             <ConnectWalletBtn
               user={user}
