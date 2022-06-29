@@ -6,7 +6,6 @@ const FiendCard = ({ data, handleShowModal, setActiveNFT, userData }) => {
     let { edition, rarityStatus } = cardData;
     const checkEdition = (edition, rarityStatus, userNFTData) => {
       for (const data of userNFTData) {
-        console.log({ data, edition, rarityStatus });
         if (data.edition === edition && data.rarityStatus === rarityStatus) {
           return <FaStar />;
         }
