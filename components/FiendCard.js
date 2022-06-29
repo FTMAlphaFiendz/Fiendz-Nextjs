@@ -29,16 +29,18 @@ const FiendCard = ({ data, handleShowModal, setActiveNFT, userData }) => {
         style={{ height: "190px", width: "185px" }}
       />
       <div id="nft-stats" className="mb-3">
-        <div className="font-inter text-border mb-1 flex items-center justify-center">
+        <div className="font-freckle text-border mb-1 flex items-center justify-center">
           <span className="mr-2 text-yellow-500">
             {userData && checkIfUserNFT(userData, data)}
           </span>
           {data.name}
         </div>
         <div className="flex flex-row justify-around">
-          <p className="text-border font-inter">Score: {data.walletScore}</p>
+          <p className="text-border font-freckle">
+            Score: <span className="text-orange-500">{data.walletScore}</span>
+          </p>
           <p
-            className={`text-border font-inter px-2 rounded-lg`}
+            className={`text-border font-freckle px-2 rounded-lg`}
             style={{
               backgroundColor: data.rarityBackground.toString(),
             }}

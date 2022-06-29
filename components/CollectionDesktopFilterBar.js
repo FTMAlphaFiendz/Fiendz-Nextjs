@@ -71,13 +71,13 @@ const CollectionDesktopFilterBar = ({
           />
         </div>
         <div className="w-3/12 nft-border bg-white token-checker mx-2 flex flex-row items-center justify-between filter-dropdown relative">
-          <div className="flex items-center font-inter text-border ml-4">
+          <div className="flex items-center font-freckle text-border ml-4">
             {activeFilter?.text}
             <span className="ml-2">{activeFilter?.icon}</span>
           </div>
 
           <div
-            className="mr-2 text-xl font-inter text-border cursor-pointer"
+            className="mr-2 text-xl font-freckle text-border cursor-pointer"
             onClick={() => {
               setOpenFilterDropdown(!openFilterDropdown);
             }}
@@ -110,7 +110,7 @@ const DropdownMenu = ({
         return (
           <div
             key={i}
-            className={`flex items-center font-inter ${
+            className={`flex items-center font-freckle ${
               activeFilter.id === filter.id ? "text-orange-500" : "text-border"
             }  ml-4 cursor-pointer my-1`}
             onClick={() => {

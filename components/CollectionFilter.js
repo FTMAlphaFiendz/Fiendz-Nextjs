@@ -12,38 +12,51 @@ const CollectionFilter = ({
   return (
     <div
       id="filter"
-      className="flex justify-center nft-border bg-white mb-3 hidden md:block filter-section py-2 px-3"
+      className="flex justify-center nft-border bg-white mb-3 hidden md:block filter-section py-3 px-3"
     >
       <div className="w-full">
-        <h2 className="text-border font-freckle text-xl mb-2">Collection</h2>
+        <h2 className="text-border font-freckle text-2xl mb-2">Collections</h2>
         <div className="w-full flex flex-row">
           <div
-            className={`w-6/12 p-2 cursor-pointer ${
+            className={`w-6/12 p-2.5 cursor-pointer ${
               !isFAFZActiveCollection && "non-active-collection"
             }`}
             onClick={() => {
               switchCollection("fafz");
             }}
           >
-            <Image src={FilterFAFZ} alt="Fiend from FAFZ Collection" />
+            <img
+              src="https://fafz.mypinata.cloud/ipfs/QmZCDyVXFe7iUi9GdrvFKqN8CXh9Z5o5GwuQLLo3zRRK2d/1.png"
+              alt="Fiend from FAFZ Collection"
+              className={`${
+                !isFAFZActiveCollection ? "clear-border" : "nft-border"
+              }`}
+            />
             <p className="text-border font-freckle">FAFZ</p>
           </div>
           <div
-            className={`w-6/12 p-2 cursor-pointer ${
+            className={`w-6/12 p-2.5 cursor-pointer ${
               isFAFZActiveCollection && "non-active-collection"
             }`}
             onClick={() => {
               switchCollection("se");
             }}
           >
-            <Image src={FilterSE} alt="Fiend from SE Collection" />
+            <img
+              src="https://fafz.mypinata.cloud/ipfs/QmdZHLy4Bjxo44cQx7BV1cCinAtWoY85sRH4yx2wEFxBpq/3.jpg"
+              alt="Fiend from SE Collection"
+              className={`${
+                !isFAFZActiveCollection ? "nft-border" : "clear-border"
+              }`}
+            />
+
             <p className="text-border font-freckle">FAFZ SE</p>
           </div>
         </div>
       </div>
       <div className="border-bottom my-1"></div>
       <div className="">
-        <h2 className="text-border font-freckle text-xl my-2">Filter</h2>
+        <h2 className="text-border font-freckle text-2xl my-2">Filters</h2>
         <div className="flex flex-col">
           {fiendFilters?.map((filter) => {
             return (
@@ -59,7 +72,7 @@ const CollectionFilter = ({
                   checked={filter.select}
                 />
                 <label
-                  className="font-inter ml-2"
+                  className="font-freckle ml-2"
                   style={{ color: filter.fontColor }}
                 >
                   {filter.name}

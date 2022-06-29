@@ -58,7 +58,7 @@ const NFTModal = ({ show, onHide, activeNFT, userData }) => {
           </div>
           <div className="w-full lg:w-6/12 flex flex-col p-3">
             <div className="mb-4 flex flex-col">
-              <div className="font-inter text-border text-lg flex items-center">
+              <div className="font-freckle text-border text-lg flex items-center">
                 <span className="mr-2 text-yellow-500">
                   {userData && checkIfUserNFT(userData, activeNFT)}
                 </span>
@@ -66,14 +66,14 @@ const NFTModal = ({ show, onHide, activeNFT, userData }) => {
               </div>
               <div className="flex ">
                 <p
-                  className={`text-border font-inter px-2 rounded-lg modal-status`}
+                  className={`text-border font-freckle px-2 rounded-lg modal-status`}
                   style={{
                     backgroundColor: activeNFT?.rarityBackground.toString(),
                   }}
                 >
                   {activeNFT?.rarityStatus}
                 </p>
-                <span className="font-inter text-border ml-2">
+                <span className="font-freckle text-border ml-2">
                   Wallet Score:{" "}
                   <span className="text-orange-500">
                     {activeNFT?.walletScore}

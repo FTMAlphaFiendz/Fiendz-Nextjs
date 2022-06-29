@@ -77,8 +77,8 @@ const CollectionMobileFilterBar = ({
         id="m-collection-filter"
         className="w-full bg-white flex flex-col justify-between p-2 items-center nft-border my-2"
       >
-        <div className="flex justify-between w-full items-center">
-          <div className="text-border font-inter text-lg">Collection</div>
+        <div className="flex justify-between w-full items-center py-1">
+          <div className="text-border font-freckle text-xl">Collections</div>
           <div
             className="text-border font-inter text-lg cursor-pointer"
             onClick={() => {
@@ -99,7 +99,13 @@ const CollectionMobileFilterBar = ({
                   switchCollection("fafz");
                 }}
               >
-                <Image src={FilterFAFZ} alt="Fiend from FAFZ Collection" />
+                <img
+                  src="https://fafz.mypinata.cloud/ipfs/QmZCDyVXFe7iUi9GdrvFKqN8CXh9Z5o5GwuQLLo3zRRK2d/1.png"
+                  alt="Fiend from FAFZ Collection"
+                  className={`${
+                    !isFAFZActiveCollection ? "clear-border" : "nft-border"
+                  }`}
+                />
                 <p className="text-border font-freckle">FAFZ</p>
               </div>
               <div
@@ -110,7 +116,13 @@ const CollectionMobileFilterBar = ({
                   switchCollection("se");
                 }}
               >
-                <Image src={FilterSE} alt="Fiend from SE Collection" />
+                <img
+                  src="https://fafz.mypinata.cloud/ipfs/QmdZHLy4Bjxo44cQx7BV1cCinAtWoY85sRH4yx2wEFxBpq/3.jpg"
+                  alt="Fiend from SE Collection"
+                  className={`${
+                    !isFAFZActiveCollection ? "nft-border" : "clear-border"
+                  }`}
+                />
                 <p className="text-border font-freckle">FAFZ SE</p>
               </div>
             </div>
@@ -121,8 +133,8 @@ const CollectionMobileFilterBar = ({
         id="m-filter"
         className="w-full bg-white flex flex-col justify-between p-2 items-center nft-border my-2"
       >
-        <div className="flex justify-between w-full items-center">
-          <div className="text-border font-inter text-lg">Filter</div>
+        <div className="flex justify-between w-full items-center py-1">
+          <div className="text-border font-freckle text-xl">Filters</div>
           <div
             className="text-border font-inter text-lg cursor-pointer"
             onClick={() => {
@@ -133,9 +145,9 @@ const CollectionMobileFilterBar = ({
           </div>
         </div>
         {openFilter && (
-          <div className="flex justify-between">
+          <div className="flex py-2 w-full justify-around">
             <div className="flex flex-col items-between">
-              <h6 className="font-inter text-border mb-2">By Rarity</h6>
+              <h6 className="font-freckle text-border mb-2">By Rarity</h6>
               {fiendFilters?.map((filter) => {
                 return (
                   <div className="flex items-center py-1" key={filter.name}>
@@ -150,7 +162,7 @@ const CollectionMobileFilterBar = ({
                       checked={filter.select}
                     />
                     <label
-                      className="font-inter ml-2"
+                      className="font-freckle ml-2"
                       style={{ color: filter.fontColor }}
                     >
                       {filter.name}
@@ -159,15 +171,15 @@ const CollectionMobileFilterBar = ({
                 );
               })}
             </div>
-            <div>
-              <h6 className="w-full font-inter text-border mb-1">
+            <div className="">
+              <h6 className="w-full font-freckle text-border mb-1">
                 By Token ID
               </h6>
               {dropdownSelections.map((filter, i) => {
                 return (
                   <div
                     key={i}
-                    className={`flex items-center font-inter ${
+                    className={`flex items-center font-freckle ${
                       activeSortFilter.id === filter.id
                         ? "text-orange-500"
                         : "text-border"
@@ -189,8 +201,8 @@ const CollectionMobileFilterBar = ({
         id="m-token-checker"
         className="w-full bg-white flex flex-col justify-between p-2 items-center nft-border my-2"
       >
-        <div className="flex justify-between w-full items-center">
-          <div className="text-border font-inter text-lg">NFT ID</div>
+        <div className="flex justify-between w-full items-center py-1">
+          <div className="text-border font-freckle text-xl">NFT ID</div>
           <div
             className="text-border font-inter text-lg cursor-pointer"
             onClick={() => {

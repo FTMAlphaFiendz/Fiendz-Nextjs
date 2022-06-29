@@ -812,6 +812,10 @@ nav:after {
 .modal-status {
 	width: fit-content !important;
 }
+
+.clear-border {
+	border-radius: 10px;
+}
 .center-div {
 	margin: 0;
 	position: absolute;
