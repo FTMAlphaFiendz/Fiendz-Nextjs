@@ -41,6 +41,9 @@ const MyApp = ({ Component, pageProps }) => {
       setUserNFTData(userData);
     }
 
+    console.log({ user });
+    console.log({ userInfo });
+
     return;
   };
 
