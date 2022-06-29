@@ -51,8 +51,8 @@ export async function getStaticProps(context) {
 }
 
 const Collection = ({ data, seData }) => {
-  const { user } = useContext(UserContext);
-  const [userNFTData, setUserNFTData] = useState(null);
+  const { user, userNFTData } = useContext(UserContext);
+  const [userData, setUserData] = useState(null);
   const [activeNFT, setActiveNFT] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [collectionData, setCollectionData] = useState(null);
@@ -199,6 +199,12 @@ const Collection = ({ data, seData }) => {
     setFiendFilters(fFilters);
   }, [user]);
 
+  useEffect(() => {
+    if (userNFTData) {
+      setUserData(userNFTData.data);
+    }
+  }, [userNFTData]);
+
   //get nfts for paging
   const indexOfLastNFT = currentPage * nftsPerPage;
   const indexOfFirstNFT = indexOfLastNFT - nftsPerPage;
@@ -270,6 +276,7 @@ const Collection = ({ data, seData }) => {
                           name={data?.name}
                           handleShowModal={handleShowModal}
                           setActiveNFT={setActiveNFT}
+                          userData={userData}
                         />
                       </div>
                     );
