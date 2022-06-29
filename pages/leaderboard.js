@@ -2,6 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import SEOMeta from "../components/SEOMeta";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
+import {
+  registerUserWallet,
+  getLeaderboardScores,
+  checkUserRegistration,
+} from "../helpers/LeaderboardHelper";
 
 export async function getServerSideProps(context) {
   let { data } = await axios.get(
@@ -10,7 +15,6 @@ export async function getServerSideProps(context) {
       headers: { secret: process.env.FAFZ_SECRET },
     }
   );
-
   return {
     props: { scores: data }, // will be passed to the page component as props
   };
@@ -21,26 +25,28 @@ const SEOdesc = "Check wallet score leaderboard! Are you in the lead??";
 const Leaderboard = ({ scores }) => {
   const { user, userNFTData } = useContext(UserContext);
   const [userRegistration, setUserRegistration] = useState(null);
-  const registerWallet = async (account, userNFTData) => {
-    console.log({ account, walletScore });
-    let body = {};
-    return;
-    let registerRecord = await axios.post(
-      `http://localhost:3000/api/leaderboard/`,
-      { headers: { secret: process.env.NEXT_PUBLIC_FAFZ_SECRET } }
-    );
-    console.log(registerRecord);
+  const [isLeaderboardLoading, setIsLeaderboardLoading] = useState(true);
+  const [leaderboardData, setLeaderboardData] = useState(scores);
+
+  const registerWallet = async (account, walletScore) => {
+    let data = await registerUserWallet(account, walletScore);
+    setUserRegistration(data);
+    setIsLeaderboardLoading(true);
+    let leaderboardScores = await getLeaderboardScores();
+    setLeaderboardData(leaderboardScores);
   };
 
-  const checkUserRegistration = async (account) => {
-    account = "0xa11";
-    let userRecord = await axios.get(
-      `http://localhost:3000/api/leaderboard/${account}`,
-      { headers: { secret: process.env.NEXT_PUBLIC_FAFZ_SECRET } }
-    );
-    if (!userRecord) return null;
-    return userRecord.data;
+  const formatAccount = (account) => {
+    return `${account.substring(0, 3)}....${account.substring(37, 42)}`;
   };
+
+  const formatDate = (date) => {
+    let splitDate = date.split("T");
+    let ymd = splitDate[0];
+    let hms = splitDate[1].substring(0, 8);
+    return `${ymd} ${hms} UTC`;
+  };
+
   const appHeight = () => {
     const doc = document.documentElement;
     doc.style.setProperty("--app-height", `${window.innerHeight}px`);
@@ -49,18 +55,17 @@ const Leaderboard = ({ scores }) => {
   useEffect(() => {
     window.addEventListener("resize", appHeight);
     appHeight();
-  }, [userNFTData]);
+  }, []);
 
   useEffect(() => {
     if (user?.account) {
       (async () => {
         let userReg = await checkUserRegistration(user?.account);
-        console.log({ userReg });
-        userReg.displayName = null;
         setUserRegistration(userReg);
       })();
     }
   }, [user?.account]);
+
   return (
     <div>
       <SEOMeta description={SEOdesc} path="/leaderboard" page="Leaderboard" />
@@ -76,64 +81,78 @@ const Leaderboard = ({ scores }) => {
             >
               <div
                 id="register-wallet"
-                className="flex w-full justify-between items-center"
+                className="flex flex-col-reverse md:flex-row w-full justify-between items-center"
               >
                 <div>
                   <button
                     className="p-3 sm:ml-2 hover:shadow-xl duration-500 hover:text-white font-freckle w-full check-whitelist-btn button-border"
-                    onClick={() =>
-                      registerWallet(user?.account, userNFTData?.walletScore)
-                    }
+                    onClick={async () => {
+                      await registerWallet(
+                        user?.account,
+                        userNFTData?.totalWallet
+                      );
+                    }}
                   >
                     Register Wallet
                   </button>
                 </div>
-                <div className="w-7/12">
+                <div className="w-full text-center md:w-7/12 mb-3 text-lg md:text-base">
                   {userRegistration ? (
                     <ul>
-                      <li className="text-border font-freckle">
-                        <span>Whats up,</span>
+                      <li className="text-border font-freckle mb-1">
+                        <span className="mr-2">Whats up,</span>
                         {userRegistration?.displayName
                           ? userRegistration?.displayName
-                          : user?.account.substring(0, 4)}
+                          : formatAccount(userRegistration?.account)}
                       </li>
-                      <li className="text-border font-freckle">
-                        <span>Wallet Score:</span>{" "}
+                      <li className="text-orange-500 font-freckle mb-1">
+                        <span className="text-border">Wallet Score:</span>{" "}
                         {userRegistration?.walletScore}
                       </li>
                       <li className="text-border font-freckle">
-                        <span>Last updated:</span> {userRegistration?.updatedAt}
+                        <span>Last updated:</span>{" "}
+                        {formatDate(userRegistration?.updatedAt)}
                       </li>
                     </ul>
                   ) : (
-                    <p>not registered</p>
+                    <p className="text-border font-freckle text-base">
+                      Make sure to register your wallet to join the
+                      leaderboard!!
+                    </p>
                   )}
                 </div>
               </div>
               <div className="w-full my-4 px-2">
                 <div className="w-full flex justify-between">
                   <div>
-                    <h2 className="text-2xl font-freckle text-border">
+                    <h2 className="text-lg md:text-2xl font-freckle text-border">
                       Account
                     </h2>
                   </div>
                   <div>
-                    <h2 className="text-2xl font-freckle text-border">
+                    <h2 className="text-lg md:text-2xl font-freckle text-border">
                       Wallet Score
                     </h2>
                   </div>
                 </div>
                 <div id="scores" className="w-full my-4">
-                  {scores?.map((score) => {
+                  {leaderboardData?.map((score) => {
                     return (
-                      <div className="w-full flex justify-between my-2">
+                      <div
+                        className={`w-full flex justify-between my-2  ${
+                          score.account === user?.account
+                            ? "text-orange-500"
+                            : "text-border"
+                        }`}
+                        key={score.account}
+                      >
                         <div>
-                          <h2 className="text-xl font-freckle text-border">
-                            {score.account}
+                          <h2 className="text-xl font-freckle ">
+                            {score.account && formatAccount(score?.account)}
                           </h2>
                         </div>
                         <div>
-                          <h2 className="text-xl font-freckle text-border">
+                          <h2 className="text-xl font-freckle">
                             {score.walletScore}
                           </h2>
                         </div>

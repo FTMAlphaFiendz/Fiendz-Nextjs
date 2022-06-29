@@ -6,14 +6,12 @@ export default async function addAccount(req, res) {
   let { account, walletScore, displayName } = req.body;
   const method = req.method;
   const { secret } = req.headers;
-  console.log({ account, secret });
   if (method === "POST") {
     if (secret !== process.env.FAFZ_SECRET) {
       res
         .status(403)
         .json({ error: "You must not know the secret password..." });
     }
-    console.log("CONNECTING TO MONGO");
     try {
       await connectMongo();
       const doc = await Leaderboard.findOneAndUpdate(
@@ -21,9 +19,9 @@ export default async function addAccount(req, res) {
           account,
         },
         { account, walletScore, displayName },
-        { upsert: true, useFindAndModify: true }
+        { upsert: true, useFindAndModify: true, returnDocument: "after" }
       );
-      return doc;
+      res.json(doc);
       return;
     } catch (err) {
       console.log({ err });
