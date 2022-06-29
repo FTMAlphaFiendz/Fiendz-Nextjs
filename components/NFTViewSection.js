@@ -81,7 +81,7 @@ const NFTViewSection = ({ nftData, isLoading }) => {
             ) : (
               <div className="flex justify-center">
                 <div className="flex flex-col items-center justify-center bg-white nft-border p-4 lg:w-8/12">
-                  <h1 className="text-border font-inter text-3xl mb-2">
+                  <h1 className="text-border font-freckle text-3xl mb-2">
                     NO NFTs
                   </h1>
                   <p className="text-border font-inter text-base md:w-8/12 text-center my-2">
