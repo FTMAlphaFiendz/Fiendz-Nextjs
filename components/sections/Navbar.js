@@ -124,8 +124,7 @@ const Navbar = () => {
           </Link>
           <li className="block sm:hidden pb-2 sm:pb-0">
             <ConnectWalletBtn
-              account={user?.account}
-              chainId={user?.chainId}
+              user={user}
               connectWallet={connectWallet}
               disconnectWallet={disconnectWallet}
             />
@@ -133,8 +132,7 @@ const Navbar = () => {
         </ul>
         <div className="flex flex-1 justify-end hidden sm:flex">
           <ConnectWalletBtn
-            account={user?.account}
-            chainId={user?.chainId}
+            user={user}
             connectWallet={connectWallet}
             disconnectWallet={disconnectWallet}
           />

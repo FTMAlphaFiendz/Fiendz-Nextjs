@@ -2,8 +2,9 @@
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { AiOutlineClose } from "react-icons/ai";
+import { FaStar } from "react-icons/fa";
 
-const NFTModal = ({ show, onHide, activeNFT }) => {
+const NFTModal = ({ show, onHide, activeNFT, userData }) => {
   const [isMobile, setIsMobile] = useState(false);
   const appWidth = () => {
     if (window.innerWidth <= 1127) {
@@ -12,6 +13,19 @@ const NFTModal = ({ show, onHide, activeNFT }) => {
       setIsMobile(false);
     }
     return window.innerWidth;
+  };
+
+  const checkIfUserNFT = (userNFTData, cardData) => {
+    if (!cardData) return;
+    let { edition, rarityStatus } = cardData;
+    const checkEdition = (edition, rarityStatus, userNFTData) => {
+      for (const data of userNFTData) {
+        if (data.edition === edition && data.rarityStatus === rarityStatus) {
+          return <FaStar />;
+        }
+      }
+    };
+    return checkEdition(edition, rarityStatus, userNFTData);
   };
 
   useEffect(() => {
@@ -44,7 +58,10 @@ const NFTModal = ({ show, onHide, activeNFT }) => {
           </div>
           <div className="w-full lg:w-6/12 flex flex-col p-3">
             <div className="mb-4 flex flex-col">
-              <div className="font-inter text-border text-lg">
+              <div className="font-inter text-border text-lg flex items-center">
+                <span className="mr-2 text-yellow-500">
+                  {userData && checkIfUserNFT(userData, activeNFT)}
+                </span>
                 {activeNFT?.name}
               </div>
               <div className="flex ">

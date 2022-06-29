@@ -293,7 +293,12 @@ const Collection = ({ data, seData }) => {
           </div>
         </div>
       </div>
-      <NFTModal show={modalOpen} onHide={handleClose} activeNFT={activeNFT} />
+      <NFTModal
+        show={modalOpen}
+        onHide={handleClose}
+        activeNFT={activeNFT}
+        userData={userData}
+      />
     </div>
   );
 };

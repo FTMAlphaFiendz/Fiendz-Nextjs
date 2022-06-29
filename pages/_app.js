@@ -39,10 +39,7 @@ const MyApp = ({ Component, pageProps }) => {
         rarityMap
       );
       setUserNFTData(userData);
-      console.log({ userInfo });
     }
-
-    console.log({ userInfo });
 
     return;
   };

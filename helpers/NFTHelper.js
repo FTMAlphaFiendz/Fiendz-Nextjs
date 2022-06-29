@@ -21,7 +21,7 @@ export const getTokenUriById = async (contract, id) => {
   return tokenUri;
 };
 
-export const getMetadata = async (tokenUri, rarityMap) => {
+export const getMetadata = async (tokenUri, rarityMap, type) => {
   let totalRarity = 0;
   let { data } = await axios.get(tokenUri);
   data.name = formatName(data.name);
@@ -50,10 +50,12 @@ export const getMetadata = async (tokenUri, rarityMap) => {
     data.rarityBackground = rarityBg;
     data.sortIndex = sortIndex;
   } else if (!data.hasOwnProperty("attributes") && type === "se") {
-    data.attributes = {
-      trait_type: "Special Edition",
-      value: "Special Edition",
-    };
+    data.attributes = [
+      {
+        trait_type: "Special Edition",
+        value: "Special Edition",
+      },
+    ];
     data.rarityBackground = "#fee235";
     data.rarityStatus = "Legendary";
     data.walletScore = 700;
@@ -103,7 +105,7 @@ export const getNFTData = async (provider, account, type, rarityMap) => {
   if (tokenIds.length === 0) return dataArray;
   for (const id of tokenIds) {
     let uri = await getTokenUriById(contract, id);
-    dataArray.push(await getMetadata(uri, rarityMap));
+    dataArray.push(await getMetadata(uri, rarityMap, type));
   }
   let data = await Promise.all(dataArray);
   return data;
