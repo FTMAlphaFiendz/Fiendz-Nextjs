@@ -3,7 +3,8 @@ import { getContract } from "../helpers/Contract";
 import { formatName } from "../helpers/utils";
 import axios from "axios";
 import Web3 from "web3";
-import SEDATA from "../public/files/testSEData.json";
+const fantomNode =
+  "wss://speedy-nodes-nyc.moralis.io/e8a15a63a7fefd85da1d8ebe/fantom/mainnet/ws";
 
 const getWeb3 = (provider) => {
   return new Web3(provider);
@@ -20,7 +21,7 @@ export const getTokenUriById = async (contract, id) => {
   return tokenUri;
 };
 
-export const getMetadata = async (tokenUri, rarityMap) => {
+export const getMetadata = async (tokenUri, rarityMap, type) => {
   let totalRarity = 0;
   let { data } = await axios.get(tokenUri);
   data.name = formatName(data.name);
@@ -49,10 +50,12 @@ export const getMetadata = async (tokenUri, rarityMap) => {
     data.rarityBackground = rarityBg;
     data.sortIndex = sortIndex;
   } else if (!data.hasOwnProperty("attributes") && type === "se") {
-    data.attributes = {
-      trait_type: "Special Edition",
-      value: "Special Edition",
-    };
+    data.attributes = [
+      {
+        trait_type: "Special Edition",
+        value: "Special Edition",
+      },
+    ];
     data.rarityBackground = "#fee235";
     data.rarityStatus = "Legendary";
     data.walletScore = 700;
@@ -102,7 +105,7 @@ export const getNFTData = async (provider, account, type, rarityMap) => {
   if (tokenIds.length === 0) return dataArray;
   for (const id of tokenIds) {
     let uri = await getTokenUriById(contract, id);
-    dataArray.push(await getMetadata(uri, rarityMap));
+    dataArray.push(await getMetadata(uri, rarityMap, type));
   }
   let data = await Promise.all(dataArray);
   return data;
@@ -189,11 +192,13 @@ export const getLatestBoughtFromCampfire = async (provider, maxLength = 15) => {
   let fafzContract = getContract(provider, "fafz");
   let fromBlock = 40598710;
   let campfireContract = getContract(provider, "campfire");
+
   let events = await campfireContract.getPastEvents("Sale", {
     filter: { nftContractAddress: fafz },
     fromBlock,
     toBlock: "latest",
   });
+
   events = events.reverse();
   events = events.slice(0, maxLength);
   let formattedData = await getDataFromEvents(
@@ -226,11 +231,13 @@ export const getLatestBoughtFromNFTKey = async (provider, maxLength = 15) => {
   return formattedData;
 };
 
-export const getAllBoughtEvents = async (provider, maxLength = 10) => {
+export const getAllBoughtEvents = async (maxLength = 10) => {
+  let provider = new Web3.providers.WebsocketProvider(fantomNode);
   let eventPromises = [
     await getLatestBoughtFromNFTKey(provider, maxLength),
     await getLatestBoughtFromCampfire(provider, maxLength),
   ];
+
   let data = await Promise.all(eventPromises);
   data = data.flat();
   data = data.sort((a, b) => b.blockNumber - a.blockNumber);

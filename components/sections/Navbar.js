@@ -18,10 +18,7 @@ const links = [
   { name: "FAQs", link: "faqs" },
 ];
 
-const nonHomeLinks = [
-  { name: "Back To Home", link: "/" },
-  { name: "Token Checker", link: "/token-checker" },
-];
+const nonHomeLinks = [{ name: "Collection", link: "/collection" }];
 
 const Navbar = () => {
   const router = useRouter();
@@ -115,6 +112,7 @@ const Navbar = () => {
                   </div>
                 );
               })}
+<<<<<<< HEAD
           <div className="py-3 md:py-0">
             <Link href="/view">
               <li
@@ -127,10 +125,21 @@ const Navbar = () => {
               </li>
             </Link>
           </div>
+=======
+          <Link href="/view">
+            <li
+              className=" py-3 md:py-0 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              My NFTs
+            </li>
+          </Link>
+>>>>>>> dev
           <li className="block sm:hidden pb-2 sm:pb-0">
             <ConnectWalletBtn
-              account={user?.account}
-              chainId={user?.chainId}
+              user={user}
               connectWallet={connectWallet}
               disconnectWallet={disconnectWallet}
             />
@@ -138,8 +147,7 @@ const Navbar = () => {
         </ul>
         <div className="flex flex-1 justify-end hidden sm:flex">
           <ConnectWalletBtn
-            account={user?.account}
-            chainId={user?.chainId}
+            user={user}
             connectWallet={connectWallet}
             disconnectWallet={disconnectWallet}
           />

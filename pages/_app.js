@@ -10,12 +10,15 @@ import {
 } from "../helpers/Web3Client";
 import "../styles/globals.css";
 
+//import function to get nftData
+import { getAllUserNFTs } from "../helpers/NFTHelper";
+import rarityMap from "../public/files/rarityMap.json";
+
 const MyApp = ({ Component, pageProps }) => {
   const [account, setAccount] = useState(null);
   const [chainId, setChainId] = useState(null);
-  const [provider, setProvider] = useState(null);
   const [user, setUser] = useState(null);
-  const [seCount, setSECount] = useState(0);
+  const [userNFTData, setUserNFTData] = useState(null);
 
   const connectWallet = async () => {
     let userInfo = await connectWalletThruModel();
@@ -28,6 +31,14 @@ const MyApp = ({ Component, pageProps }) => {
     }
     if (chainId) {
       setChainId(chainId);
+    }
+    if (userInfo?.chainId === 250) {
+      let userData = await getAndSetUserNFTData(
+        userInfo?.provider,
+        userInfo?.account,
+        rarityMap
+      );
+      setUserNFTData(userData);
     }
 
     return;
@@ -72,12 +83,37 @@ const MyApp = ({ Component, pageProps }) => {
     setUser(null);
   };
 
+  const getAndSetUserNFTData = async (provider, account, rarityMap) => {
+    let userData = await getAllUserNFTs(provider, account, rarityMap);
+    return userData;
+  };
+
   useEffect(() => {
     setUser({ ...user, chainId });
+    if (user && chainId === 250) {
+      (async () => {
+        let userData = await getAndSetUserNFTData(
+          user?.provider,
+          user?.account,
+          rarityMap
+        );
+        setUserNFTData(userData);
+      })();
+    }
   }, [chainId]);
 
   useEffect(() => {
     setUser({ ...user, account });
+    if (user && account && user?.chainId === 250) {
+      (async () => {
+        let userData = await getAndSetUserNFTData(
+          user?.provider,
+          account,
+          rarityMap
+        );
+        setUserNFTData(userData);
+      })();
+    }
   }, [account]);
 
   useEffect(() => {
@@ -93,7 +129,13 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       <UserContext.Provider
-        value={{ user, connectWallet, disconnectWallet, getWeb3Modal }}
+        value={{
+          user,
+          userNFTData,
+          connectWallet,
+          disconnectWallet,
+          getWeb3Modal,
+        }}
       >
         <Layout>
           <Component {...pageProps} />

@@ -21,9 +21,9 @@ export default async function addAccount(req, res) {
           account,
         },
         { account, walletScore, displayName },
-        { upsert: true, useFindAndModify: false }
+        { upsert: true, useFindAndModify: true }
       );
-      res.json(doc);
+      return doc;
       return;
     } catch (err) {
       console.log({ err });

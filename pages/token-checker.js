@@ -14,7 +14,7 @@ const TokenChecker = () => {
   const [activeNFT, setActiveNFT] = useState(null);
   const [searchedFAFZ, setSearchedFAFZ] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  0;
 
   const appHeight = () => {
     const doc = document.documentElement;

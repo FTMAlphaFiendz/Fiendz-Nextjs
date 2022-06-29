@@ -77,7 +77,7 @@ const AccordionItem = ({ question, answer }) => {
   };
 
   return (
-    <div>
+    <div key={question}>
       <button
         className="accordion__button font-inter content-line text-base sm:text-lg md:text-xl text-border noSelect text-left"
         onClick={() => {

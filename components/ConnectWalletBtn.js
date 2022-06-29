@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const ConnectWalletBtn = ({
-  account,
-  chainId,
+  user,
   connectWallet,
   disconnectWallet,
   className,
@@ -22,17 +21,19 @@ const ConnectWalletBtn = ({
   };
 
   useEffect(() => {
-    setDisconnectButtonTxt(formatDisconnectText(account, chainId));
-  }, [account, chainId]);
+    setDisconnectButtonTxt(formatDisconnectText(user?.account, user?.chainId));
+  }, [user]);
 
   return (
     <div>
-      {account ? (
+      {user?.account ? (
         <button
           onClick={disconnectWallet}
           onMouseEnter={() => setDisconnectButtonTxt("Disconnect")}
           onMouseLeave={() =>
-            setDisconnectButtonTxt(formatDisconnectText(account, chainId))
+            setDisconnectButtonTxt(
+              formatDisconnectText(user?.account, user?.chainId)
+            )
           }
           className={`${
             className

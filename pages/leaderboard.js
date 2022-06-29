@@ -19,9 +19,18 @@ export async function getServerSideProps(context) {
 const SEOdesc = "Check wallet score leaderboard! Are you in the lead??";
 
 const Leaderboard = ({ scores }) => {
-  const { user } = useContext(UserContext);
+  const { user, userNFTData } = useContext(UserContext);
   const [userRegistration, setUserRegistration] = useState(null);
-  const registerWallet = async () => {};
+  const registerWallet = async (account, userNFTData) => {
+    console.log({ account, walletScore });
+    let body = {};
+    return;
+    let registerRecord = await axios.post(
+      `http://localhost:3000/api/leaderboard/`,
+      { headers: { secret: process.env.NEXT_PUBLIC_FAFZ_SECRET } }
+    );
+    console.log(registerRecord);
+  };
 
   const checkUserRegistration = async (account) => {
     account = "0xa11";
@@ -40,7 +49,7 @@ const Leaderboard = ({ scores }) => {
   useEffect(() => {
     window.addEventListener("resize", appHeight);
     appHeight();
-  }, []);
+  }, [userNFTData]);
 
   useEffect(() => {
     if (user?.account) {
@@ -73,7 +82,7 @@ const Leaderboard = ({ scores }) => {
                   <button
                     className="p-3 sm:ml-2 hover:shadow-xl duration-500 hover:text-white font-freckle w-full check-whitelist-btn button-border"
                     onClick={() =>
-                      registerWallet(user?.account, walletScore, displayName)
+                      registerWallet(user?.account, userNFTData?.walletScore)
                     }
                   >
                     Register Wallet
@@ -82,17 +91,17 @@ const Leaderboard = ({ scores }) => {
                 <div className="w-7/12">
                   {userRegistration ? (
                     <ul>
-                      <li className="text-border font-inter">
+                      <li className="text-border font-freckle">
                         <span>Whats up,</span>
                         {userRegistration?.displayName
                           ? userRegistration?.displayName
                           : user?.account.substring(0, 4)}
                       </li>
-                      <li className="text-border font-inter">
+                      <li className="text-border font-freckle">
                         <span>Wallet Score:</span>{" "}
                         {userRegistration?.walletScore}
                       </li>
-                      <li className="text-border font-inter">
+                      <li className="text-border font-freckle">
                         <span>Last updated:</span> {userRegistration?.updatedAt}
                       </li>
                     </ul>
@@ -101,22 +110,37 @@ const Leaderboard = ({ scores }) => {
                   )}
                 </div>
               </div>
-
-              <div id="scores" className="w-full my-4">
-                {scores?.map((score) => {
-                  return (
-                    <table>
-                      <tr>
-                        <th>Account</th>
-                        <th>Wallet Score</th>
-                      </tr>
-                      <tr>
-                        <td>{score.account}</td>
-                        <td>{score.walletScore}</td>
-                      </tr>
-                    </table>
-                  );
-                })}
+              <div className="w-full my-4 px-2">
+                <div className="w-full flex justify-between">
+                  <div>
+                    <h2 className="text-2xl font-freckle text-border">
+                      Account
+                    </h2>
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-freckle text-border">
+                      Wallet Score
+                    </h2>
+                  </div>
+                </div>
+                <div id="scores" className="w-full my-4">
+                  {scores?.map((score) => {
+                    return (
+                      <div className="w-full flex justify-between my-2">
+                        <div>
+                          <h2 className="text-xl font-freckle text-border">
+                            {score.account}
+                          </h2>
+                        </div>
+                        <div>
+                          <h2 className="text-xl font-freckle text-border">
+                            {score.walletScore}
+                          </h2>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>

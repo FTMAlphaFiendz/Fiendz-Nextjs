@@ -23,9 +23,9 @@ const LatestSold = ({ lastSold, isLoading }) => {
   };
   return (
     <div className="px-3 w-full">
-      <h2 className="text-border font-inter p-2 text-xl">Recent Sales</h2>
+      <h2 className="text-border font-freckle p-2 text-xl">Recent Sales</h2>
       {isLoading ? (
-        <div className="flex flex-col justify-center items-center mb-6 text-border">
+        <div className="flex flex-col justify-center items-center mb-6 text-border text-center">
           <ThreeDots
             stroke="#1d1f91"
             fill="#1d1f91"
@@ -33,7 +33,7 @@ const LatestSold = ({ lastSold, isLoading }) => {
             style={{ height: "50px", width: "70px" }}
           />
 
-          <h2 className="text-border font-inter text-lg my-2">
+          <h2 className="text-border font-freckle text-lg my-2">
             Fetching Sold Data....
           </h2>
         </div>
@@ -47,13 +47,13 @@ const LatestSold = ({ lastSold, isLoading }) => {
                   className="latest-sold-img nft-border"
                 />
                 <div className="flex-col ml-3">
-                  <p className="text-border font-inter">
+                  <p className="text-border font-freckle">
                     {formatName(nft.data?.name)}
                   </p>
                   <div className="flex items-center">
-                    <p className="text-border font-inter text-base">Sold</p>
+                    <p className="text-border font-freckle text-base">Sold</p>
                     <FantomIcon />
-                    <p className="text-border font-inter text-base">
+                    <p className="text-border font-freckle text-base">
                       {nft?.purchasedPrice}
                     </p>
                   </div>
