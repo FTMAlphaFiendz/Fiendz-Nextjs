@@ -2,16 +2,14 @@ import React, { useEffect, useState, useContext } from "react";
 import SEOMeta from "../components/SEOMeta";
 import LatestSold from "../components/LatestSold";
 import { UserContext } from "../context/UserContext";
-import { getAllBoughtEvents, getAllUserNFTs } from "../helpers/NFTHelper";
+import { getAllBoughtEvents } from "../helpers/NFTHelper";
 import NFTViewSection from "../components/NFTViewSection";
-import rarityMap from "../public/files/rarityMap.json";
 
 const SEOdesc =
   "Page to view all Special Edition FAFz and FAFz generative collection";
 
 const View = () => {
-  const { user } = useContext(UserContext);
-  const [userNFTData, setUserNFTData] = useState(null);
+  const { user, userNFTData } = useContext(UserContext);
   const [lastSold, setLastSold] = useState(null);
   const [isNFTDataLoading, setIsNFTDataLoading] = useState(true);
   const [isSoldDataLoading, setIsSoldDataLoading] = useState(true);
@@ -29,14 +27,8 @@ const View = () => {
   useEffect(() => {
     if (user && user?.provider) {
       (async () => {
-        let userData = await getAllUserNFTs(
-          user?.provider,
-          user?.account,
-          rarityMap
-        );
-        setUserNFTData(userData);
         setIsNFTDataLoading(false);
-        let allEvents = await getAllBoughtEvents(user?.provider);
+        let allEvents = await getAllBoughtEvents();
         setLastSold(allEvents);
         setIsSoldDataLoading(false);
       })();

@@ -3,7 +3,8 @@ import { getContract } from "../helpers/Contract";
 import { formatName } from "../helpers/utils";
 import axios from "axios";
 import Web3 from "web3";
-import SEDATA from "../public/files/testSEData.json";
+const fantomNode =
+  "wss://speedy-nodes-nyc.moralis.io/e8a15a63a7fefd85da1d8ebe/fantom/mainnet/ws";
 
 const getWeb3 = (provider) => {
   return new Web3(provider);
@@ -189,11 +190,13 @@ export const getLatestBoughtFromCampfire = async (provider, maxLength = 15) => {
   let fafzContract = getContract(provider, "fafz");
   let fromBlock = 40598710;
   let campfireContract = getContract(provider, "campfire");
+
   let events = await campfireContract.getPastEvents("Sale", {
     filter: { nftContractAddress: fafz },
     fromBlock,
     toBlock: "latest",
   });
+
   events = events.reverse();
   events = events.slice(0, maxLength);
   let formattedData = await getDataFromEvents(
@@ -226,11 +229,13 @@ export const getLatestBoughtFromNFTKey = async (provider, maxLength = 15) => {
   return formattedData;
 };
 
-export const getAllBoughtEvents = async (provider, maxLength = 10) => {
+export const getAllBoughtEvents = async (maxLength = 10) => {
+  let provider = new Web3.providers.WebsocketProvider(fantomNode);
   let eventPromises = [
     await getLatestBoughtFromNFTKey(provider, maxLength),
     await getLatestBoughtFromCampfire(provider, maxLength),
   ];
+
   let data = await Promise.all(eventPromises);
   data = data.flat();
   data = data.sort((a, b) => b.blockNumber - a.blockNumber);

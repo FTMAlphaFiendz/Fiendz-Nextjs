@@ -47,9 +47,9 @@ const NFTViewSection = ({ nftData, isLoading }) => {
     <div className="flex flex-col w-full">
       <WalletStatsBar
         nfts={nftData?.data}
-        walletScore={nftData?.totalWallet}
-        seCount={nftData?.seCount}
-        fafzCount={nftData?.fafzCount}
+        walletScore={nftData?.totalWallet || 0}
+        seCount={nftData?.seCount || 0}
+        fafzCount={nftData?.fafzCount || 0}
         sortFAFZ={sortFAFZ}
         isHighSorted={isHighSorted}
         isLoading={isLoading}
