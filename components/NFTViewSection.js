@@ -1,7 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import NFTModal from "./NFTModal";
 import WalletStatsBar from "./WalletStatsBar";
+import FiendCard from "./FiendCard";
 import { ThreeDots } from "react-loading-icons";
 
 const nftKeyLink = "https://nftkey.app/collections/ftmalphafiendz/";
@@ -47,9 +47,9 @@ const NFTViewSection = ({ nftData, isLoading }) => {
     <div className="flex flex-col w-full">
       <WalletStatsBar
         nfts={nftData?.data}
-        walletScore={nftData?.totalWallet}
-        seCount={nftData?.seCount}
-        fafzCount={nftData?.fafzCount}
+        walletScore={nftData?.totalWallet || 0}
+        seCount={nftData?.seCount || 0}
+        fafzCount={nftData?.fafzCount || 0}
         sortFAFZ={sortFAFZ}
         isHighSorted={isHighSorted}
         isLoading={isLoading}
@@ -68,38 +68,12 @@ const NFTViewSection = ({ nftData, isLoading }) => {
               <div className="flex flex-wrap justify-center">
                 {metaData.map((data, i) => {
                   return (
-                    <div
-                      key={data.name}
-                      className="w-3/12 m-2 flex flex-col nft-card nft-border cursor-pointer"
-                      onClick={() => {
-                        handleShowModal();
-                        setActiveNFT(data);
-                      }}
-                    >
-                      <img
-                        src={data.image}
-                        alt={data.name}
-                        className="nft-border m-auto my-3"
-                        style={{ height: "190px", width: "185px" }}
+                    <div key={data.name}>
+                      <FiendCard
+                        data={data}
+                        handleShowModal={handleShowModal}
+                        setActiveNFT={setActiveNFT}
                       />
-                      <div id="nft-stats" className="mb-3">
-                        <div className="text-center font-inter text-border mb-1">
-                          {data.name}
-                        </div>
-                        <div className="flex flex-row justify-around">
-                          <p className="text-border font-inter">
-                            Score: {data.walletScore}
-                          </p>
-                          <p
-                            className={`text-border font-inter px-2 rounded-lg`}
-                            style={{
-                              backgroundColor: data.rarityBackground.toString(),
-                            }}
-                          >
-                            {data.rarityStatus}
-                          </p>
-                        </div>
-                      </div>
                     </div>
                   );
                 })}
@@ -107,7 +81,7 @@ const NFTViewSection = ({ nftData, isLoading }) => {
             ) : (
               <div className="flex justify-center">
                 <div className="flex flex-col items-center justify-center bg-white nft-border p-4 lg:w-8/12">
-                  <h1 className="text-border font-inter text-3xl mb-2">
+                  <h1 className="text-border font-freckle text-3xl mb-2">
                     NO NFTs
                   </h1>
                   <p className="text-border font-inter text-base md:w-8/12 text-center my-2">

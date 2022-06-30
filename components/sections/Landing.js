@@ -4,6 +4,7 @@ import Link from "next/link";
 import logoBig from "../../public/images/titles/logo-big.png";
 import { FaTwitter, FaDiscord, FaRegPaperPlane } from "react-icons/fa";
 import { GrTransaction, GrView } from "react-icons/gr";
+import { FaEye } from "react-icons/fa";
 import MainButton from "../MainButton";
 import Waves from "../Waves";
 import FiendsFooter from "../FiendsFooter";
@@ -49,10 +50,10 @@ const Landing = () => {
             <button
               className={`link-button bg-white p-3 font-freckle w-150 text-center flex items-center justify-center text-border m-2 button-border px-10`}
             >
-              <span className="text-2xl mr-1 button-text">
-                <GrView />
+              <span className="text-2xl mr-1 button-text text-border">
+                <FaEye />
               </span>
-              <span className="button-text">View NFTs</span>
+              <span className="button-text">My NFTs</span>
             </button>
           </Link>
         </div>

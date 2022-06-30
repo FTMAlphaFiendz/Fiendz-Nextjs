@@ -18,10 +18,7 @@ const links = [
   { name: "FAQs", link: "faqs" },
 ];
 
-const nonHomeLinks = [
-  { name: "Back To Home", link: "/" },
-  // { name: "View NFTs", link: "/view" },
-];
+const nonHomeLinks = [{ name: "Collection", link: "/collection" }];
 
 const Navbar = () => {
   const router = useRouter();
@@ -122,13 +119,12 @@ const Navbar = () => {
                 setOpen(!open);
               }}
             >
-              View NFTs
+              My NFTs
             </li>
           </Link>
           <li className="block sm:hidden pb-2 sm:pb-0">
             <ConnectWalletBtn
-              account={user?.account}
-              chainId={user?.chainId}
+              user={user}
               connectWallet={connectWallet}
               disconnectWallet={disconnectWallet}
             />
@@ -136,8 +132,7 @@ const Navbar = () => {
         </ul>
         <div className="flex flex-1 justify-end hidden sm:flex">
           <ConnectWalletBtn
-            account={user?.account}
-            chainId={user?.chainId}
+            user={user}
             connectWallet={connectWallet}
             disconnectWallet={disconnectWallet}
           />

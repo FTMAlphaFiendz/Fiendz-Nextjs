@@ -1,33 +1,53 @@
 import { useState } from "react";
-import Emoji from "./Emoji";
-import Image from "next/image";
+import { FaStar } from "react-icons/fa";
 
-const FiendCard = ({ title, image, alt, perks, background }) => {
+const FiendCard = ({ data, handleShowModal, setActiveNFT, userData }) => {
+  const checkIfUserNFT = (userNFTData, cardData) => {
+    let { edition, rarityStatus } = cardData;
+    const checkEdition = (edition, rarityStatus, userNFTData) => {
+      for (const data of userNFTData) {
+        if (data.edition === edition && data.rarityStatus === rarityStatus) {
+          return <FaStar />;
+        }
+      }
+    };
+    return checkEdition(edition, rarityStatus, userNFTData);
+  };
   return (
     <div
-      className={`${background} fiendz-card-container w-50 md:w-5/6 lg:m-3 w-5/6 relative justify-center mb-10 flex items-start pt-10 lg:w-10/12`}
-      key={title}
+      key={data.name}
+      className="w-3/12 m-2 flex flex-col nft-card nft-border cursor-pointer"
+      onClick={() => {
+        handleShowModal();
+        setActiveNFT(data);
+      }}
     >
-      <div className="w-48 absolute -top-6">
-        <Image src={title} alt={title} />
-      </div>
-      <div className="mx-4 border-3 flex flex-col justify-center">
-        <Image src={image} alt={alt} />
-        <ul className="my-6">
-          {perks.map((perk, i) => {
-            return (
-              <li
-                className="m-2 text-base font-inter content-line font-normal"
-                key={i}
-              >
-                <span className="mr-2 text-xl">
-                  <Emoji symbol={perk.emoji} label={perk.label} />
-                </span>{" "}
-                {perk.text}
-              </li>
-            );
-          })}
-        </ul>
+      <img
+        src={data.image}
+        alt={data.name}
+        className="nft-border m-auto my-3"
+        style={{ height: "190px", width: "185px" }}
+      />
+      <div id="nft-stats" className="mb-3">
+        <div className="font-freckle text-border mb-1 flex items-center justify-center">
+          <span className="mr-2 text-yellow-500">
+            {userData && checkIfUserNFT(userData, data)}
+          </span>
+          {data.name}
+        </div>
+        <div className="flex flex-row justify-around">
+          <p className="text-border font-freckle">
+            Score: <span className="text-orange-500">{data.walletScore}</span>
+          </p>
+          <p
+            className={`text-border font-freckle px-2 rounded-lg`}
+            style={{
+              backgroundColor: data.rarityBackground.toString(),
+            }}
+          >
+            {data.rarityStatus}
+          </p>
+        </div>
       </div>
     </div>
   );
