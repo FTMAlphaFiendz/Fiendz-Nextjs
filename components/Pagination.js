@@ -45,9 +45,9 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
 
   return (
     <div className="flex items-center justify-center my-3 w-full">
-      {pageNumbers.length > 0 && (
+      {pageNumbers.length > 1 && (
         <ul className="flex">
-          <li
+          {/* <li
             className={`hidden md:block md:mx-2 text-2xl font-inter text-border cursor-pointer paginate-button flex items-center justify-center`}
             onClick={() => {
               let cp = changePageByRange(currentPage, lastIndex, "minus");
@@ -58,7 +58,7 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
             <a className="">
               <AiOutlineDoubleLeft />
             </a>
-          </li>
+          </li> */}
           <li
             className={
               currentPage >= 3
@@ -104,9 +104,7 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
           </li>
           <li
             className={
-              currentPage <= lastIndex - 4
-                ? "block text-border cursor-pointer paginate-button text-xl font-inter mx-2"
-                : "hidden"
+              "block text-border cursor-pointer paginate-button text-xl font-inter mx-2"
             }
           >
             <a
@@ -118,7 +116,7 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
               {lastIndex}
             </a>
           </li>
-          <li
+          {/* <li
             className={`hidden md:block md:mx-2 text-2xl font-inter text-border cursor-pointer paginate-button flex items-center justify-center`}
             onClick={() => {
               let cp = changePageByRange(currentPage, lastIndex, "plus");
@@ -127,7 +125,7 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
             }}
           >
             <AiOutlineDoubleRight />
-          </li>
+          </li> */}
         </ul>
       )}
     </div>
