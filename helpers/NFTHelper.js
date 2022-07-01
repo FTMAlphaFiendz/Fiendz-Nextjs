@@ -58,10 +58,9 @@ export const getMetadata = async (tokenUri, rarityMap, type) => {
     ];
     data.rarityBackground = "#fee235";
     data.rarityStatus = "Legendary";
-    data.walletScore = 700;
+    data.walletScore = 2250;
     data.sortIndex = 0;
   }
-
   return data;
 };
 

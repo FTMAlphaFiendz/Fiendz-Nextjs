@@ -520,7 +520,7 @@ nav:after {
 
 .border-bottom {
 	border-bottom: 1px solid #1d1f91;
-	width: 185px;
+	width: 100%;
 	  margin: 0;
 }
 
@@ -595,9 +595,10 @@ nav:after {
 }
 
 #sold {
-	max-width: 225px;
+	max-width: 250px;
 	height: fit-content;
 }
+
   .latestSoldFooter {
 	width: 100%;
 	height: 60px;
@@ -611,8 +612,8 @@ nav:after {
   }
 
   .latest-sold-img {
-	  height: 60px;
-	  width: 60px;
+	  height: 70px;
+	  width: 70px;
   }
 
   .border-around {

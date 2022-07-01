@@ -47,7 +47,7 @@ const NFTModal = ({ show, onHide, activeNFT, userData }) => {
             <AiOutlineClose />
           </button>
         </div>
-        <div className="flex items-center flex-col lg:flex-row w-full">
+        <div className="flex items-center flex-col lg:flex-row lg:items-start w-full h-full">
           <div className="w-9/12 lg:w-6/12 flex justify-center items-center">
             <img
               src={activeNFT?.image}
@@ -58,13 +58,13 @@ const NFTModal = ({ show, onHide, activeNFT, userData }) => {
           </div>
           <div className="w-full lg:w-6/12 flex flex-col p-3">
             <div className="mb-4 flex flex-col">
-              <div className="font-freckle text-border text-lg flex items-center">
+              <div className="font-freckle text-border text-xl mb-2">
                 <span className="mr-2 text-yellow-500">
                   {userData && checkIfUserNFT(userData, activeNFT)}
                 </span>
                 {activeNFT?.name}
               </div>
-              <div className="flex ">
+              <div className="flex">
                 <p
                   className={`text-border font-freckle px-2 rounded-lg modal-status`}
                   style={{

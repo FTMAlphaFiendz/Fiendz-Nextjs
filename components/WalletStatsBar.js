@@ -21,11 +21,11 @@ const WalletStatsBar = ({
           {isLoading ? (
             <Bars fill="#1d1f91" style={{ height: "15px", width: "15px" }} />
           ) : (
-            <p className="font-inter text-border text-lg md:text-xl">
+            <p className="font-freckle text-orange-500 text-lg md:text-xl">
               {walletScore}
             </p>
           )}
-          <p className="font-inter text-border text-sm lg:text-base">
+          <p className="font-freckle text-border text-sm lg:text-base">
             Wallet Score
           </p>
         </div>
@@ -34,31 +34,33 @@ const WalletStatsBar = ({
           {isLoading ? (
             <Bars fill="#1d1f91" style={{ height: "15px", width: "15px" }} />
           ) : (
-            <p className="font-inter text-border text-lg md:text-xl">-</p>
+            <p className="font-freckle text-border text-lg md:text-xl">-</p>
           )}
-          <p className="font-inter text-border text-sm lg:text-base">Tier</p>
+          <p className="font-freckle text-border text-sm lg:text-base">Tier</p>
         </div>
         <span className="border-right"></span>
         <div className="w-3/12 flex flex-col items-center text-center py-2 px-1">
           {isLoading ? (
             <Bars fill="#1d1f91" style={{ height: "15px", width: "15px" }} />
           ) : (
-            <p className="font-inter text-border text-lg md:text-xl">
+            <p className="font-freckle text-border text-lg md:text-xl">
               {fafzCount}
             </p>
           )}
-          <p className="font-inter text-border text-sm lg:text-base">FAFz</p>
+          <p className="font-freckle text-border text-sm lg:text-base">FAFz</p>
         </div>
         <span className="border-right"></span>
         <div className="w-3/12 flex flex-col items-center text-center py-2 px-1">
           {isLoading ? (
             <Bars fill="#1d1f91" style={{ height: "15px", width: "15px" }} />
           ) : (
-            <p className="font-inter text-border text-lg md:text-xl">
+            <p className="font-freckle text-border text-lg md:text-xl">
               {seCount}
             </p>
           )}
-          <p className="font-inter text-border text-sm lg:text-base">FAFz SE</p>
+          <p className="font-freckle text-border text-sm lg:text-base">
+            FAFz SE
+          </p>
         </div>
         <div
           className="text-2xl text-border cursor-pointer pr-1"
