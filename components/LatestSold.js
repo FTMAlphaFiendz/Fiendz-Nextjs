@@ -40,20 +40,20 @@ const LatestSold = ({ lastSold, isLoading }) => {
       ) : (
         lastSold?.map((nft, i) => {
           return (
-            <div key={`${nft.data?.name}${i}`}>
-              <div className="flex flex-row mx-2 my-2">
+            <div key={`${nft.data?.name}${i}`} className="w-full">
+              <div className="flex flex-row mx-2 my-2 justify-around text-base">
                 <img
                   src={nft.data?.image}
                   className="latest-sold-img nft-border"
                 />
-                <div className="flex-col ml-3">
+                <div className="flex flex-col ml-3 justify-center">
                   <p className="text-border font-freckle">
                     {formatName(nft.data?.name)}
                   </p>
                   <div className="flex items-center">
-                    <p className="text-border font-freckle text-base">Sold</p>
+                    <p className="text-border font-freckle">Sold</p>
                     <FantomIcon />
-                    <p className="text-border font-freckle text-base">
+                    <p className="text-orange-500 font-freckle">
                       {nft?.purchasedPrice}
                     </p>
                   </div>

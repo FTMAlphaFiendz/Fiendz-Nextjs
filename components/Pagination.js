@@ -13,17 +13,31 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
     }
     let lastPage = numbers.length;
     setLastIndex(lastPage);
-    numbers = getRange(numbers, currentPage, 3);
+
+    if (numbers.length > 4) {
+      numbers = getRange(numbers, currentPage, 3);
+    }
+    if (numbers[0] === 1) {
+      numbers.shift();
+    }
+    if (numbers[numbers.length - 1] === lastPage) {
+      numbers.pop();
+    }
+
+    if (numbers.length === 1) {
+      // numbers.unshift(lastIndex - 2);
+    }
     return numbers;
   };
 
   const getRange = (array, index, range) => {
     var least = index - Math.floor(range / 2);
+    least = least - 1;
     least = least < 0 ? 0 : least;
     return array.slice(least, least + range);
   };
 
-  const changePageByRange = (currentPage, lastIndex, type, range = 5) => {
+  const changePageByRange = (currentPage, lastIndex, type, range = 1) => {
     if (type === "plus") {
       currentPage = currentPage + range;
       if (currentPage > lastIndex) {
@@ -60,11 +74,9 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
             </a>
           </li>
           <li
-            className={
-              currentPage >= 3
-                ? "block text-border cursor-pointer paginate-button text-xl font-inter mx-2"
-                : "hidden"
-            }
+            className={`block text-border cursor-pointer paginate-button text-xl font-inter mx-2 ${
+              currentPage === 1 && "paginate-active"
+            }`}
           >
             <a
               onClick={() => {
@@ -75,7 +87,7 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
               1
             </a>
           </li>
-          <li className={`${currentPage >= 4 ? "block font-inter" : "hidden"}`}>
+          <li className={`${currentPage > 3 ? "block font-inter" : "hidden"}`}>
             ...
           </li>
           {pageNumbers?.map((number) => (
@@ -97,17 +109,14 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
           ))}
           <li
             className={`${
-              currentPage <= lastIndex - 4 ? "block font-inter" : "hidden"
+              currentPage < lastIndex - 2 ? "block font-inter" : "hidden"
             }`}
           >
             ...
           </li>
           <li
-            className={
-              currentPage <= lastIndex - 4
-                ? "block text-border cursor-pointer paginate-button text-xl font-inter mx-2"
-                : "hidden"
-            }
+            className={`${currentPage === lastIndex && "paginate-active"}
+              block text-border cursor-pointer paginate-button text-xl font-inter mx-2`}
           >
             <a
               onClick={() => {
