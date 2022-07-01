@@ -7,7 +7,7 @@ const FiendCard = ({ data, handleShowModal, setActiveNFT, userData }) => {
     const checkEdition = (edition, rarityStatus, userNFTData) => {
       for (const data of userNFTData) {
         if (data.edition === edition && data.rarityStatus === rarityStatus) {
-          return <FaStar />;
+          return true;
         }
       }
     };
@@ -16,12 +16,15 @@ const FiendCard = ({ data, handleShowModal, setActiveNFT, userData }) => {
   return (
     <div
       key={data.name}
-      className="w-3/12 m-2 flex flex-col nft-card nft-border cursor-pointer"
+      className="w-3/12 m-2 flex flex-col nft-card nft-border cursor-pointer relative card-container"
       onClick={() => {
         handleShowModal();
         setActiveNFT(data);
       }}
     >
+      {userData && checkIfUserNFT(userData, data) && (
+        <div className="banner font-freckle">Owned</div>
+      )}
       <img
         src={data.image}
         alt={data.name}

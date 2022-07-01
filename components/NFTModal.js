@@ -21,7 +21,7 @@ const NFTModal = ({ show, onHide, activeNFT, userData }) => {
     const checkEdition = (edition, rarityStatus, userNFTData) => {
       for (const data of userNFTData) {
         if (data.edition === edition && data.rarityStatus === rarityStatus) {
-          return <FaStar />;
+          return true;
         }
       }
     };
@@ -48,20 +48,22 @@ const NFTModal = ({ show, onHide, activeNFT, userData }) => {
           </button>
         </div>
         <div className="flex items-center flex-col lg:flex-row lg:items-start w-full h-full">
-          <div className="w-9/12 lg:w-6/12 flex justify-center items-center">
-            <img
-              src={activeNFT?.image}
-              alt={activeNFT?.name}
-              style={{ height: "100%", width: "90%" }}
-              className="mb-2 nft-border"
-            />
+          <div className="w-9/12 lg:w-6/12 flex justify-center items-center relative">
+            <div className="flex justify-center overflow-hidden relative modal-image">
+              <img
+                src={activeNFT?.image}
+                alt={activeNFT?.name}
+                style={{ height: "100%", width: "100%" }}
+                className="mb-2 nft-border"
+              />
+              {userData && checkIfUserNFT(userData, activeNFT) && (
+                <div className="banner-modal font-freckle">Owned</div>
+              )}
+            </div>
           </div>
           <div className="w-full lg:w-6/12 flex flex-col p-3">
             <div className="mb-4 flex flex-col">
               <div className="font-freckle text-border text-xl mb-2">
-                <span className="mr-2 text-yellow-500">
-                  {userData && checkIfUserNFT(userData, activeNFT)}
-                </span>
                 {activeNFT?.name}
               </div>
               <div className="flex">
