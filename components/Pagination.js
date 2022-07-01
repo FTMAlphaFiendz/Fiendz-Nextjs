@@ -12,6 +12,7 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
       numbers.push(i);
     }
     let lastPage = numbers.length;
+    setLastIndex(lastPage);
 
     if (numbers.length > 4) {
       numbers = getRange(numbers, currentPage, 3);
