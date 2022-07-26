@@ -9,7 +9,7 @@ export default async function addAccount(req, res) {
     if (secret !== process.env.FAFZ_SECRET) {
       res
         .status(403)
-        .json({ error: "You must not know the secret password..." });
+        .json({ error: "You must not know the secretg password..." });
     }
     try {
       await connectMongo();

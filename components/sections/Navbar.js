@@ -18,7 +18,10 @@ const links = [
   { name: "FAQs", link: "faqs" },
 ];
 
-const nonHomeLinks = [{ name: "Collection", link: "/collection" }];
+const nonHomeLinks = [
+  { name: "Collection", link: "/collection" },
+  { name: "Leaderboard", link: "/leaderboard" },
+];
 
 const Navbar = () => {
   const router = useRouter();

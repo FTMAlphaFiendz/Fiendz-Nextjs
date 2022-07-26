@@ -23,7 +23,7 @@ const View = () => {
     window.addEventListener("resize", appHeight);
     appHeight();
     (async () => {
-      let allEvents = await getAllBoughtEvents();
+      let allEvents = await getAllBoughtEvents(user?.provider);
       setLastSold(allEvents);
       setIsSoldDataLoading(false);
     })();
