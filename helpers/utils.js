@@ -1,3 +1,5 @@
+import { isResSent } from "next/dist/shared/lib/utils";
+
 export const formatUrl = (tokenURI) => {
   let ipfsGateway = "https://fafz.mypinata.cloud/ipfs/";
   // let ipfsGateway = "https://ipfs.io/ipfs/";
@@ -23,4 +25,23 @@ export const formatName = (name) => {
     return n;
   }
   return name;
+};
+
+export const getUrl = () => {
+  let url;
+  console.log(process.env);
+  switch (process.env.NEXT_PUBLIC_ENVIRONMENT) {
+    case "local":
+      url = "http://localhost:3000/";
+      break;
+    case "dev":
+      url = "https://dev.fafz.app/";
+      break;
+    case "prod":
+      url = "https://fafz.app/";
+      break;
+    default:
+      throw new Error("Invalid environment");
+  }
+  return url;
 };

@@ -7,10 +7,15 @@ import {
   getLeaderboardScores,
   checkUserRegistration,
 } from "../helpers/LeaderboardHelper";
+import { getUrl } from "../helpers/utils";
 
 export async function getServerSideProps(context) {
+  let baseUrl = "http://localhost:3000";
+  if (process.env.VERCEL_URL) {
+    baseUrl = process.env.VERCEL_URL;
+  }
   let { data } = await axios.get(
-    "http://localhost:3000/api/leaderboard/getLeaderboardScores",
+    `${baseUrl}/api/leaderboard/getLeaderboardScores`,
     {
       headers: { secret: process.env.FAFZ_SECRET },
     }
