@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import SEOMeta from "../components/SEOMeta";
 import axios from "axios";
+import Pagination from "../components/Pagination";
 import { UserContext } from "../context/UserContext";
 import connectMongo from "../lib/connectMongo";
 import LeaderboardModel from "../models/Leaderboard";
@@ -21,6 +22,8 @@ const Leaderboard = ({ scores }) => {
   const { user, userNFTData } = useContext(UserContext);
   const [isLeaderboardLoading, setIsLeaderboardLoading] = useState(true);
   const [leaderboardData, setLeaderboardData] = useState(scores);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [scoresPerPage] = useState(30);
 
   const formatAccount = (account, type) => {
     let formattedAccount;
@@ -77,6 +80,17 @@ const Leaderboard = ({ scores }) => {
     window.addEventListener("resize", appHeight);
     appHeight();
   }, []);
+
+  const indexOfLastScore = currentPage * scoresPerPage;
+  const indexOfFirstScore = indexOfLastScore - scoresPerPage;
+  const currentScores = leaderboardData?.slice(
+    indexOfFirstScore,
+    indexOfLastScore
+  );
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div>
@@ -165,7 +179,7 @@ const Leaderboard = ({ scores }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {leaderboardData?.map((score) => {
+                  {currentScores?.map((score) => {
                     return (
                       <tr
                         className={`font-freckle text-xl lg:text-2xl text-border w-full  ${
@@ -199,6 +213,13 @@ const Leaderboard = ({ scores }) => {
                 </tbody>
               </table>
             </div>
+          </div>
+          <div className="flex flex-wrap text-center justify-center">
+            <Pagination
+              nftsperpage={scoresPerPage}
+              totalNFTs={scores?.length}
+              paginate={paginate}
+            />
           </div>
         </div>
       </div>
