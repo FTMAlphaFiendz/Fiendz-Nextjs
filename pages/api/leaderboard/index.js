@@ -1,4 +1,3 @@
-import { rejects } from "assert";
 import connectMongo from "../../../lib/connectMongo";
 import Leaderboard from "../../../models/Leaderboard";
 
