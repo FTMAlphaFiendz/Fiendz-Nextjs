@@ -9,7 +9,6 @@ const getBaseUrl = () => {
 };
 
 export const registerUserWallet = async (account, walletScore) => {
-  let baseUrl = getBaseUrl();
   if (!account || !walletScore) {
     console.error("Account and Wallet Score are required");
   }
@@ -25,7 +24,6 @@ export const registerUserWallet = async (account, walletScore) => {
 };
 
 export const getLeaderboardScores = async () => {
-  let baseUrl = getBaseUrl();
   let { data } = await axios.get(`/api/leaderboard/getLeaderboardScores`, {
     headers: { secret: process.env.NEXT_PUBLIC_FAFZ_SECRET },
   });
@@ -33,7 +31,6 @@ export const getLeaderboardScores = async () => {
 };
 
 export const checkUserRegistration = async (account) => {
-  let baseUrl = getBaseUrl();
   let userRecord = await axios.get(`/api/leaderboard/${account}`, {
     headers: { secret: process.env.NEXT_PUBLIC_FAFZ_SECRET },
   });

@@ -15,13 +15,8 @@ export default async function getLeaderboardData(req, res) {
     let leaderboardRecords = await Leaderboard.find().sort({
       walletScore: "descending",
     });
-    res.json(leaderboardRecords);
-    try {
-      res.json({ here: "here" });
-    } catch (err) {
-      console.log({ err });
-      res.json(err);
-    }
+    // res.json(leaderboardRecords);
+    return leaderboardRecords;
   } else {
     res.status(404).json({ error: "Wrong HTTP Method" });
   }

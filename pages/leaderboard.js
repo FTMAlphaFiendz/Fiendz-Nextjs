@@ -44,16 +44,16 @@ const Leaderboard = ({ scores }) => {
   };
 
   const getRankColorClass = (rank) => {
-    let c = "text-border";
+    let c = "#1d1f91";
     switch (rank) {
       case 3:
-        c = "text-third";
+        c = "#f3755a";
         break;
       case 2:
-        c = "text-second";
+        c = "#786bf4";
         break;
       case 1:
-        c = "text-first";
+        c = "#f1b210";
         break;
       default:
         c = c;
@@ -146,127 +146,42 @@ const Leaderboard = ({ scores }) => {
             </div>
           </div>
           <div className="flex flex-col items-center w-full">
-            {/* <div
-                id="register-wallet"
-                className="flex flex-col-reverse md:flex-row w-full justify-between items-center"
-              >
-                <div>
-                  <button
-                    className="p-3 sm:ml-2 hover:shadow-xl duration-500 hover:text-white font-freckle w-full check-whitelist-btn button-border"
-                    onClick={async () => {
-                      await registerWallet(
-                        user?.account,
-                        userNFTData?.totalWallet
-                      );
-                    }}
-                  >
-                    Register Wallet
-                  </button>
-                </div>
-                <div className="w-full text-center md:w-7/12 mb-3 text-lg md:text-base">
-                  {userRegistration ? (
-                    <ul>
-                      <li className="text-border font-freckle mb-1">
-                        <span className="mr-2">Whats up,</span>
-                        {userRegistration?.displayName
-                          ? userRegistration?.displayName
-                          : formatAccount(userRegistration?.account)}
-                      </li>
-                      <li className="text-orange-500 font-freckle mb-1">
-                        <span className="text-border">Wallet Score:</span>{" "}
-                        {userRegistration?.walletScore}
-                      </li>
-                      <li className="text-border font-freckle">
-                        <span>Last updated:</span>{" "}
-                        {formatDate(userRegistration?.updatedAt)}
-                      </li>
-                    </ul>
-                  ) : (
-                    <p className="text-border font-freckle text-base">
-                      Make sure to register your wallet to join the
-                      leaderboard!!
-                    </p>
-                  )}
-                </div>
-              </div> */}
             <div
               id="leaderboard"
-              className="bg-white flex flex-col w-full md:w-9/12  md:px-4 wallet-stats items-center mb-2 p-4"
+              className="bg-white flex flex-col w-11/12 md:w-9/12  md:px-4 wallet-stats items-center mb-2 p-4"
             >
-              {/* <div className="w-full my-4 px-2">
-                <div className="w-full flex justify-between">
-                  <div>
-                    <h2 className="text-lg md:text-2xl font-freckle text-border">
-                      Rank
-                    </h2>
-                  </div>
-                  <div>
-                    <h2 className="text-lg md:text-2xl font-freckle text-border">
-                      Account
-                    </h2>
-                  </div>
-                  <div>
-                    <h2 className="text-lg md:text-2xl font-freckle text-border">
-                      Wallet Score
-                    </h2>
-                  </div>
-                </div>
-                <div id="scores" className="w-full my-4">
-                  {leaderboardData?.map((score, i) => {
-                    return (
-                      <div
-                        className={`w-full flex justify-between my-2  ${
-                          score.account === user?.account
-                            ? "text-orange-500"
-                            : "text-border"
-                        }`}
-                        key={score.account}
-                      >
-                        <div className={`${getRankColorClass()}`}>
-                          <h2 className="text-xl font-freckle ">{`#${
-                            i + 1
-                          }`}</h2>
-                        </div>
-                        <div>
-                          <h2 className="text-xl font-freckle ">
-                            {score.account &&
-                              formatAccount(score?.account, "table")}
-                          </h2>
-                        </div>
-                        <div>
-                          <h2 className="text-xl font-freckle">
-                            {score.walletScore}
-                          </h2>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div> */}
               <table className="w-full">
                 <thead>
                   <tr>
-                    <th className="font-freckle text-xl text-border">Rank</th>
-                    <th className="font-freckle text-xl text-border text-center md:text-left">
+                    <th className="font-freckle text-xl md:text-3xl text-border">
+                      Rank
+                    </th>
+                    <th className="font-freckle text-xl md:text-3xl text-border">
                       Address
                     </th>
-                    <th className="font-freckle text-xl text-border text-center">
+                    <th className="font-freckle text-xl md:text-3xl text-border text-center">
                       Score
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {leaderboardData?.map((score, i) => {
+                  {leaderboardData?.map((score) => {
                     return (
                       <tr
-                        className={`font-freckle text-xl lg:text-3xl text-border w-full  my- ${
+                        className={`font-freckle text-xl lg:text-2xl text-border w-full  ${
                           score.account === user?.account
-                            ? "text-orange-500"
-                            : "text-border"
+                            ? "bg-userlb"
+                            : "bg-white"
                         }`}
                         key={score.account}
                       >
-                        <td>{`#${i + 1}`}</td>
+                        <td
+                          style={{
+                            color: `${getRankColorClass(
+                              scores.indexOf(score) + 1
+                            )}`,
+                          }}
+                        >{`#${scores.indexOf(score) + 1}`}</td>
                         <td className="font-inter text-lg lg:text-2xl hidden md:block">
                           {score.account &&
                             formatAccount(score?.account, "table")}
@@ -275,7 +190,7 @@ const Leaderboard = ({ scores }) => {
                           {score.account &&
                             formatAccount(score?.account, "rank")}
                         </td>
-                        <td className="text-center text-lg lg:text-3xl">
+                        <td className="text-center text-lg lg:text-2xl text-orange-500">
                           {score.walletScore}
                         </td>
                       </tr>
@@ -286,35 +201,6 @@ const Leaderboard = ({ scores }) => {
             </div>
           </div>
         </div>
-        {/* <div className="fixed bottom-0 w-full h-12">
-          <div className="w-full flex justify-end">
-            <div className="w-full md:w-2/12 bg-white m-3 nft-border p-3">
-              <p className="font-freckle text-border text-base md:text-sm">
-                Wanna check your score on the leaderboard?!
-              </p>
-              <div className="mt-3">
-                <button
-                  className="p-3 hover:shadow-xl duration-500 hover:text-white font-freckle w-full check-whitelist-btn button-border"
-                  onClick={async () => {
-                    await registerWallet(
-                      user?.account,
-                      userNFTData?.totalWallet
-                    );
-                  }}
-                >
-                  Register Wallet
-                </button>
-              </div>
-              {userRegistration && (
-                <div className="text-center mt-1">
-                  <p className="font-inter text-border text-sm">
-                    {formatDate(userRegistration?.updatedAt)}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );
