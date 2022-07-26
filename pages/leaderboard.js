@@ -2,12 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import SEOMeta from "../components/SEOMeta";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
-import {
-  registerUserWallet,
-  getLeaderboardScores,
-  checkUserRegistration,
-} from "../helpers/LeaderboardHelper";
-import { getUrl } from "../helpers/utils";
 import connectMongo from "../lib/connectMongo";
 import LeaderboardModel from "../models/Leaderboard";
 
@@ -16,8 +10,6 @@ export async function getServerSideProps(context) {
   let leaderboardRecords = await LeaderboardModel.find().sort({
     walletScore: "descending",
   });
-  console.log(leaderboardRecords);
-
   return {
     props: { scores: JSON.parse(JSON.stringify(leaderboardRecords)) }, // will be passed to the page component as props
   };
@@ -27,17 +19,8 @@ const SEOdesc = "Check wallet score leaderboard! Are you in the lead??";
 
 const Leaderboard = ({ scores }) => {
   const { user, userNFTData } = useContext(UserContext);
-  const [userRegistration, setUserRegistration] = useState(null);
   const [isLeaderboardLoading, setIsLeaderboardLoading] = useState(true);
   const [leaderboardData, setLeaderboardData] = useState(scores);
-
-  // const registerWallet = async (account, walletScore) => {
-  //   let data = await registerUserWallet(account, walletScore);
-  //   setUserRegistration(data);
-  //   setIsLeaderboardLoading(true);
-  //   let leaderboardScores = await getLeaderboardScores();
-  //   setLeaderboardData(leaderboardScores);
-  // };
 
   const formatAccount = (account, type) => {
     let formattedAccount;
@@ -49,7 +32,7 @@ const Leaderboard = ({ scores }) => {
         )}`;
         break;
       case "table":
-        formattedAccount = `${account.substring(0, 10)}....${account.substring(
+        formattedAccount = `${account.substring(0, 17)}....${account.substring(
           33,
           42
         )}`;
@@ -93,22 +76,12 @@ const Leaderboard = ({ scores }) => {
   useEffect(() => {
     window.addEventListener("resize", appHeight);
     appHeight();
-    console.log("vercel url", process.env.NEXT_PUBLIC_VERCEL_URL);
   }, []);
-
-  useEffect(() => {
-    if (user?.account) {
-      (async () => {
-        // let userReg = await checkUserRegistration(user?.account);
-        // setUserRegistration(userReg);
-      })();
-    }
-  }, [user?.account]);
 
   return (
     <div>
       <SEOMeta description={SEOdesc} path="/leaderboard" page="Leaderboard" />
-      <div className="mint-page relative flex">
+      <div className="mint-page relative flex justify-center">
         <div className="w-full mt-16 md:mt-20 mx-10">
           <header className="flex justify-center mb-4 lg:mt-8">
             <h1 className="font-freckle text-5xl md:text-7xl text-border page-title">
@@ -218,7 +191,7 @@ const Leaderboard = ({ scores }) => {
               </div> */}
             <div
               id="leaderboard"
-              className="bg-white flex flex-col w-10/12 md:w-9/12  md:px-4 wallet-stats items-center mb-2 p-4"
+              className="bg-white flex flex-col w-full md:w-9/12  md:px-4 wallet-stats items-center mb-2 p-4"
             >
               {/* <div className="w-full my-4 px-2">
                 <div className="w-full flex justify-between">
@@ -274,7 +247,7 @@ const Leaderboard = ({ scores }) => {
                 <thead>
                   <tr>
                     <th className="font-freckle text-xl text-border">Rank</th>
-                    <th className="font-freckle text-xl text-border">
+                    <th className="font-freckle text-xl text-border text-center md:text-left">
                       Address
                     </th>
                     <th className="font-freckle text-xl text-border text-center">
@@ -286,7 +259,7 @@ const Leaderboard = ({ scores }) => {
                   {leaderboardData?.map((score, i) => {
                     return (
                       <tr
-                        className={`font-freckle text-xl text-border w-full  my- ${
+                        className={`font-freckle text-xl lg:text-3xl text-border w-full  my- ${
                           score.account === user?.account
                             ? "text-orange-500"
                             : "text-border"
@@ -294,11 +267,17 @@ const Leaderboard = ({ scores }) => {
                         key={score.account}
                       >
                         <td>{`#${i + 1}`}</td>
-                        <td className="font-inter text-lg">
+                        <td className="font-inter text-lg lg:text-2xl hidden md:block">
                           {score.account &&
                             formatAccount(score?.account, "table")}
                         </td>
-                        <td className="text-center">{score.walletScore}</td>
+                        <td className="font-inter text-lg md:hidden">
+                          {score.account &&
+                            formatAccount(score?.account, "rank")}
+                        </td>
+                        <td className="text-center text-lg lg:text-3xl">
+                          {score.walletScore}
+                        </td>
                       </tr>
                     );
                   })}
