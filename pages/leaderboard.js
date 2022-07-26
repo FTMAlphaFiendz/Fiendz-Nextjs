@@ -100,8 +100,8 @@ const Leaderboard = ({ scores }) => {
   useEffect(() => {
     if (user?.account) {
       (async () => {
-        let userReg = await checkUserRegistration(user?.account);
-        setUserRegistration(userReg);
+        // let userReg = await checkUserRegistration(user?.account);
+        // setUserRegistration(userReg);
       })();
     }
   }, [user?.account]);
