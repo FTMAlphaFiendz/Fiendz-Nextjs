@@ -23,7 +23,7 @@ const Leaderboard = ({ scores }) => {
   const [isLeaderboardLoading, setIsLeaderboardLoading] = useState(true);
   const [leaderboardData, setLeaderboardData] = useState(scores);
   const [currentPage, setCurrentPage] = useState(1);
-  const [scoresPerPage] = useState(30);
+  const [scoresPerPage] = useState(10);
 
   const formatAccount = (account, type) => {
     let formattedAccount;
@@ -162,9 +162,9 @@ const Leaderboard = ({ scores }) => {
           <div className="flex flex-col items-center w-full">
             <div
               id="leaderboard"
-              className="bg-white flex flex-col w-11/12 md:w-9/12  md:px-4 wallet-stats items-center mb-2 p-4"
+              className="bg-white flex flex-col w-11/12 md:w-9/12 md:px-4 wallet-stats items-center mb-2 p-4"
             >
-              <table className="w-full">
+              <table className="w-11/12">
                 <thead>
                   <tr>
                     <th className="font-freckle text-xl md:text-3xl text-border">
