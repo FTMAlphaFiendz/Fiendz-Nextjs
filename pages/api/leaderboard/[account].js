@@ -6,7 +6,6 @@ export default async function handler(req, res) {
   const { account } = req.query;
   const method = req.method;
   const { secret } = req.headers;
-  console.log({ account, secret });
   if (!account) res.status(404).json({ error: "No account sent" });
   if (method === "GET") {
     if (secret !== process.env.FAFZ_SECRET) {
