@@ -1,7 +1,7 @@
 import connectMongo from "../../../lib/connectMongo";
 import Leaderboard from "../../../models/Leaderboard";
 
-export default async function addAccount(req, res) {
+export default async function getLeaderboardData(req, res) {
   console.log("CONNECTING TO MONGO");
   await connectMongo();
   const method = req.method;

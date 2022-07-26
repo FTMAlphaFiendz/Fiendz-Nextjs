@@ -8,20 +8,18 @@ import {
   checkUserRegistration,
 } from "../helpers/LeaderboardHelper";
 import { getUrl } from "../helpers/utils";
+import connectMongo from "../lib/connectMongo";
+import LeaderboardModel from "../models/Leaderboard";
 
 export async function getServerSideProps(context) {
-  let baseUrl = "http://localhost:3000";
-  if (process.env.VERCEL_URL) {
-    baseUrl = process.env.VERCEL_URL;
-  }
-  let { data } = await axios.get(
-    `${baseUrl}/api/leaderboard/getLeaderboardScores`,
-    {
-      headers: { secret: process.env.FAFZ_SECRET },
-    }
-  );
+  await connectMongo();
+  let leaderboardRecords = await LeaderboardModel.find().sort({
+    walletScore: "descending",
+  });
+  console.log(leaderboardRecords);
+
   return {
-    props: { scores: data }, // will be passed to the page component as props
+    props: { scores: JSON.parse(JSON.stringify(leaderboardRecords)) }, // will be passed to the page component as props
   };
 }
 
@@ -33,13 +31,13 @@ const Leaderboard = ({ scores }) => {
   const [isLeaderboardLoading, setIsLeaderboardLoading] = useState(true);
   const [leaderboardData, setLeaderboardData] = useState(scores);
 
-  const registerWallet = async (account, walletScore) => {
-    let data = await registerUserWallet(account, walletScore);
-    setUserRegistration(data);
-    setIsLeaderboardLoading(true);
-    let leaderboardScores = await getLeaderboardScores();
-    setLeaderboardData(leaderboardScores);
-  };
+  // const registerWallet = async (account, walletScore) => {
+  //   let data = await registerUserWallet(account, walletScore);
+  //   setUserRegistration(data);
+  //   setIsLeaderboardLoading(true);
+  //   let leaderboardScores = await getLeaderboardScores();
+  //   setLeaderboardData(leaderboardScores);
+  // };
 
   const formatAccount = (account, type) => {
     let formattedAccount;
@@ -125,11 +123,11 @@ const Leaderboard = ({ scores }) => {
                   <h6 className="font-freckle text-border text-xl text-center">
                     Score:{" "}
                     <span className="text-orange-500">
-                      {scores.length > 1 ? scores[1].walletScore : "N/A"}
+                      {scores?.length > 1 ? scores[1].walletScore : "N/A"}
                     </span>
                   </h6>
                   <p className="font-inter text-border lg:text-lg">
-                    {scores.length > 1
+                    {scores?.length > 1
                       ? formatAccount(scores[1].account, "rank")
                       : "N/A"}
                   </p>
@@ -145,11 +143,11 @@ const Leaderboard = ({ scores }) => {
                     <h6 className="font-freckle text-border text-xl text-center">
                       Score:{" "}
                       <span className="text-orange-500">
-                        {scores.length > 0 ? scores[0].walletScore : "N/A"}
+                        {scores?.length > 0 ? scores[0].walletScore : "N/A"}
                       </span>
                     </h6>
                     <p className="font-inter text-border lg:text-lg">
-                      {scores.length > 0
+                      {scores?.length > 0
                         ? formatAccount(scores[0].account, "rank")
                         : "N/A"}
                     </p>
@@ -162,11 +160,11 @@ const Leaderboard = ({ scores }) => {
                   <h6 className="font-freckle text-border text-xl text-center">
                     Score:{" "}
                     <span className="text-orange-500">
-                      {scores.length > 2 ? scores[2].walletScore : "N/A"}
+                      {scores?.length > 2 ? scores[2].walletScore : "N/A"}
                     </span>
                   </h6>
                   <p className="font-inter text-border lg:text-lg">
-                    {scores.length > 2
+                    {scores?.length > 2
                       ? formatAccount(scores[2].account, "rank")
                       : "N/A"}
                   </p>
