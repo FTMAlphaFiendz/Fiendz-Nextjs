@@ -40,8 +40,8 @@ const teamInfo = [
     image: Cole,
     name: "Cole Miller",
     position: "Web Dev",
-    handle: "@cmxCole",
-    links: [{ type: "twitter", url: "https://twitter.com/cmxCole" }],
+    handle: "@b0nesFAFZ",
+    links: [{ type: "twitter", url: "https://twitter.com/b0nesFAFZ" }],
   },
 ];
 
@@ -50,8 +50,8 @@ const brainiacInfo = [
     image: BrokeDegen,
     name: "unkown",
     position: "DeFi Project Analyst & Investment Strategist",
-    handle: "@ProjectResearc3",
-    links: [{ type: "twitter", url: "https://twitter.com/ProjectResearc3" }],
+    handle: "@BrokeDegenFAFz",
+    links: [{ type: "twitter", url: "https://twitter.com/BrokeDegenFAFz" }],
   },
   {
     image: Georgory,
