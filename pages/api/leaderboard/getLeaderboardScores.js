@@ -139,30 +139,35 @@ const mergeRecords = (fafzData, seData) => {
 };
 
 const getData = async () => {
-  let ownerData = await getNFTOwners(fafzContract);
-  let seData = await getNFTOwners(seContract);
-  let merged = mergeRecords(ownerData, seData);
-  let arr = [];
-  for (const owner in merged) {
-    let totalWallet = 0;
-    for (const d of ownerData[owner].data) {
-      if (d.hasOwnProperty("metadata")) {
-        totalWallet += d.metadata.walletScore;
-      } else {
-        totalWallet += d.walletScore;
+  try {
+    let ownerData = await getNFTOwners(fafzContract);
+    let seData = await getNFTOwners(seContract);
+    let merged = mergeRecords(ownerData, seData);
+    let arr = [];
+    for (const owner in merged) {
+      let totalWallet = 0;
+      for (const d of ownerData[owner].data) {
+        if (d.hasOwnProperty("metadata")) {
+          totalWallet += d.metadata.walletScore;
+        } else {
+          totalWallet += d.walletScore;
+        }
       }
+      arr.push({
+        account: owner,
+        count: ownerData[owner].count,
+        seCount: ownerData[owner].hasOwnProperty("seCount")
+          ? ownerData[owner].seCount
+          : 0,
+        walletScore: totalWallet,
+      });
     }
-    arr.push({
-      account: owner,
-      count: ownerData[owner].count,
-      seCount: ownerData[owner].hasOwnProperty("seCount")
-        ? ownerData[owner].seCount
-        : 0,
-      walletScore: totalWallet,
-    });
+    arr = arr.sort((a, b) => b.walletScore - a.walletScore);
+    return arr;
+  } catch (err) {
+    console.log({ err: err.message });
+    console.log("ERROR GETTING DATA");
   }
-  arr = arr.sort((a, b) => b.walletScore - a.walletScore);
-  return arr;
 };
 
 const connectAndUpsert = async (data) => {
