@@ -1,7 +1,7 @@
 import connectMongo from "../../../lib/connectMongo";
 import Leaderboard from "../../../models/Leaderboard";
 let axios = require("axios");
-const rarityMap = require("../../../public/files/rarityMap.json");
+const rarityMap = require("../../../helpers/rarityMap.json");
 
 const moralisBaseUrl = "https://deep-index.moralis.io/api/v2/nft/";
 const fafzContract = "0xB183341A1FC7C851df05E01bf98EE683080B7e8C";
