@@ -141,9 +141,7 @@ const mergeRecords = (fafzData, seData) => {
 const getData = async () => {
   let ownerData = await getNFTOwners(fafzContract);
   let seData = await getNFTOwners(seContract);
-
   let merged = mergeRecords(ownerData, seData);
-
   let arr = [];
   for (const owner in merged) {
     let totalWallet = 0;
@@ -187,24 +185,13 @@ const connectAndUpsert = async (data) => {
     console.log({ err });
   }
 };
-
-// const connectAndGetRecs = async () => {
-//   try {
-//     await connectMongo.connectMongo();
-//     let leaderboardRecords = await Leaderboard.find().sort({
-//       walletScore: "descending",
-//     });
-//     console.log(leaderboardRecords);
-//   } catch (err) {
-//     console.log({ err });
-//   }
-// };
 //END MORALIS HELPER FUNCTIONS
 
 export default async function getLeaderboardData(req, res) {
   try {
     console.log("CONNECTING TO MONGO");
     await connectMongo();
+    console.log("CONNECTED TO MONGO");
     const method = req.method;
     const { secret } = req.headers;
     if (method === "GET") {
@@ -213,7 +200,9 @@ export default async function getLeaderboardData(req, res) {
           .status(403)
           .json({ error: "You must not know the secret password..." });
       }
+      console.log("GETTING DATA");
       let data = await getData();
+      console.log("GOT DATA - STARTING UPSERT");
       await connectAndUpsert(data);
       // res.json(leaderboardRecords);
       console.log("FINISHED UPSERTING");
