@@ -202,22 +202,26 @@ const connectAndUpsert = async (data) => {
 //END MORALIS HELPER FUNCTIONS
 
 export default async function getLeaderboardData(req, res) {
-  console.log("CONNECTING TO MONGO");
-  await connectMongo();
-  const method = req.method;
-  const { secret } = req.headers;
-  if (method === "GET") {
-    if (secret !== process.env.FAFZ_SECRET) {
-      res
-        .status(403)
-        .json({ error: "You must not know the secret password..." });
+  try {
+    console.log("CONNECTING TO MONGO");
+    await connectMongo();
+    const method = req.method;
+    const { secret } = req.headers;
+    if (method === "GET") {
+      if (secret !== process.env.FAFZ_SECRET) {
+        res
+          .status(403)
+          .json({ error: "You must not know the secret password..." });
+      }
+      let data = await getData();
+      await connectAndUpsert(data);
+      // res.json(leaderboardRecords);
+      console.log("FINISHED UPSERTING");
+      return res.status(200).json({ message: "Ran cron successfully" });
+    } else {
+      res.status(404).json({ error: "Wrong HTTP Method" });
     }
-    let data = await getData();
-    await connectAndUpsert(data);
-    // res.json(leaderboardRecords);
-    console.log("FINISHED UPSERTING");
-    return res.status(200).json({ message: "Ran cron successfully" });
-  } else {
-    res.status(404).json({ error: "Wrong HTTP Method" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 }
