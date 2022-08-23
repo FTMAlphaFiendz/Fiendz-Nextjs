@@ -22,16 +22,18 @@ const View = () => {
   useEffect(() => {
     window.addEventListener("resize", appHeight);
     appHeight();
-    (async () => {
-      let allEvents = await getAllBoughtEvents(user?.provider);
-      setLastSold(allEvents);
-      setIsSoldDataLoading(false);
-    })();
   }, []);
 
   useEffect(() => {
     if (userNFTData) {
       setTimeout(setIsNFTDataLoading(false), 2500);
+    }
+    if (user?.provider) {
+      (async () => {
+        let allEvents = await getAllBoughtEvents(user?.provider);
+        setLastSold(allEvents);
+        setIsSoldDataLoading(false);
+      })();
     }
   }, [userNFTData]);
 
