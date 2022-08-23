@@ -10,6 +10,7 @@ const WalletStatsBar = ({
   sortFAFZ,
   isHighSorted,
   isLoading,
+  tier,
 }) => {
   return (
     <>
@@ -34,7 +35,9 @@ const WalletStatsBar = ({
           {isLoading ? (
             <Bars fill="#1d1f91" style={{ height: "15px", width: "15px" }} />
           ) : (
-            <p className="font-freckle text-border text-lg md:text-xl">-</p>
+            <p className="font-freckle text-border text-lg md:text-xl">
+              {tier}
+            </p>
           )}
           <p className="font-freckle text-border text-sm lg:text-base">Tier</p>
         </div>

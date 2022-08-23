@@ -17,6 +17,11 @@ const LeaderboardSchema = new Schema(
       required: false,
       maxLength: 100,
     },
+    tier: {
+      type: Number,
+      required: true,
+      maxLength: 1,
+    },
   },
   {
     timestamps: true,
