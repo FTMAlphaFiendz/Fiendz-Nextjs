@@ -4,7 +4,7 @@ import { formatName } from "../helpers/utils";
 import axios from "axios";
 import Web3 from "web3";
 const fantomNode =
-  "wss://speedy-nodes-nyc.moralis.io/e8a15a63a7fefd85da1d8ebe/fantom/mainnet/ws";
+  "wss://ws-nd-186-579-089.p2pify.com/f44c3c1903cce504f0fc063e7b6c502e";
 
 const getWeb3 = (provider) => {
   return new Web3(provider);
@@ -138,19 +138,19 @@ export const getTiers = (walletScore) => {
     case walletScore < 500:
       tier = "-";
       break;
-    case walletScore >= 500 && walletScore <= 1000:
+    case walletScore >= 500 && walletScore < 1000:
       tier = 1;
       break;
-    case walletScore > 1000 && walletScore <= 2000:
+    case walletScore >= 1000 && walletScore < 2000:
       tier = 2;
       break;
-    case walletScore > 2000 && walletScore <= 4000:
+    case walletScore >= 2000 && walletScore < 4000:
       tier = 3;
       break;
-    case walletScore > 4000 && walletScore <= 8000:
+    case walletScore >= 4000 && walletScore < 8000:
       tier = 4;
       break;
-    case walletScore > 8000:
+    case walletScore >= 8000:
       tier = 5;
       break;
     default:
@@ -261,7 +261,7 @@ export const getLatestBoughtFromNFTKey = async (provider, maxLength = 15) => {
 };
 
 export const getAllBoughtEvents = async (provider, maxLength = 10) => {
-  // let provider = new Web3.providers.WebsocketProvider(fantomNode);
+  provider = new Web3.providers.WebsocketProvider(fantomNode);
   let eventPromises = [
     await getLatestBoughtFromNFTKey(provider, maxLength),
     await getLatestBoughtFromCampfire(provider, maxLength),

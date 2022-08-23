@@ -11,7 +11,7 @@ const ConnectWalletBtn = ({
   const formatDisconnectText = (account, chainId) => {
     let text;
     if (chainId === 250) {
-      text = `${account.substring(0, 5)}....${account.substring(37, 42)}`;
+      text = `${account?.substring(0, 5)}....${account?.substring(37, 42)}`;
     } else if (chainId === 4002) {
       text = "Testnet";
     } else {
