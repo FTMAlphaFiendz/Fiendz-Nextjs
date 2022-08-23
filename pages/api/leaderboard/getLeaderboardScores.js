@@ -53,6 +53,33 @@ const getMetadata = async (data, rarityMap) => {
   return data;
 };
 
+export const getTiers = (walletScore) => {
+  let tier;
+  switch (true) {
+    case walletScore < 500:
+      tier = 0;
+      break;
+    case walletScore >= 500 && walletScore <= 1000:
+      tier = 1;
+      break;
+    case walletScore > 1000 && walletScore <= 2000:
+      tier = 2;
+      break;
+    case walletScore > 2000 && walletScore <= 4000:
+      tier = 3;
+      break;
+    case walletScore > 4000 && walletScore <= 8000:
+      tier = 4;
+      break;
+    case walletScore > 8000:
+      tier = 5;
+      break;
+    default:
+      throw `Wallet Score doesnt meet condition ${walletScore}`;
+  }
+  return tier;
+};
+
 const getFAFzRarityStatus = (totalRarity) => {
   let rarityStatus, walletScore, rarityBg, sortIndex;
   if (totalRarity > 0 && totalRarity <= 1) {
@@ -153,6 +180,7 @@ const getData = async () => {
           totalWallet += d.walletScore;
         }
       }
+      let tier = getTiers(totalWallet);
       arr.push({
         account: owner,
         count: ownerData[owner].count,
@@ -160,6 +188,7 @@ const getData = async () => {
           ? ownerData[owner].seCount
           : 0,
         walletScore: totalWallet,
+        tier,
       });
     }
     arr = arr.sort((a, b) => b.walletScore - a.walletScore);
@@ -175,12 +204,12 @@ const connectAndUpsert = async (data) => {
   try {
     for (const d of data) {
       if (d.account !== plStakingContract) {
-        let { account, walletScore } = d;
+        let { account, walletScore, tier } = d;
         const doc = await Leaderboard.findOneAndUpdate(
           {
             account,
           },
-          { account, walletScore },
+          { account, walletScore, tier },
           { upsert: true, useFindAndModify: true, returnDocument: "after" }
         );
       }

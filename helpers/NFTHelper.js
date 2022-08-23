@@ -45,6 +45,7 @@ export const getMetadata = async (tokenUri, rarityMap, type) => {
     }
     let { rarityStatus, walletScore, rarityBg, sortIndex } =
       getFAFzRarityStatus(totalRarity);
+
     data.rarityStatus = rarityStatus;
     data.walletScore = walletScore;
     data.rarityBackground = rarityBg;
@@ -126,7 +127,36 @@ export const getAllUserNFTs = async (provider, account, rarityMap) => {
   let data = seData.concat(fafzData);
   data = data.sort((a, b) => a.sortIndex - b.sortIndex);
   let totalWallet = getTotalWalletScore(data);
-  return { data, seCount, fafzCount, totalWallet };
+  let tier = getTiers(totalWallet);
+
+  return { data, seCount, fafzCount, totalWallet, tier };
+};
+
+export const getTiers = (walletScore) => {
+  let tier;
+  switch (true) {
+    case walletScore < 500:
+      tier = "-";
+      break;
+    case walletScore >= 500 && walletScore <= 1000:
+      tier = 1;
+      break;
+    case walletScore > 1000 && walletScore <= 2000:
+      tier = 2;
+      break;
+    case walletScore > 2000 && walletScore <= 4000:
+      tier = 3;
+      break;
+    case walletScore > 4000 && walletScore <= 8000:
+      tier = 4;
+      break;
+    case walletScore > 8000:
+      tier = 5;
+      break;
+    default:
+      throw `Wallet Score doesnt meet condition ${walletScore}`;
+  }
+  return tier;
 };
 
 //NFT FUNCTIONS

@@ -49,6 +49,7 @@ const NFTViewSection = ({ nftData, isLoading }) => {
         nfts={nftData?.data}
         walletScore={nftData?.totalWallet || 0}
         seCount={nftData?.seCount || 0}
+        tier={nftData?.tier}
         fafzCount={nftData?.fafzCount || 0}
         sortFAFZ={sortFAFZ}
         isHighSorted={isHighSorted}
