@@ -52,7 +52,7 @@ const Landing = () => {
               <span className="text-2xl mr-1 button-text">
                 <GrView />
               </span>
-              <span className="button-text">View NFTs</span>
+              <span className="button-text">My NFTs</span>
             </button>
           </Link>
         </div>

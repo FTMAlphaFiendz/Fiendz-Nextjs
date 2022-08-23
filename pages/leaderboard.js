@@ -183,7 +183,8 @@ const Leaderboard = ({ scores }) => {
                     return (
                       <tr
                         className={`font-freckle text-xl lg:text-2xl text-border w-full  ${
-                          score.account === user?.account
+                          score.account.toLowerCase() ===
+                          user?.account.toLowerCase()
                             ? "bg-userlb"
                             : "bg-white"
                         }`}
@@ -196,7 +197,7 @@ const Leaderboard = ({ scores }) => {
                             )}`,
                           }}
                         >{`#${scores.indexOf(score) + 1}`}</td>
-                        <td className="font-inter text-lg lg:text-2xl hidden md:block">
+                        <td className="font-inter text-xl lg:text-2xl hidden md:block">
                           {score.account &&
                             formatAccount(score?.account, "table")}
                         </td>
