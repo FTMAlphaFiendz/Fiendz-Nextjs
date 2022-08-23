@@ -26,7 +26,7 @@ const CollectionFilter = ({
             }}
           >
             <img
-              src="https://fafz.mypinata.cloud/ipfs/QmZCDyVXFe7iUi9GdrvFKqN8CXh9Z5o5GwuQLLo3zRRK2d/1.png"
+              src="/images/misc/fafz-filter.png"
               alt="Fiend from FAFZ Collection"
               className={`${
                 !isFAFZActiveCollection ? "clear-border" : "nft-border"
@@ -43,7 +43,7 @@ const CollectionFilter = ({
             }}
           >
             <img
-              src="https://fafz.mypinata.cloud/ipfs/QmdZHLy4Bjxo44cQx7BV1cCinAtWoY85sRH4yx2wEFxBpq/3.jpg"
+              src="/images/misc/se-filter.png"
               alt="Fiend from SE Collection"
               className={`${
                 !isFAFZActiveCollection ? "nft-border" : "clear-border"
