@@ -183,8 +183,8 @@ const Leaderboard = ({ scores }) => {
                     return (
                       <tr
                         className={`font-freckle text-xl lg:text-2xl text-border w-full  ${
-                          score.account.toLowerCase() ===
-                          user?.account.toLowerCase()
+                          score?.account?.toLowerCase() ===
+                          user?.account?.toLowerCase()
                             ? "bg-userlb"
                             : "bg-white"
                         }`}

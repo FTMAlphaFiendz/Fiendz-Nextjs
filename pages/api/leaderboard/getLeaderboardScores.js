@@ -1,5 +1,6 @@
-import connectMongo from "../../../lib/connectMongo";
-import Leaderboard from "../../../models/Leaderboard";
+// import connectMongo from "../../../lib/connectMongo";
+// import Leaderboard from "../../../models/Leaderboard";
+const Leaderboard = require("../../../models/Leaderboard");
 let axios = require("axios");
 const rarityMap = require("../../../helpers/rarityMap.json");
 
@@ -53,7 +54,7 @@ const getMetadata = async (data, rarityMap) => {
   return data;
 };
 
-export const getTiers = (walletScore) => {
+const getTiers = (walletScore) => {
   let tier;
   switch (true) {
     case walletScore < 500:
