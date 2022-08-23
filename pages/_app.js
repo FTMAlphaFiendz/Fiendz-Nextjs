@@ -10,7 +10,6 @@ import {
   getChainIdFromString,
 } from "../helpers/Web3Client";
 import "../styles/globals.css";
-
 //import function to get nftData
 import { getAllUserNFTs } from "../helpers/NFTHelper";
 import rarityMap from "../public/files/rarityMap.json";

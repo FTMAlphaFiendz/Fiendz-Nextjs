@@ -18,7 +18,10 @@ const links = [
   { name: "FAQs", link: "faqs" },
 ];
 
-const nonHomeLinks = [{ name: "Collection", link: "/collection" }];
+const nonHomeLinks = [
+  { name: "Collection", link: "/collection" },
+  { name: "Leaderboard", link: "/leaderboard" },
+];
 
 const Navbar = () => {
   const router = useRouter();
@@ -80,7 +83,7 @@ const Navbar = () => {
                 return (
                   <div key={link.link} className="py-3 md:py-0">
                     <ScrollLink
-                      className="my-5 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
+                      className="my-5 md:mx-5 link-effect cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
                       activeClass="active"
                       to={link.link}
                       spy={true}
@@ -100,28 +103,30 @@ const Navbar = () => {
                 return (
                   <div key={link.name} className="py-3 md:py-0">
                     <Link href={link.link}>
-                      <div
-                        className="md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
+                      <li
+                        className="md:mx-5 link-effect cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
                         onClick={() => {
                           setOpen(!open);
                         }}
                       >
                         {link.name}
-                      </div>
+                      </li>
                     </Link>
                   </div>
                 );
               })}
-          <Link href="/view">
-            <li
-              className=" py-3 md:py-0 md:mx-5 hover:underline cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
-              onClick={() => {
-                setOpen(!open);
-              }}
-            >
-              My NFTs
-            </li>
-          </Link>
+          <div className="py-3 md:py-0">
+            <Link href="/view">
+              <li
+                className=" md:mx-5 link-effect cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
+                onClick={() => {
+                  setOpen(!open);
+                }}
+              >
+                My NFTs
+              </li>
+            </Link>
+          </div>
           <li className="block sm:hidden pb-2 sm:pb-0">
             <ConnectWalletBtn
               user={user}

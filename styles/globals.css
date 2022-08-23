@@ -900,6 +900,47 @@ nav:after {
 	margin: 3px;
 }
 
+th, td {
+	padding: 1rem;
+	text-align: left;
+	border-bottom: 2px solid #1d1f91;
+  }
+
+.link-effect{
+	position: relative;
+  }
+  
+  .link-effect::before{
+	content: '';
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 0;
+	height: 2px;
+	background-color: #1d1f91;
+	transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .first-place-card {
+	  height: 330px;
+  }
+
+  .other-place-card {
+	  height: 200px;
+  }
+  
+  @media (hover: hover) and (pointer: fine) {
+	.link-effect:hover::before{
+	  left: 0;
+	  right: auto;
+	  width: 100%;
+	}
+  }
+
+  a:hover{
+	  color: #1d1f91;
+  }
+
 
 @media only screen and (min-width: 1201px){
 	.cs-wagmi {

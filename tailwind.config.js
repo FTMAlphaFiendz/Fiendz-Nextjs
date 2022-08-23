@@ -14,6 +14,7 @@ module.exports = {
       red: "#fc937e",
       purple: "#c4c6f6",
       lightblue: "#D0F0FE",
+      userlb: "#92e8fd",
       disabled: "#EBEBE4",
     }),
     minHeight: {

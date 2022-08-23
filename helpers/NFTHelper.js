@@ -230,8 +230,8 @@ export const getLatestBoughtFromNFTKey = async (provider, maxLength = 15) => {
   return formattedData;
 };
 
-export const getAllBoughtEvents = async (maxLength = 10) => {
-  let provider = new Web3.providers.WebsocketProvider(fantomNode);
+export const getAllBoughtEvents = async (provider, maxLength = 10) => {
+  // let provider = new Web3.providers.WebsocketProvider(fantomNode);
   let eventPromises = [
     await getLatestBoughtFromNFTKey(provider, maxLength),
     await getLatestBoughtFromCampfire(provider, maxLength),

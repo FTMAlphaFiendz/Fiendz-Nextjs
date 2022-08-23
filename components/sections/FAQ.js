@@ -93,7 +93,7 @@ const AccordionItem = ({ question, answer }) => {
         } content-line font-inter text-base sm:text-lg md:text-xl  text-border`}
       >
         {answer.map((item) => {
-          return <p>{item}</p>;
+          return <p key={item}>{item}</p>;
         })}
       </p>
     </div>
