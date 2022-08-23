@@ -1,6 +1,5 @@
-// import connectMongo from "../../../lib/connectMongo";
-// import Leaderboard from "../../../models/Leaderboard";
-const Leaderboard = require("../../../models/Leaderboard");
+import connectMongo from "../../../lib/connectMongo";
+import Leaderboard from "../../../models/Leaderboard";
 let axios = require("axios");
 const rarityMap = require("../../../helpers/rarityMap.json");
 
