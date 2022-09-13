@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { AiOutlineClose } from "react-icons/ai";
-import { FaStar } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 
 const NFTModal = ({ show, onHide, activeNFT, userData }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -44,7 +43,7 @@ const NFTModal = ({ show, onHide, activeNFT, userData }) => {
       <Modal.Body>
         <div className="flex w-full justify-end">
           <button className="text-2xl" onClick={onHide}>
-            <AiOutlineClose />
+            <FaTimes />
           </button>
         </div>
         <div className="flex items-center flex-col lg:flex-row lg:items-start w-full h-full">

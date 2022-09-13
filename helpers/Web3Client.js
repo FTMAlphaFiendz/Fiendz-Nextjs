@@ -37,7 +37,8 @@ export const connectWalletThruModel = async () => {
   if (chainId !== 250) {
     requestChainChange(provider);
   }
-  return { provider, account, chainId };
+  let walletBalance = await getFTMBalance(web3, account);
+  return { provider, account, chainId, walletBalance };
 };
 
 export const requestChainChange = (provider) => {
@@ -55,4 +56,11 @@ export const getChainIdFromString = async (provider) => {
   const web3 = new Web3(provider);
   let chainId = await web3.eth.getChainId();
   return chainId;
+};
+
+const getFTMBalance = async (web3, account) => {
+  let balance = await web3.eth.getBalance(account);
+  balance = web3.utils.fromWei(balance, "ether");
+  balance = Number(balance).toFixed(4);
+  return balance;
 };

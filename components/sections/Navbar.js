@@ -25,7 +25,13 @@ const nonHomeLinks = [
 
 const Navbar = () => {
   const router = useRouter();
-  const { user, connectWallet, disconnectWallet } = useContext(UserContext);
+  const {
+    user,
+    connectWallet,
+    disconnectWallet,
+    showWalletModal,
+    setShowWalletModal,
+  } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [isHome, setIsHome] = useState(true);
 
@@ -132,6 +138,8 @@ const Navbar = () => {
               user={user}
               connectWallet={connectWallet}
               disconnectWallet={disconnectWallet}
+              showWalletModal={showWalletModal}
+              setShowWalletModal={setShowWalletModal}
             />
           </li>
         </ul>
@@ -140,6 +148,8 @@ const Navbar = () => {
             user={user}
             connectWallet={connectWallet}
             disconnectWallet={disconnectWallet}
+            showWalletModal={showWalletModal}
+            setShowWalletModal={setShowWalletModal}
           />
         </div>
       </nav>

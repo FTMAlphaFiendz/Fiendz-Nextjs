@@ -12,12 +12,15 @@ import "../styles/globals.css";
 //import function to get nftData
 import { getAllUserNFTs } from "../helpers/NFTHelper";
 import rarityMap from "../public/files/rarityMap.json";
+import WalletModal from "../components/WalletModal";
 
 const MyApp = ({ Component, pageProps }) => {
+  const [showWalletModal, setShowWalletModal] = useState(false);
   const [account, setAccount] = useState(null);
   const [chainId, setChainId] = useState(null);
   const [user, setUser] = useState(null);
   const [userNFTData, setUserNFTData] = useState(null);
+  const [profileUrl, setProfileUrl] = useState(null);
 
   const connectWallet = async () => {
     let userInfo = await connectWalletThruModel();
@@ -38,6 +41,7 @@ const MyApp = ({ Component, pageProps }) => {
         rarityMap
       );
       setUserNFTData(userData);
+      setProfileUrl(getProfileUrl(userData));
     }
 
     return;
@@ -74,6 +78,24 @@ const MyApp = ({ Component, pageProps }) => {
     } catch (err) {
       // console.log("Error Disconnecting", err);
     }
+  };
+
+  const getProfileUrl = (userNFTData) => {
+    let imageUrl;
+    let { data } = userNFTData;
+    if (data.length > 0) {
+      let indexedLength = data.length + 1;
+      let randomIndex = Math.floor(Math.random() * indexedLength);
+      randomIndex = randomIndex - 1;
+      let selectedData = data[randomIndex];
+      if (selectedData) {
+        imageUrl = selectedData.image;
+      }
+    } else {
+      imageUrl =
+        "https://fafz.mypinata.cloud/ipfs/QmZCDyVXFe7iUi9GdrvFKqN8CXh9Z5o5GwuQLLo3zRRK2d/1.png";
+    }
+    return imageUrl;
   };
 
   const clearUserData = () => {
@@ -134,12 +156,22 @@ const MyApp = ({ Component, pageProps }) => {
           connectWallet,
           disconnectWallet,
           getWeb3Modal,
+          showWalletModal,
+          setShowWalletModal,
+          profileUrl,
         }}
       >
         <Layout>
           <Component {...pageProps} />
         </Layout>
       </UserContext.Provider>
+      <WalletModal
+        user={user}
+        showWalletModal={showWalletModal}
+        setShowWalletModal={setShowWalletModal}
+        disconnectWallet={disconnectWallet}
+        profileUrl={profileUrl}
+      />
       <ToastContainer
         position="bottom-right"
         autoClose={4000}

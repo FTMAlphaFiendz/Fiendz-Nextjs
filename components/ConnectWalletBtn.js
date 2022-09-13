@@ -4,6 +4,8 @@ const ConnectWalletBtn = ({
   user,
   connectWallet,
   disconnectWallet,
+  showWalletModal,
+  setShowWalletModal,
   className,
 }) => {
   const [disconnectButtonTxt, setDisconnectButtonTxt] = useState("");
@@ -28,13 +30,7 @@ const ConnectWalletBtn = ({
     <div>
       {user?.account ? (
         <button
-          onClick={disconnectWallet}
-          onMouseEnter={() => setDisconnectButtonTxt("Disconnect")}
-          onMouseLeave={() =>
-            setDisconnectButtonTxt(
-              formatDisconnectText(user?.account, user?.chainId)
-            )
-          }
+          onClick={() => setShowWalletModal(!showWalletModal)}
           className={`${
             className
               ? className
