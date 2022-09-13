@@ -2,8 +2,8 @@
 import { useEffect, useState, useContext } from "react";
 import { Modal } from "react-bootstrap";
 import { FaTimes } from "react-icons/fa";
-import { UserContext } from "../context/UserContext";
-import { getFTMBalance, getFtmBalance } from "../helpers/Web3Client";
+
+const fallBackSrc = "/images/misc/fafz-filter.png";
 
 const WalletModal = ({
   user,
@@ -23,10 +23,12 @@ const WalletModal = ({
     }
     return window.innerWidth;
   };
+
   const onHide = () => {
     setShowWalletModal(!showWalletModal);
     setCopyText("Copy Address");
   };
+
   const formatAccount = (account) => {
     let formattedAccount = `${account?.substring(0, 5)}..${account?.substring(
       39,
@@ -36,10 +38,10 @@ const WalletModal = ({
   };
 
   const copyAddress = (account) => {
-    console.log("copy clicked");
     navigator.clipboard.writeText(account);
     setCopyText("Copied!");
   };
+
   useEffect(() => {
     window.addEventListener("resize", appWidth);
     appWidth();
@@ -65,6 +67,10 @@ const WalletModal = ({
               src={profileUrl}
               alt="profile FAFZ"
               className="loading w-[80px] h-[80px] rounded-full nft-border"
+              onError={(e) => {
+                console.log(e);
+                e.currentTarget.src = fallBackSrc;
+              }}
             />
           </div>
           <div className="flex flex-col items-center mt-4 font-inter text-border text-xl">

@@ -204,9 +204,8 @@ nav:after {
 }
 
 .loading {
-  background: transparent
-    url("http://thinkfuture.com/wp-content/uploads/2013/10/loading_spinner.gif")
-    center no-repeat;
+  background: transparent url("/images/misc/Spinner-1s-200px.gif") center
+    no-repeat;
 }
 
 @media only screen and (min-width: 1198px) {
