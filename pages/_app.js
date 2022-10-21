@@ -80,7 +80,7 @@ const MyApp = ({ Component, pageProps }) => {
         <WagmiConfig client={wagmiClient}>
           <RainbowKitProvider
             chains={chains}
-            initialChain={chain.mainnet}
+            initialChain={fantomChain}
             coolMode
           >
             <Layout>
