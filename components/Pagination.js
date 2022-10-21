@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
+import { motion } from "framer-motion";
 
 const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,7 +62,9 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
     <div className="flex items-center justify-center my-3 w-full">
       {pageNumbers.length > 0 && (
         <ul className="flex">
-          <li
+          <motion.li
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className={`hidden md:block md:mx-2 text-2xl font-inter text-border cursor-pointer paginate-button flex items-center justify-center`}
             onClick={() => {
               let cp = changePageByRange(currentPage, lastIndex, "minus");
@@ -72,8 +75,10 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
             <a className="">
               <AiOutlineDoubleLeft />
             </a>
-          </li>
-          <li
+          </motion.li>
+          <motion.li
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className={`block text-border cursor-pointer paginate-button text-xl font-inter mx-2 ${
               currentPage === 1 && "paginate-active"
             }`}
@@ -86,12 +91,14 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
             >
               1
             </a>
-          </li>
+          </motion.li>
           <li className={`${currentPage > 3 ? "block font-inter" : "hidden"}`}>
             ...
           </li>
           {pageNumbers?.map((number) => (
-            <li
+            <motion.li
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               key={number}
               className={` mx-2 text-xl ${
                 currentPage === number && "paginate-active"
@@ -105,7 +112,7 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
               >
                 {number}
               </a>
-            </li>
+            </motion.li>
           ))}
           <li
             className={`${
@@ -114,7 +121,9 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
           >
             ...
           </li>
-          <li
+          <motion.li
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className={`${currentPage === lastIndex && "paginate-active"}
               block text-border cursor-pointer paginate-button text-xl font-inter mx-2`}
           >
@@ -126,8 +135,10 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
             >
               {lastIndex}
             </a>
-          </li>
-          <li
+          </motion.li>
+          <motion.li
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className={`hidden md:block md:mx-2 text-2xl font-inter text-border cursor-pointer paginate-button flex items-center justify-center`}
             onClick={() => {
               let cp = changePageByRange(currentPage, lastIndex, "plus");
@@ -136,7 +147,7 @@ const Pagination = ({ nftsperpage, totalNFTs, paginate }) => {
             }}
           >
             <AiOutlineDoubleRight />
-          </li>
+          </motion.li>
         </ul>
       )}
     </div>

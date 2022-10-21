@@ -2,6 +2,9 @@ import Image from "next/image";
 import RoadmapCard from "./RoadmapCard.js";
 import FiendMap from "../public/images/roadmap/fiend-map.png";
 import FiendAlien from "../public/images/roadmap/fiend-alien.png";
+import { useEffect } from "react";
+import { useAnimation, motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const leftContent = [
   {
@@ -71,37 +74,81 @@ const rightContent = [
     ],
   },
 ];
+const variants = {
+  visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+  hidden: { opacity: 0, x: "-100%" },
+};
+
+const rightvariants = {
+  visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+  hidden: { opacity: 0, x: "100%" },
+};
+
+const alienvariants = {
+  visible: { opacity: 1, x: 0, transition: { duration: 0.2, delay: 0.5 } },
+  hidden: { opacity: 0, x: "100%" },
+};
 
 const DesktopRoadmap = () => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
   return (
     <div className="flex relative justify-center">
       <div id="left-content" className="flex flex-col items-end w-5/12">
         {leftContent.map((phase, i) => {
           return (
-            <RoadmapCard
-              title={phase.title}
-              phaseComplete={phase.phaseComplete}
-              phaseItems={phase.phaseItems}
+            <motion.div
+              className={`bg-white phase-card-container m-4 lg:m-10 relative flex mb-10 justify-center w-full lg:w-9/12 `}
               key={i}
-            />
+              ref={ref}
+              animate={controls}
+              initial="hidden"
+              variants={variants}
+            >
+              <RoadmapCard
+                title={phase.title}
+                phaseComplete={phase.phaseComplete}
+                phaseItems={phase.phaseItems}
+              />
+            </motion.div>
           );
         })}
       </div>
       <div id="right-content" className=" flex flex-col mt-24 w-5/12">
-        <div className="alien-fiend z-10 h-32 w-32">
+        <motion.div
+          ref={ref}
+          animate={controls}
+          initial="hidden"
+          variants={alienvariants}
+          className="alien-fiend z-10 h-32 w-32"
+        >
           <Image src={FiendAlien} alt="Fiend in a ufo" />
-        </div>
+        </motion.div>
         <div className="absolute -bottom-10 right-10 z-10">
           <Image src={FiendMap} alt="Fiend looking at map" />
         </div>
         {rightContent.map((phase, i) => {
           return (
-            <RoadmapCard
-              title={phase.title}
-              phaseComplete={phase.phaseComplete}
-              phaseItems={phase.phaseItems}
+            <motion.div
+              className={`bg-white phase-card-container m-4 lg:m-10 relative flex mb-10 justify-center w-full lg:w-9/12 `}
               key={i}
-            />
+              ref={ref}
+              animate={controls}
+              initial="hidden"
+              variants={rightvariants}
+            >
+              <RoadmapCard
+                title={phase.title}
+                phaseComplete={phase.phaseComplete}
+                phaseItems={phase.phaseItems}
+                key={i}
+              />
+            </motion.div>
           );
         })}
       </div>

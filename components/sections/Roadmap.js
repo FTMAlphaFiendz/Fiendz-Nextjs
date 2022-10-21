@@ -21,7 +21,7 @@ const Roadmap = () => {
   return (
     <div
       id="roadmap"
-      className="flex flex-col mx-auto h-full w-full justify-center items-center md:place-items-center min-h-full roadmap-bg relative md:pb-40"
+      className="flex flex-col mx-auto h-full w-full justify-center items-center md:place-items-center min-h-full rarity-bg relative md:pb-40"
     >
       <Waves fillColor="#9a91ec" />
       <header className="xs:mt-20 mt-20 2xl:mt-5 mb-5 text-center w-10/12">

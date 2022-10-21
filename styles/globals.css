@@ -256,7 +256,6 @@ nav:after {
   border-style: solid;
   border-radius: 10px;
   border-color: #1d1f91;
-  transform: skew(-15deg);
   cursor: cursor-pointer;
 }
 
@@ -746,10 +745,7 @@ nav:after {
 .modal-image {
   overflow: hidden;
 }
-.nft-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-}
+
 .collection-filter {
   max-width: 275px !important;
 }
@@ -796,7 +792,6 @@ nav:after {
   height: 33px;
   width: 35px;
   padding: 1px;
-  transform: skew(-5deg);
 }
 
 .paginate-active {

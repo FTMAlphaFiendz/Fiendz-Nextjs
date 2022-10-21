@@ -4,38 +4,36 @@ import LatestSold from "../components/LatestSold";
 import { UserContext } from "../context/UserContext";
 import { getAllBoughtEvents } from "../helpers/NFTHelper";
 import NFTViewSection from "../components/NFTViewSection";
+import { useAccount } from "wagmi";
+import axios from "axios";
 
 const SEOdesc =
   "Page to view all Special Edition FAFz and FAFz generative collection";
 
 const View = () => {
-  const { user, userNFTData } = useContext(UserContext);
+  const { isConnected, address } = useAccount();
   const [lastSold, setLastSold] = useState(null);
-  const [isNFTDataLoading, setIsNFTDataLoading] = useState(true);
+  const [isNFTDataLoading, setIsNFTDataLoading] = useState(false);
   const [isSoldDataLoading, setIsSoldDataLoading] = useState(true);
-
-  const appHeight = () => {
-    const doc = document.documentElement;
-    doc.style.setProperty("--app-height", `${window.innerHeight}px`);
-  };
+  const [userNFTs, setUserNFTs] = useState(null);
 
   useEffect(() => {
-    window.addEventListener("resize", appHeight);
-    appHeight();
-  }, []);
-
-  useEffect(() => {
-    if (userNFTData) {
-      setTimeout(setIsNFTDataLoading(false), 2500);
-    }
-    if (user?.provider) {
+    if (isConnected) {
+      setIsNFTDataLoading(true);
       (async () => {
-        let allEvents = await getAllBoughtEvents(user?.provider);
-        setLastSold(allEvents);
-        setIsSoldDataLoading(false);
+        let headers = {
+          secret: process.env.NEXT_PUBLIC_FAFZ_SECRET,
+        };
+        let { data } = await axios.post(
+          "/api/nft/getUserNFTs",
+          { address },
+          { headers }
+        );
+        setUserNFTs(data.nfts);
+        setIsNFTDataLoading(false);
       })();
     }
-  }, [userNFTData]);
+  }, [isConnected, address]);
 
   return (
     <div>
@@ -49,10 +47,7 @@ const View = () => {
           </header>
           <div className="flex flex-col md:flex-row h-full w-full">
             <div id="view" className="w-full md:w-9/12 lg:w-9/12 mr-4">
-              <NFTViewSection
-                nftData={userNFTData}
-                isLoading={isNFTDataLoading}
-              />
+              <NFTViewSection nftData={userNFTs} isLoading={isNFTDataLoading} />
             </div>
             <div className="w-3/12 flex justify-center">
               <div

@@ -3,16 +3,16 @@ import { useRouter } from "next/router";
 import { useEffect, useState, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { UserContext } from "../../context/UserContext";
 import logoSmall from "../../public/images/titles/logo-small.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link as ScrollLink } from "react-scroll";
-import ConnectWalletBtn from "../ConnectWalletBtn";
+import { motion } from "framer-motion";
+
+import { useAccount } from "wagmi";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const links = [
-  { name: "About", link: "community" },
-  { name: "Rarity/Perks", link: "rarity" },
   { name: "FiendzMap", link: "roadmap" },
   { name: "Team", link: "team" },
   { name: "FAQs", link: "faqs" },
@@ -25,13 +25,6 @@ const nonHomeLinks = [
 
 const Navbar = () => {
   const router = useRouter();
-  const {
-    user,
-    connectWallet,
-    disconnectWallet,
-    showWalletModal,
-    setShowWalletModal,
-  } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [isHome, setIsHome] = useState(true);
 
@@ -57,7 +50,12 @@ const Navbar = () => {
 
   return (
     <div className="flex flex-row justify-center">
-      <nav className="flex w-full lg:w-10/12 min-h-24 h-16 bg-white justify-around items-center lg:m-2 fixed lg:top-3 nav-custom shadow-xl py-2 lg:py-0">
+      <motion.nav
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.75, type: "spring", stiffness: 100 }}
+        className="flex w-full lg:w-10/12 min-h-24 h-16 bg-white justify-around items-center lg:m-2 fixed lg:top-3 nav-custom shadow-xl py-2 lg:py-0"
+      >
         <div className="ml-3 py-2 text-3xl font-bold font-bakbak flex flex-1 items-center">
           <div className="hover:drop-shadow-xl duration-500 hover:cursor-pointer ml-1 mb-1 absolute top-1 lg:top-2">
             <Link className="cursor-pointer" href="/">
@@ -129,30 +127,27 @@ const Navbar = () => {
                   setOpen(!open);
                 }}
               >
-                My NFTs
+                NFTs
               </li>
             </Link>
           </div>
           <li className="block sm:hidden pb-2 sm:pb-0">
-            <ConnectWalletBtn
-              user={user}
-              connectWallet={connectWallet}
-              disconnectWallet={disconnectWallet}
-              showWalletModal={showWalletModal}
-              setShowWalletModal={setShowWalletModal}
+            <ConnectButton
+              accountStatus="full"
+              chainStatus="icon"
+              showBalance={false}
             />
           </li>
         </ul>
-        <div className="flex flex-1 justify-end hidden sm:flex">
-          <ConnectWalletBtn
-            user={user}
-            connectWallet={connectWallet}
-            disconnectWallet={disconnectWallet}
-            showWalletModal={showWalletModal}
-            setShowWalletModal={setShowWalletModal}
+        <div className="flex flex-1 justify-end hidden sm:flex mr-4">
+          <ConnectButton
+            accountStatus="full"
+            chainStatus="icon"
+            showBalance={false}
+            chainStatus="icon"
           />
         </div>
-      </nav>
+      </motion.nav>
     </div>
   );
 };
