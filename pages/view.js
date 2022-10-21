@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import SEOMeta from "../components/SEOMeta";
 import LatestSold from "../components/LatestSold";
-import { UserContext } from "../context/UserContext";
 import { getAllBoughtEvents } from "../helpers/NFTHelper";
 import NFTViewSection from "../components/NFTViewSection";
 import { useAccount } from "wagmi";

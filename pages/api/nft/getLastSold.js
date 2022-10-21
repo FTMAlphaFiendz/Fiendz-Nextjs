@@ -1,9 +1,4 @@
-const web3 = require("web3");
-const { ethers } = require("ethers");
-const fantomNode =
-  "wss://ws-nd-186-579-089.p2pify.com/f44c3c1903cce504f0fc063e7b6c502e";
 const { getAllBoughtEvents } = require("../../../helpers/NFTHelper");
-let provider = new web3.providers.WebsocketProvider(fantomNode);
 
 export default async function handler(req, res) {
   const method = req.method;
@@ -18,8 +13,8 @@ export default async function handler(req, res) {
       let nfts = await getAllBoughtEvents();
       let latest = [];
       for (const nft of nfts) {
-        let { data, purchasedPrice, blockNumber, marketplace } = nft;
-        latest.push({ data, purchasedPrice, blockNumber, marketplace });
+        let { data, purchasedPrice, marketplace } = nft;
+        latest.push({ data, purchasedPrice, marketplace });
       }
       res.json({ latest });
     } catch (err) {

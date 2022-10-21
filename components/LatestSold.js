@@ -32,7 +32,6 @@ const LatestSold = () => {
         secret: process.env.NEXT_PUBLIC_FAFZ_SECRET,
       };
       let { data } = await axios.get("/api/nft/getLastSold", { headers });
-      console.log(data.latest);
       setLastSold(data.latest);
       setIsLoading(false);
     })();
