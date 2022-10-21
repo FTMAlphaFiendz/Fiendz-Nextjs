@@ -1,5 +1,8 @@
 import React from "react";
 import RoadmapCard from "./RoadmapCard.js";
+import { useEffect } from "react";
+import { useAnimation, motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const roadMapContent = [
   {
@@ -67,17 +70,45 @@ const roadMapContent = [
     ],
   },
 ];
+
+const variants = {
+  visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+  hidden: { opacity: 0, x: "-100%" },
+};
+
 const MobileRoadmap = () => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
   return (
-    <div className="mt-8 flex flex-col w-10/12 mx-auto items-center">
+    <div className="mt-8 flex flex-col w-10/12 mx-auto items-center" ref={ref}>
       {roadMapContent.map((phase, i) => {
         return (
-          <RoadmapCard
-            title={phase.title}
-            phaseComplete={phase.phaseComplete}
-            phaseItems={phase.phaseItems}
+          <motion.div
+            className={`bg-white phase-card-container m-4 lg:m-10 relative flex mb-10 justify-center w-full lg:w-9/12 `}
             key={phase.title}
-          />
+            animate={controls}
+            initial="hidden"
+            variants={{
+              visible: {
+                opacity: 1,
+                x: 0,
+                transition: { duration: 0.5, delay: Number(`0.${i}`) },
+              },
+              hidden: { opacity: 0, x: "-100%" },
+            }}
+          >
+            <RoadmapCard
+              title={phase.title}
+              phaseComplete={phase.phaseComplete}
+              phaseItems={phase.phaseItems}
+              key={phase.title}
+            />
+          </motion.div>
         );
       })}
     </div>

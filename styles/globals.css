@@ -1177,3 +1177,10 @@ a:hover {
     right: 15%;
   }
 }
+
+//CAROUSEL
+.swiper-button-prev,
+.swiper-button-next {
+  margin: 0 !important;
+  color: white !important;
+}
