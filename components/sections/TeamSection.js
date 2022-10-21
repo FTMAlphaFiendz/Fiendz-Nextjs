@@ -1,12 +1,5 @@
 import React from "react";
-import TeamCard from "../TeamCard";
 import Waves from "../Waves";
-import Adam from "../../public/images/team-pics/adamFAFz.png";
-import Brett from "../../public/images/team-pics/brettFAFz.png";
-import Vinny from "../../public/images/team-pics/vinnyFAFz.png";
-import Cole from "../../public/images/team-pics/coleFAFz.png";
-import BrokeDegen from "../../public/images/team-pics/team5.png";
-import Georgory from "../../public/images/team-pics/team6.png";
 import Carousel from "../Carousel";
 
 const pageContent =
@@ -14,14 +7,14 @@ const pageContent =
 
 const teamInfo = [
   {
-    image: Brett,
+    image: "/images/team-pics/brettFAFz.png",
     name: "Brett Smith",
     position: "Project Director",
     handle: "@TimeCop0487",
     links: [{ type: "twitter", url: "https://twitter.com/TimeCop0487" }],
   },
   {
-    image: Adam,
+    image: "/images/team-pics/adamFAFz.png",
     name: "Adam Nasri",
     position: "Artist/Designer",
     handle: "@KuroCrypto_",
@@ -31,45 +24,28 @@ const teamInfo = [
     ],
   },
   {
-    image: Vinny,
+    image: "/images/team-pics/vinnyFAFz.png",
     name: "Vinícius Vargas",
     position: "Tech Lead",
     handle: "@vinnyski",
     links: [{ type: "twitter", url: "https://twitter.com/vinnyski" }],
   },
   {
-    image: Cole,
+    image: "/images/team-pics/coleFAFz.png",
     name: "Cole Miller",
     position: "Web Dev",
     handle: "@b0nesFAFZ",
     links: [{ type: "twitter", url: "https://twitter.com/b0nesFAFZ" }],
   },
   {
-    image: BrokeDegen,
+    image: "/images/team-pics/team5.png",
     name: "unkown",
     position: "DeFi Project Analyst & Investment Strategist",
     handle: "@BrokeDegenFAFz",
     links: [{ type: "twitter", url: "https://twitter.com/BrokeDegenFAFz" }],
   },
   {
-    image: Georgory,
-    name: "unkown",
-    position: "DeFi Project Analyst & Investment Strategist",
-    handle: "@gorgory_ct",
-    links: [{ type: "twitter", url: "https://twitter.com/gorgory_ct" }],
-  },
-];
-
-const brainiacInfo = [
-  {
-    image: BrokeDegen,
-    name: "unkown",
-    position: "DeFi Project Analyst & Investment Strategist",
-    handle: "@ProjectResearc3",
-    links: [{ type: "twitter", url: "https://twitter.com/ProjectResearc3" }],
-  },
-  {
-    image: Georgory,
+    image: "/images/team-pics/team6.png",
     name: "unkown",
     position: "DeFi Project Analyst & Investment Strategist",
     handle: "@gorgory_ct",
@@ -93,35 +69,6 @@ const TeamSection = () => {
         {pageContent}
       </p>
       <Carousel data={teamInfo} />
-      {/* <div className="card-container grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center md:mt-8 mb-20 md:mb-0">
-        {teamInfo.map((item) => {
-          return (
-            <TeamCard
-              name={item.handle}
-              image={item.image}
-              position={item.position}
-              links={item.links}
-              key={item.handle}
-            />
-          );
-        })}
-      </div>
-      <h1 className="font-freckle text-4xl md:text-7xl text-border page-title md:mt-10 mb-10">
-        BRAINIACS
-      </h1>
-      <div className="card-container grid grid-cols-1 gap-1 md:grid-cols-2 justify-items-center md:mt-8 mb-20 md:mb-0">
-        {brainiacInfo.map((item) => {
-          return (
-            <TeamCard
-              name={item.handle}
-              image={item.image}
-              position={item.position}
-              links={item.links}
-              key={item.handle}
-            />
-          );
-        })}
-      </div> */}
     </div>
   );
 };

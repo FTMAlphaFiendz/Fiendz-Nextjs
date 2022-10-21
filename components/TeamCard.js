@@ -1,10 +1,9 @@
-import Image from "next/image";
 import { FaTwitter, FaInstagram } from "react-icons/fa";
 
 const TeamCard = ({ name, image, position, links }) => {
   return (
-    <div className="my-2 text-center w-[70%]">
-      <Image src={image} alt="team member" />
+    <div className="my-2 text-center w-[70%] flex flex-col items-center">
+      <img src={image} alt="team member" />
       <div className="flex flex-col justify-center items-center mt-6">
         <h2 className="font-inter text-base sm:text-lg md:text-xl font-normal text-border">
           {name}
