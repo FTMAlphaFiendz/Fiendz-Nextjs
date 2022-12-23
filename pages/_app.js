@@ -27,7 +27,7 @@ const fantomChain = {
   },
   testnet: false,
 };
-//
+
 const { chains, provider } = configureChains(
   [chain.mainnet, fantomChain],
   [

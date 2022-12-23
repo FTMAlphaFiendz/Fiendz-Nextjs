@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 
 import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import MenuButton from "../MenuButton";
 
 const links = [
   { name: "FiendzMap", link: "roadmap" },
@@ -72,9 +73,9 @@ const Navbar = () => {
             onClick={() => {
               setOpen(!open);
             }}
-            className="text-3xl absolute text-black right-6 top-3 cursor-pointer lg:hidden font-bold text-[#1434A4] z-10"
+            className="text-3xl absolute text-black right-4 top-1 cursor-pointer lg:hidden font-bold text-[#1434A4] z-10"
           >
-            {open ? <AiOutlineClose /> : <GiHamburgerMenu />}
+            <MenuButton menuOpen={open} />
           </div>
         </div>
         <ul
@@ -85,9 +86,14 @@ const Navbar = () => {
           {isHome
             ? links.map((link) => {
                 return (
-                  <div key={link.link} className="py-3 md:py-0">
+                  <motion.div
+                    key={link.link}
+                    className="py-3 md:py-0"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
                     <ScrollLink
-                      className="my-5 md:mx-5 link-effect cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
+                      className="my-5 md:mx-5 cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
                       activeClass="active"
                       to={link.link}
                       spy={true}
@@ -100,15 +106,21 @@ const Navbar = () => {
                     >
                       {link.name}
                     </ScrollLink>
-                  </div>
+                  </motion.div>
                 );
               })
             : nonHomeLinks.map((link) => {
                 return (
-                  <div key={link.name} className="py-3 md:py-0">
+                  <motion.div
+                    key={link.link}
+                    className="py-3 md:py-0"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {" "}
                     <Link href={link.link}>
                       <li
-                        className="md:mx-5 link-effect cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
+                        className="md:mx-5  cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
                         onClick={() => {
                           setOpen(!open);
                         }}
@@ -116,13 +128,17 @@ const Navbar = () => {
                         {link.name}
                       </li>
                     </Link>
-                  </div>
+                  </motion.div>
                 );
               })}
-          <div className="py-3 md:py-0">
+          <motion.div
+            className="py-3 md:py-0"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             <Link href="/view">
               <li
-                className=" md:mx-5 link-effect cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
+                className=" md:mx-5 cursor-pointer font-freckle md:text-sm md:text-base xl:text-lg text-border"
                 onClick={() => {
                   setOpen(!open);
                 }}
@@ -130,7 +146,7 @@ const Navbar = () => {
                 NFTs
               </li>
             </Link>
-          </div>
+          </motion.div>
           <li className="block sm:hidden pb-2 sm:pb-0">
             <ConnectButton
               accountStatus="full"
@@ -139,17 +155,89 @@ const Navbar = () => {
             />
           </li>
         </ul>
-        <div className="flex flex-1 justify-end hidden sm:flex mr-4">
+        <div className="flex flex-1 justify-end hidden sm:flex mr-[4rem] lg:mr-[2rem]">
           <ConnectButton
             accountStatus="full"
             chainStatus="icon"
             showBalance={false}
-            chainStatus="icon"
           />
         </div>
+        {/* <NavigationMenu menuOpen={open} /> */}
       </motion.nav>
     </div>
   );
 };
 
 export default Navbar;
+
+// import React, { useState, useEffect } from "react";
+// import { motion } from "framer-motion";
+// import { useRouter } from "next/router";
+// import { withTranslation } from "next-i18next";
+
+const variants = {
+  open: {
+    opacity: 1,
+    transition: { staggerChildren: 0.07, delayChildren: 0.2 },
+  },
+  closed: {
+    opacity: 0,
+    transition: { staggerChildren: 0.05, staggerDirection: -1 },
+  },
+};
+
+const pageLinks = [
+  { title: "Portal", path: "", i18n: "portal" },
+  { title: "Community", path: "/community", i18n: "community" },
+  { title: "Gallery", path: "/gallery", i18n: "gallery" },
+];
+
+const NavigationMenu = ({ menuOpen, t }) => {
+  const router = useRouter();
+  return (
+    <>
+      {menuOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+            transition: {
+              duration: 2,
+            },
+          }}
+          exit={{ opacity: 0 }}
+          className={` fixed bg-black dark:bg-white transition ease-in-out absolute w-screen top-0 min-w-full md:pr-[20%] md:right-0 ${
+            menuOpen ? "opacity-100" : "opacity-0 "
+          } mt-[50px] overflow-hidden`}
+        >
+          <div className="flex flex-col h-full p-0 md:pl-[1rem] md:pt-[2rem]">
+            <div className="h-[60vh] w-screen md:w-full flex items-center justify-center md:justify-start">
+              <motion.ul
+                variants={variants}
+                initial="closed"
+                animate={menuOpen ? "open" : "closed"}
+                className="h-full flex flex-col justify-around"
+              >
+                {pageLinks.map((link, i) => (
+                  <motion.li
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    i={i}
+                    key={i}
+                    className={`text-[1rem] text-center md:text-left text-white dark:text-black cursor-pointer ${
+                      router.pathname === link.path ? "italic underline" : ""
+                    }`}
+                  >
+                    ${link.i18n}
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </>
+  );
+};
+
+// export default NavigationMenu;
