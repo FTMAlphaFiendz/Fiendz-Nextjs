@@ -4,7 +4,7 @@ import Link from "next/link";
 import logoBig from "../../public/images/titles/logo-big.png";
 import { FaTwitter, FaDiscord, FaRegPaperPlane } from "react-icons/fa";
 import { GrTransaction, GrView } from "react-icons/gr";
-import { FaEye } from "react-icons/fa";
+import { IconContext } from "react-icons";
 import MainButton from "../MainButton";
 import Waves from "../Waves";
 import FiendsFooter from "../FiendsFooter";
@@ -46,22 +46,38 @@ const Landing = () => {
         <p className="text-center font-inter text-base sm:text-lg md:text-xl font-normal my-3 content-line">
           {pageText}
         </p>
-        <div className="flex justify-center items-center mt-3 flex-wrap">
-          <MainButton link={twitterLink} icon={<FaTwitter />} text="Join us" />
-          <MainButton link={discordLink} icon={<FaDiscord />} text="Join us" />
-          <Link href="/view">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className={`link-button bg-white p-3 font-freckle w-[150px] text-center flex items-center justify-center text-border m-2 button-border px-10`}
-            >
-              <span className="text-2xl mr-1 ">
-                <GrView />
-              </span>
-              <span className="">NFTs</span>
-            </motion.button>
-          </Link>
-        </div>
+        <IconContext.Provider
+          value={{
+            style: {
+              color: "#1d1f91",
+            },
+          }}
+        >
+          <div className="flex justify-center items-center mt-3 flex-wrap">
+            <MainButton
+              link={twitterLink}
+              icon={<FaTwitter />}
+              text="Join us"
+            />
+            <MainButton
+              link={discordLink}
+              icon={<FaDiscord />}
+              text="Join us"
+            />
+            <Link href="/view">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className={`link-button bg-white p-3 font-freckle w-[150px] text-center flex items-center justify-center text-border m-2 button-border px-10`}
+              >
+                <span className="text-2xl mr-1 ">
+                  <GrView />
+                </span>
+                <span className="">NFTs</span>
+              </motion.button>
+            </Link>
+          </div>
+        </IconContext.Provider>
       </motion.div>
       <FiendsFooter />
     </div>
