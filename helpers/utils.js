@@ -1,5 +1,3 @@
-import { isResSent } from "next/dist/shared/lib/utils";
-
 export const formatUrl = (tokenURI) => {
   let ipfsGateway = "https://fafz.mypinata.cloud/ipfs/";
   // let ipfsGateway = "https://ipfs.io/ipfs/";

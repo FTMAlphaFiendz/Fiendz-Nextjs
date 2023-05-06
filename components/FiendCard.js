@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { FaStar } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const FiendCard = ({ data, handleShowModal, setActiveNFT, userData }) => {
   const checkIfUserNFT = (userNFTData, cardData) => {
@@ -14,7 +13,9 @@ const FiendCard = ({ data, handleShowModal, setActiveNFT, userData }) => {
     return checkEdition(edition, rarityStatus, userNFTData);
   };
   return (
-    <div
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       key={data.name}
       className="w-3/12 m-2 flex flex-col nft-card nft-border cursor-pointer relative card-container"
       onClick={() => {
@@ -52,7 +53,7 @@ const FiendCard = ({ data, handleShowModal, setActiveNFT, userData }) => {
           </p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

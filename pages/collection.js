@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState, useContext } from "react";
 import SEOMeta from "../components/SEOMeta";
-import { UserContext } from "../context/UserContext";
+import { useAccount } from "wagmi";
 import FiendCard from "../components/FiendCard";
 import NFTModal from "../components/NFTModal";
 import fafzRarity from "../public/files/fafzWithRarity.json";
@@ -10,6 +10,7 @@ import Pagination from "../components/Pagination";
 import CollectionFilter from "../components/CollectionFilter";
 import CollectionDesktopFilterBar from "../components/CollectionDesktopFilterBar";
 import CollectionMobileFilterBar from "../components/CollectionMobileFilterBar";
+import axios from "axios";
 
 const SEOdesc = "Collection page to filter by rarities!";
 
@@ -51,7 +52,7 @@ export async function getStaticProps(context) {
 }
 
 const Collection = ({ data, seData }) => {
-  const { user, userNFTData } = useContext(UserContext);
+  const { isConnected, address } = useAccount();
   const [userData, setUserData] = useState(null);
   const [activeNFT, setActiveNFT] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -74,11 +75,6 @@ const Collection = ({ data, seData }) => {
     setModalOpen(false);
   };
 
-  const appHeight = () => {
-    const doc = document.documentElement;
-    doc.style.setProperty("--app-height", `${window.innerHeight}px`);
-  };
-
   const switchCollection = (type) => {
     if (type === "fafz") {
       setCollectionData(data);
@@ -90,11 +86,6 @@ const Collection = ({ data, seData }) => {
       setCollectionCount(seData.length);
     }
   };
-
-  useEffect(() => {
-    window.addEventListener("resize", appHeight);
-    appHeight();
-  }, []);
 
   const filterCollection = (filters) => {
     let filteredCollection;
@@ -194,16 +185,26 @@ const Collection = ({ data, seData }) => {
   };
 
   useEffect(() => {
+    if (isConnected) {
+      (async () => {
+        let headers = {
+          secret: process.env.NEXT_PUBLIC_FAFZ_SECRET,
+        };
+        let { data } = await axios.post(
+          "/api/nft/getUserNFTs",
+          { address },
+          { headers }
+        );
+        setUserData(data.nfts);
+      })();
+    }
+  }, [isConnected]);
+
+  useEffect(() => {
     setCollectionData(data);
     setCollectionCount(data.length);
     setFiendFilters(fFilters);
-  }, [user]);
-
-  useEffect(() => {
-    if (userNFTData) {
-      setUserData(userNFTData.data);
-    }
-  }, [userNFTData]);
+  }, []);
 
   //get nfts for paging
   const indexOfLastNFT = currentPage * nftsPerPage;
@@ -276,7 +277,7 @@ const Collection = ({ data, seData }) => {
                           name={data?.name}
                           handleShowModal={handleShowModal}
                           setActiveNFT={setActiveNFT}
-                          userData={userData}
+                          userData={userData?.data}
                         />
                       </div>
                     );
@@ -297,7 +298,7 @@ const Collection = ({ data, seData }) => {
         show={modalOpen}
         onHide={handleClose}
         activeNFT={activeNFT}
-        userData={userData}
+        userData={userData?.data}
       />
     </div>
   );

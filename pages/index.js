@@ -18,7 +18,7 @@ const Main = () => {
       <SEOMeta page="Home" description={SEOdesc} path="/" />
       <Landing />
       <Community />
-      <Rarity />
+      {/* <Rarity /> */}
       <Roadmap />
       <TeamSection />
       <FAQ />

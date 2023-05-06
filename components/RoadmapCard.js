@@ -2,10 +2,7 @@ import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import { useEffect } from "react";
 const RoadmapCard = ({ title, phaseComplete, phaseItems }) => {
   return (
-    <div
-      className={`bg-white phase-card-container m-4 lg:m-10 relative flex mb-10 justify-center w-full lg:w-9/12 `}
-      key={title}
-    >
+    <>
       <div
         className={`${
           phaseComplete ? "bg-green" : "bg-red"
@@ -36,7 +33,7 @@ const RoadmapCard = ({ title, phaseComplete, phaseItems }) => {
           })}
         </ul>
       </div>
-    </div>
+    </>
   );
 };
 

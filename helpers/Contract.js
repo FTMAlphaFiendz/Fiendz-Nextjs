@@ -1,4 +1,3 @@
-import Web3 from "web3";
 import testNftABI from "../public/files/abi/testNftABI.json";
 import SENftABI from "../public/files/abi/seNftABI.json";
 import NFTKeyABI from "../public/files/abi/nftKeyABI.json";
@@ -9,6 +8,9 @@ const seNftContract = "0x657aA32E1e270e62EB32471c80dF091e855Ac362";
 const nftKeyContract = "0x1A7d6ed890b6C284271AD27E7AbE8Fb5211D0739";
 const campfireContract = "0x3f4301e574d0484fa138D933578d200f23c3E4b0";
 const mainnetContract = "0xB183341A1FC7C851df05E01bf98EE683080B7e8C";
+const fantomNode =
+  "wss://ws-nd-186-579-089.p2pify.com/f44c3c1903cce504f0fc063e7b6c502e";
+import { ethers } from "ethers";
 
 const contractFactory = (type) => {
   let contract, abi;
@@ -40,8 +42,12 @@ const contractFactory = (type) => {
 };
 
 export const getContract = (provider, type) => {
-  let web3 = new Web3(provider);
+  provider = new ethers.providers.WebSocketProvider(fantomNode);
   let { contract, abi } = contractFactory(type);
-  let NFTContract = new web3.eth.Contract(abi, contract);
+  let NFTContract = new ethers.Contract(
+    contract,
+    abi,
+    provider.getSigner("0x3aA0C22B6B98cE3b1a3229244c99140D50D4A832")
+  );
   return NFTContract;
 };

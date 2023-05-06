@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import SEOMeta from "../components/SEOMeta";
-import axios from "axios";
 import Pagination from "../components/Pagination";
-import { UserContext } from "../context/UserContext";
 import connectMongo from "../lib/connectMongo";
 import LeaderboardModel from "../models/Leaderboard";
+import { useAccount } from "wagmi";
 
 export async function getServerSideProps(context) {
   await connectMongo();
@@ -19,7 +18,7 @@ export async function getServerSideProps(context) {
 const SEOdesc = "Check wallet score leaderboard! Are you in the lead??";
 
 const Leaderboard = ({ scores }) => {
-  const { user, userNFTData } = useContext(UserContext);
+  const { isConnected, address } = useAccount();
   const [isLeaderboardLoading, setIsLeaderboardLoading] = useState(true);
   const [leaderboardData, setLeaderboardData] = useState(scores);
   const [currentPage, setCurrentPage] = useState(1);
@@ -70,16 +69,6 @@ const Leaderboard = ({ scores }) => {
     let hms = splitDate[1].substring(0, 8);
     return `${ymd} ${hms} UTC`;
   };
-
-  const appHeight = () => {
-    const doc = document.documentElement;
-    doc.style.setProperty("--app-height", `${window.innerHeight}px`);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", appHeight);
-    appHeight();
-  }, []);
 
   const indexOfLastScore = currentPage * scoresPerPage;
   const indexOfFirstScore = indexOfLastScore - scoresPerPage;
@@ -183,8 +172,7 @@ const Leaderboard = ({ scores }) => {
                     return (
                       <tr
                         className={`font-freckle text-xl lg:text-2xl text-border w-full  ${
-                          score?.account?.toLowerCase() ===
-                          user?.account?.toLowerCase()
+                          score.account.toLowerCase() === address?.toLowerCase()
                             ? "bg-userlb"
                             : "bg-white"
                         }`}

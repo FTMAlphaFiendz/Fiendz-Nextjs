@@ -1,12 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GoKey } from "react-icons/go";
 import { GiCampfire } from "react-icons/gi";
 import FantomIcon from "./svg-icons/FantomIcon";
 import { ThreeDots } from "react-loading-icons";
 import { formatName } from "../helpers/utils";
+import axios from "axios";
 
-const LatestSold = ({ lastSold, isLoading }) => {
+const LatestSold = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [lastSold, setLastSold] = useState(null);
   const getMarketplaceIcon = (marketplace) => {
     console.log(marketplace);
     let icon;
@@ -21,6 +24,19 @@ const LatestSold = ({ lastSold, isLoading }) => {
     }
     return icon;
   };
+
+  useEffect(() => {
+    (async () => {
+      console.log("HERE IN LAST SOLD");
+      let headers = {
+        secret: process.env.NEXT_PUBLIC_FAFZ_SECRET,
+      };
+      let { data } = await axios.get("/api/nft/getLastSold", { headers });
+      setLastSold(data.latest);
+      setIsLoading(false);
+    })();
+  }, []);
+
   return (
     <div className="px-3 w-full">
       <h2 className="text-border font-freckle p-2 text-xl">Recent Sales</h2>
