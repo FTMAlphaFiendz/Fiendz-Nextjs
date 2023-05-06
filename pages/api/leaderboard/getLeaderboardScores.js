@@ -202,6 +202,7 @@ const getData = async () => {
 const connectAndUpsert = async (data) => {
   console.log("UPSERTING");
   try {
+    console.log(data);
     for (const d of data) {
       if (d.account !== plStakingContract) {
         let { account, walletScore, tier } = d;
