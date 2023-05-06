@@ -51,13 +51,13 @@ const teamInfo = [
     handle: "@gorgory_ct",
     links: [{ type: "twitter", url: "https://twitter.com/gorgory_ct" }],
   },
-  // {
-  //   image: "/images/team-pics/wm_Morello.png",
-  //   name: "unkown",
-  //   position: "DeFi Project Analyst & Investment Strategist",
-  //   handle: "@gorgory_ct",
-  //   links: [{ type: "twitter", url: "https://twitter.com/gorgory_ct" }],
-  // },
+  {
+    image: "/images/team-pics/wm_Morello.png",
+    name: "unkown",
+    position: "Community Manager",
+    handle: "@0xMorello",
+    links: [{ type: "twitter", url: "https://twitter.com/0xMorello" }],
+  },
 ];
 
 const TeamSection = () => {

@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/leaderboard/getLeaderboardScores",
+      "schedule": "*/1 * * * *"
+    }
+  ]
+}
