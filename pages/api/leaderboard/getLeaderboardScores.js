@@ -230,13 +230,14 @@ export default async function getLeaderboardData(req, res) {
     const method = req.method;
     const { secret } = req.headers;
     if (method === "GET") {
-      if (secret !== process.env.FAFZ_SECRET) {
-        res
-          .status(403)
-          .json({ error: "You must not know the secret password..." });
-      }
+      // if (secret !== process.env.FAFZ_SECRET) {
+      //   res
+      //     .status(403)
+      //     .json({ error: "You must not know the secret password..." });
+      // }
       console.log("GETTING DATA");
       let data = await getData();
+      console.log("DATA", data);
       console.log("GOT DATA - STARTING UPSERT");
       await connectAndUpsert(data);
       // res.json(leaderboardRecords);
