@@ -6,7 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@rainbow-me/rainbowkit": "^0.7.2",
+    "@rainbow-me/rainbowkit": "^0.12.12",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -31,7 +31,7 @@
     "react-snap": "^1.23.0",
     "react-toastify": "^9.0.3",
     "swiper": "^8.4.4",
-    "wagmi": "0.6.0",
+    "wagmi": "^0.12.13",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
