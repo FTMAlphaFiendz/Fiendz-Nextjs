@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import Script from "next/script";
 import Layout from "../components/sections/Layout";
 import { ToastContainer } from "react-toastify";
-
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { chain, WagmiConfig } from "wagmi";
 import { chains, wagmiClient } from "../helpers/WalletHelper";
