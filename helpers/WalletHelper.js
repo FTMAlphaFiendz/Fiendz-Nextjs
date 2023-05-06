@@ -5,7 +5,7 @@ import { publicProvider } from "wagmi/providers/public";
 import { fantom, fantomTestnet } from "@wagmi/core/chains";
 
 export const { chains, provider } = configureChains(
-  [fantomTestnet, fantom],
+  [fantom],
   [
     alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
     publicProvider(),
