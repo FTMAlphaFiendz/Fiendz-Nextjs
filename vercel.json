@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/leaderboard/getLeaderboardScores",
-      "schedule": "*/10 * * * *"
+      "schedule": "0 * * * *"
     }
   ]
 }
