@@ -76,6 +76,17 @@ const Landing = () => {
                 <span className="">NFTs</span>
               </motion.button>
             </Link>
+            <Link href="/view">
+              <motion.a
+                href="https://dynamic-nft-steel.vercel.app/"
+                target="_blank"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className={`link-button bg-white p-3 font-freckle w-[150px] text-center flex items-center justify-center text-border m-2 button-border px-10`}
+              >
+                <span className="">Customizer</span>
+              </motion.a>
+            </Link>
           </div>
         </IconContext.Provider>
       </motion.div>
