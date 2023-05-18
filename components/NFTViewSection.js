@@ -9,6 +9,8 @@ const campfireLink =
   "https://campfire.exchange/collections/0xb183341a1fc7c851df05e01bf98ee683080b7e8c";
 const operaHouseLink =
   "https://operahouse.online/collection/FTM%20Alpha%20Fiendz";
+const paintswapLink =
+  "https://paintswap.finance/marketplace/fantom/collections";
 
 const NFTViewSection = ({ nftData, isLoading }) => {
   const [metaData, setMetadata] = useState([]);
@@ -106,19 +108,11 @@ const NFTViewSection = ({ nftData, isLoading }) => {
                     </a>
                     <a
                       className="py-1 text-border text-xl font-freckle"
-                      href={operaHouseLink}
+                      href={paintswapLink}
                       target="_blank"
                     >
-                      Operahouse
+                      Paintswap
                     </a>
-                  </div>
-                  <div className="w-8/12">
-                    <p className="mt-3 text-border text-sm text-center font-inter">
-                      If you are staking your FAFZ in the coffins with Potluck
-                      Protocol. Your NFTs will not appear here as they are not
-                      in your wallet. But dont worry they are safe in the
-                      coffins!{" "}
-                    </p>
                   </div>
                 </div>
               </div>
